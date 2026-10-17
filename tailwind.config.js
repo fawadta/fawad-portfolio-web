@@ -13,6 +13,18 @@ module.exports = {
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
+  			ink: '#0A0F14',
+  			surface: '#111827',
+  			'surface-2': '#0D141C',
+  			cyan: {
+  				DEFAULT: '#00F5FF',
+  				foreground: '#0A0F14'
+  			},
+  			amber: {
+  				DEFAULT: '#FFB347',
+  				foreground: '#0A0F14'
+  			},
+  			ghost: '#F8FAFC',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
@@ -70,25 +82,32 @@ module.exports = {
   		},
   		keyframes: {
   			'accordion-down': {
-  				from: {
-  					height: '0'
-  				},
-  				to: {
-  					height: 'var(--radix-accordion-content-height)'
-  				}
+  				from: { height: '0' },
+  				to: { height: 'var(--radix-accordion-content-height)' }
   			},
   			'accordion-up': {
-  				from: {
-  					height: 'var(--radix-accordion-content-height)'
-  				},
-  				to: {
-  					height: '0'
-  				}
+  				from: { height: 'var(--radix-accordion-content-height)' },
+  				to: { height: '0' }
+  			},
+  			'breathe': {
+  				'0%, 100%': { opacity: '1', transform: 'scale(1)' },
+  				'50%': { opacity: '0.5', transform: 'scale(0.85)' }
+  			},
+  			'pulse-ring': {
+  				'0%': { transform: 'scale(0.8)', opacity: '0.7' },
+  				'100%': { transform: 'scale(2.4)', opacity: '0' }
+  			},
+  			'float': {
+  				'0%, 100%': { transform: 'translateY(0)' },
+  				'50%': { transform: 'translateY(-8px)' }
   			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+  			'breathe': 'breathe 2.4s ease-in-out infinite',
+  			'pulse-ring': 'pulse-ring 2s ease-out infinite',
+  			'float': 'float 6s ease-in-out infinite'
   		}
   	}
   },
