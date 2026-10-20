@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Box } from "lucide-react";
+import { ArrowUpRight, Box, ChevronDown } from "lucide-react";
 import { projects } from "@/lib/portfolioData";
 import SectionHeading from "./SectionHeading";
 import { Image } from "@/components/ui/image";
+
+const INITIAL_VISIBLE = 5;
 
 const statusStyles = {
   Shipped: "text-cyan",
@@ -57,13 +60,17 @@ function ProjectMedia({ project, index }) {
 }
 
 export default function Projects() {
+  const [expanded, setExpanded] = useState(false);
+  const hasOverflow = projects.length > INITIAL_VISIBLE;
+  const visible = expanded ? projects : projects.slice(0, INITIAL_VISIBLE);
+
   return (
     <section id="work" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading index="01" kicker="Selected Work" title="Project Viewport" />
 
         <div className="space-y-20 sm:space-y-28">
-          {projects.map((project, i) => {
+          {visible.map((project, i) => {
             const reversed = i % 2 === 1;
             return (
               <motion.article
@@ -154,6 +161,22 @@ export default function Projects() {
             );
           })}
         </div>
+
+        {hasOverflow && (
+          <div className="mt-16 flex justify-center sm:mt-20">
+            <button
+              onClick={() => setExpanded((v) => !v)}
+              aria-expanded={expanded}
+              className="group inline-flex items-center gap-2.5 rounded-full border border-border bg-surface px-6 py-3 font-mono text-xs uppercase tracking-widest text-ghost transition-colors hover:border-cyan/60 hover:text-cyan"
+            >
+              {expanded ? "Show Less" : `Show All ${projects.length} Projects`}
+              <ChevronDown
+                size={14}
+                className={`transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
+              />
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
