@@ -2,10 +2,10 @@ export const profile = {
   firstName: "Fawad",
   lastName: "Ahmad",
   name: "Fawad Ahmad",
-  title: "Sr. Unity Game Developer",
+  title: "Sr. Unity Game Developer / Generalist",
   subtitle: "Unity Generalist · XR · Cross-Platform",
   tagline:
-    "I build immersive cross-platform experiences — from hyper-casual mobile hits to VR rehab worlds and live multiplayer parties.",
+    "I build immersive cross-platform experiences — from hyper-casual mobile hits to VR rehab worlds and live multiplayer adventures.",
   location: "Lahore, PK",
   experience: "5+ Years",
   focus: "XR · Cross-Platform",
@@ -19,14 +19,14 @@ export const profile = {
 
 export const proofPoints = [
   { value: "5+", label: "Years in Unity" },
-  { value: "30+", label: "Titles & Prototypes" },
+  { value: "40+", label: "Titles & Prototypes" },
   { value: "8+", label: "Platforms Shipped" },
   { value: "XR", label: "Quest · VisionOS" },
 ];
 
 export const heroPulse = [
   { k: "LOCATION", v: "Lahore, PK" },
-  { k: "ROLE", v: "Sr. Unity Game Developer" },
+  { k: "ROLE", v: "Sr. Unity Game Developer / Generalist" },
   { k: "EXPERIENCE", v: "5+ Years" },
   { k: "FOCUS", v: "XR · Cross-Platform" },
   { k: "STACK", v: "Unity · C# · Photon" },
@@ -34,31 +34,34 @@ export const heroPulse = [
 
 export const projects = [
   {
+    id: "evermore",
+    name: "Evermore",
+    tagline: "AAA multiplayer battle royale with real-time player data",
+    platform: "Mobile",
+    genre: "Battle Royale · Multiplayer",
+    role: "UI/UX Engineer",
+    year: 2023,
+    description:
+      "Implemented the entire **responsive** UI/UX flow with **real-time** player data integration via **PlayFab** — from *lobby* and *matchmaking* to the live match HUD.",
+    status: "Live",
+    accent: "cyan",
+    video: "https://youtu.be/5Dq8RSzV4V8",
+    link: "https://drive.google.com/open?id=1bpY5bkteDn8VrrSCCInVfK52vBtgaa2r&usp=drive_fs",
+    linkLabel: "View PDF",
+  },
+  {
     id: "byops-live",
     name: "BYOPS Live",
     tagline: "Multiplayer VR party app — live concerts, streaming & NFT showcases",
     platform: "Meta Quest · WebGL",
     genre: "Multiplayer · Social VR",
     role: "Unity Developer — Multiplayer & Integration",
-    impact:
+    description:
       "Built multiplayer with Photon PUN2 & Fusion 2.0; integrated Agora RTC camera streaming, VLC-based Twitch playback, Deepmotion dance animations and Meta IAPs — then cut build size from 750MB to 350MB via UGS Hosting, CCD & Addressables.",
     status: "Shipped",
     accent: "cyan",
     image:
       "https://media.base44.com/images/public/user_688b52e098e3ad38d84629e9/52fd01253_ChatGPTImageAug9202508_17_30PM.png",
-    link: "https://fawadta.itch.io",
-  },
-  {
-    id: "evermore",
-    name: "Evermore",
-    tagline: "AAA multiplayer battle royale with real-time player data",
-    platform: "PC · Mobile",
-    genre: "Battle Royale · Multiplayer",
-    role: "UI/UX Engineer",
-    impact:
-      "Implemented the entire responsive UI/UX flow with real-time player data integration via PlayFab — from lobby and matchmaking to the live match HUD.",
-    status: "Live",
-    accent: "cyan",
     link: "https://fawadta.itch.io",
   },
   {
@@ -68,7 +71,7 @@ export const projects = [
     platform: "PC",
     genre: "Mystery · Story-driven",
     role: "Gameplay Developer",
-    impact:
+    description:
       "Built dynamic lighting reveal mechanics, an item-gated checkpoint system, a modular animation controller, and timeline-driven cutscenes & scripted events.",
     status: "Showcase",
     accent: "amber",
@@ -83,7 +86,7 @@ export const projects = [
     platform: "Meta Quest 2 · Quest 3",
     genre: "VR · Rehab · Training",
     role: "VR Developer",
-    impact:
+    description:
       "Built gesture-driven mini-games spanning sports, driving, exercises and biology-based experiences — designed for patient rehabilitation and clinical engagement.",
     status: "In Production",
     accent: "amber",
@@ -96,7 +99,7 @@ export const projects = [
     platform: "PC · Mobile",
     genre: "Racing · Multiplayer",
     role: "Gameplay Developer",
-    impact:
+    description:
       "Built checkpoint & lap validation with wrong-way detection and a dynamic race-progress UI that keeps every player honest in real time.",
     status: "Shipped",
     accent: "cyan",
@@ -109,7 +112,7 @@ export const projects = [
     platform: "Android · iOS",
     genre: "Casual · Mobile",
     role: "Game Developer (Solo)",
-    impact:
+    description:
       "Digitized the classic desi slap game into a 3D mobile experience — offline multiplayer with bots, dynamic slap/dodge mechanics, low-poly visuals and juiced feedback. Ranked 1st in the COMSATS CS FYP competition.",
     status: "Award-winning",
     accent: "amber",
