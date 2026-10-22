@@ -15,6 +15,7 @@ export const profile = {
   linkedin: "https://linkedin.com/in/fawadta",
   github: "https://github.com/fawadta",
   itch: "https://fawadta.itch.io",
+  resume: "",
 };
 
 export const proofPoints = [
@@ -47,7 +48,7 @@ export const projects = [
     accent: "cyan",
     video: "https://youtu.be/5Dq8RSzV4V8",
     link: "https://drive.google.com/open?id=1bpY5bkteDn8VrrSCCInVfK52vBtgaa2r&usp=drive_fs",
-    linkLabel: "View PDF",
+    linkLabel: "View UI Mockups",
   },
   {
     id: "byops-live",

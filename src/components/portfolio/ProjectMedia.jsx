@@ -26,10 +26,12 @@ export default function ProjectMedia({ project, index, total }) {
     return (
       <div className="relative h-full w-full bg-ink">
         <iframe
-          src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+          src={`https://www.youtube.com/embed/${videoId}`}
           title={`${project.name} — ${project.tagline}`}
           loading="lazy"
-          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          frameBorder="0"
           allowFullScreen
           className="absolute inset-0 h-full w-full"
         />
