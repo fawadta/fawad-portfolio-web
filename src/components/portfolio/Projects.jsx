@@ -43,7 +43,7 @@ export default function Projects() {
                     reversed ? "lg:order-2" : "lg:order-1"
                   }`}
                 >
-                  <ProjectMedia project={project} index={i} total={projects.length} />
+                  <ProjectMedia project={project} />
                 </div>
 
                 <div
@@ -62,6 +62,10 @@ export default function Projects() {
                         <span className="h-1.5 w-1.5 animate-breathe rounded-full bg-amber" />
                       )}
                       {project.status}
+                    </span>
+                    <span className="h-3 w-px bg-border" />
+                    <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground/70">
+                      {String(i + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
                     </span>
                   </div>
 

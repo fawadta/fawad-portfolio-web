@@ -38,14 +38,12 @@ function Placeholder({ project }) {
   );
 }
 
-export default function ProjectMedia({ project, index, total }) {
+export default function ProjectMedia({ project }) {
   const tabs = project.media?.length ? project.media : null;
   const items = tabs || [project];
   const [active, setActive] = useState(0);
 
-  const current = items[active];
   const hasVideo = items.some((item) => item.video);
-  const showsImages = Boolean(current.images?.length || current.image);
 
   return (
     <div>
@@ -83,7 +81,7 @@ export default function ProjectMedia({ project, index, total }) {
                   <Image
                     src={item.image}
                     alt={`${project.name} — ${project.tagline}`}
-                    className="h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     fittingType="fill"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
@@ -94,16 +92,6 @@ export default function ProjectMedia({ project, index, total }) {
             </div>
           );
         })}
-
-        <div
-          className={`pointer-events-none absolute left-4 top-4 z-20 rounded-md border bg-ink/70 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest backdrop-blur-sm ${
-            showsImages ? "border-cyan/40 text-cyan" : "border-border text-muted-foreground"
-          }`}
-        >
-          {tabs
-            ? current.label
-            : `${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`}
-        </div>
       </div>
 
       {tabs && <MediaTabs tabs={tabs} active={active} onChange={setActive} />}

@@ -62,7 +62,7 @@ export const projects = [
     status: "Live",
     accent: "amber",
     media: [
-      { label: "Trailer", video: "https://youtube.com/shorts/suPXEMibAbA" },
+      { label: "Gameplay", video: "https://youtube.com/shorts/suPXEMibAbA" },
       {
         label: "Environment",
         images: [
@@ -102,17 +102,35 @@ export const projects = [
   {
     id: "see-no-evil",
     name: "See No Evil",
-    tagline: "Story-driven indie PC mystery with world-scanning mechanics",
+    tagline: "Story-driven indie PC mystery where the world only exists in your scan",
     platform: "PC",
     genre: "Mystery · Story-driven",
     role: "Gameplay Developer",
     description:
-      "Built dynamic lighting reveal mechanics, an item-gated checkpoint system, a modular animation controller, and timeline-driven cutscenes & scripted events.",
-    status: "Showcase",
-    accent: "amber",
-    image:
-      "https://media.base44.com/images/public/user_688b52e098e3ad38d84629e9/dbb8f39dc_ChatGPTImageAug9202511_34_11PM.png",
-    link: "https://fawadta.itch.io",
+      "Built **dynamic lighting-reveal mechanics**, hidden traps with an item-gated **checkpoint system**, a modular **animation controller**, and **timeline-driven cutscenes** & scripted events.",
+    status: "Shipped",
+    accent: "cyan",
+    media: [
+      { label: "Gameplay", video: "https://youtu.be/KrTnTfk4JJw" },
+      {
+        label: "Screens",
+        images: [
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792692436/Portfolio%20Related%20Media/Projects/Skyimpel/See%20No%20Evil/3.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792692436/Portfolio%20Related%20Media/Projects/Skyimpel/See%20No%20Evil/1.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792692436/Portfolio%20Related%20Media/Projects/Skyimpel/See%20No%20Evil/2.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792692436/Portfolio%20Related%20Media/Projects/Skyimpel/See%20No%20Evil/4.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792692436/Portfolio%20Related%20Media/Projects/Skyimpel/See%20No%20Evil/5.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792692436/Portfolio%20Related%20Media/Projects/Skyimpel/See%20No%20Evil/10.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792692436/Portfolio%20Related%20Media/Projects/Skyimpel/See%20No%20Evil/9.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792692436/Portfolio%20Related%20Media/Projects/Skyimpel/See%20No%20Evil/6.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792692436/Portfolio%20Related%20Media/Projects/Skyimpel/See%20No%20Evil/7.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792692436/Portfolio%20Related%20Media/Projects/Skyimpel/See%20No%20Evil/8.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792692436/Portfolio%20Related%20Media/Projects/Skyimpel/See%20No%20Evil/11.png",
+        ],
+      },
+    ],
+    link: "https://drive.google.com/file/d/1iRUhcz9MeZkDtROd505bo6-qwHxkUUcV/view?usp=sharing",
+    linkLabel: "Download PC Build",
   },
   {
     id: "patient-vr",
@@ -130,15 +148,32 @@ export const projects = [
   {
     id: "neon-nitro",
     name: "Neon Nitro",
-    tagline: "Multiplayer racer with checkpoint validation & wrong-way detection",
-    platform: "PC · Mobile",
+    tagline: "Neon-soaked multiplayer racer with checkpoint validation, wrong-way detection & a full ability system",
+    platform: "PC",
     genre: "Racing · Multiplayer",
     role: "Gameplay Developer",
     description:
-      "Built checkpoint & lap validation with wrong-way detection and a dynamic race-progress UI that keeps every player honest in real time.",
+      "Built **checkpoint & lap validation** with **wrong-way detection** and a dynamic **race-progress UI** that keeps every racer honest in real time. Also implemented the whole **ability system** — *firewall shields, lasers, electric balls, homing missiles, rockets, mines and boost pads* — with **networked pickups, targeting and hit detection**.",
     status: "Shipped",
     accent: "cyan",
-    link: "https://fawadta.itch.io",
+    media: [
+      { label: "Gameplay", video: "https://youtu.be/FaNFqOX9YEE" },
+      {
+        label: "Abilities Showcase",
+        fit: "contain",
+        images: [
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792695576/Portfolio%20Related%20Media/Projects/Skyimpel/Neon%20Nitro/Race_Track.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792695575/Portfolio%20Related%20Media/Projects/Skyimpel/Neon%20Nitro/Firewall_shield.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792695574/Portfolio%20Related%20Media/Projects/Skyimpel/Neon%20Nitro/Laser.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792695547/Portfolio%20Related%20Media/Projects/Skyimpel/Neon%20Nitro/Electric_Ball.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792695549/Portfolio%20Related%20Media/Projects/Skyimpel/Neon%20Nitro/Boost.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792695576/Portfolio%20Related%20Media/Projects/Skyimpel/Neon%20Nitro/Mine.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792695549/Portfolio%20Related%20Media/Projects/Skyimpel/Neon%20Nitro/Missile.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792695564/Portfolio%20Related%20Media/Projects/Skyimpel/Neon%20Nitro/Rocket.png",
+        ],
+      },
+    ],
+    link: null,
   },
   {
     id: "yassu-panju",
@@ -152,6 +187,59 @@ export const projects = [
     status: "Award-winning",
     accent: "amber",
     link: "https://fawadta.itch.io",
+  },
+  {
+    id: "mahjong",
+    name: "Mahjong",
+    tagline: "Turn-based Mahjong with tiered AI opponents",
+    platform: "PC · Mobile",
+    genre: "Board · Strategy",
+    role: "Sr. Unity Game Developer",
+    description:
+      "Built **tiered AI opponents** and the **turn-based rules engine** behind hand validation, scoring and multiple game modes — *tuned so beginners and veterans meet a fair challenge.*",
+    status: "In Production",
+    accent: "amber",
+    link: null,
+  },
+  {
+    id: "drone-simulator",
+    name: "Drone Simulator",
+    tagline: "Training simulator with multi-camera replay & 3D flight paths",
+    platform: "PC · VR",
+    genre: "Simulation · Training",
+    role: "Unity Developer",
+    description:
+      "Built a **replay system** with multi-camera playback and **3D path visualization**, letting trainers scrub, re-watch and debrief every flight *frame by frame.*",
+    status: "In Production",
+    accent: "cyan",
+    link: null,
+  },
+  {
+    id: "epu-vaccination",
+    name: "EPU — Vaccination Awareness",
+    tagline: "Interactive educational mini-games for a public health campaign",
+    platform: "Mobile · WebGL",
+    genre: "Educational · Mini-games",
+    role: "Unity Developer",
+    description:
+      "Built a set of **interactive mini-games** for a government vaccination-awareness programme — *short, replayable sessions that turn health guidance into something people finish.*",
+    status: "Showcase",
+    accent: "cyan",
+    link: null,
+  },
+  {
+    id: "game-jams",
+    name: "Game Jam Collection",
+    tagline: "8+ jam titles shipped under deadline across 2D, 3D & VR",
+    platform: "PC · WebGL · VR",
+    genre: "Prototypes · 2D / 3D / VR",
+    role: "Developer · Designer · Artist",
+    description:
+      "Delivered playable **2D, 3D and VR prototypes** under jam time constraints across **8+ national & international jams** — *shipping fast, solo and with remote teams.*",
+    status: "Showcase",
+    accent: "amber",
+    link: "https://fawadta.itch.io",
+    linkLabel: "View on itch.io",
   },
 ];
 
