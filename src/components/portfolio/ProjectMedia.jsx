@@ -3,6 +3,7 @@ import { Box } from "lucide-react";
 import { Image } from "@/components/ui/image";
 import MediaGallery from "./MediaGallery";
 import MediaTabs from "./MediaTabs";
+import VideoEmbed from "./VideoEmbed";
 
 export function getYouTubeId(url) {
   if (!url) return null;
@@ -39,51 +40,12 @@ function Placeholder({ project }) {
 
 export default function ProjectMedia({ project, index, total }) {
   const tabs = project.media?.length ? project.media : null;
+  const items = tabs || [project];
   const [active, setActive] = useState(0);
-  const current = tabs ? tabs[active] : project;
 
-  const videoId = getYouTubeId(current.video);
-  const hasVideo = tabs ? tabs.some((t) => t.video) : !!project.video;
+  const current = items[active];
+  const hasVideo = items.some((item) => item.video);
   const showsImages = Boolean(current.images?.length || current.image);
-
-  let media;
-  if (videoId) {
-    media = (
-      <iframe
-        src={`https://www.youtube.com/embed/${videoId}`}
-        title={`${project.name} — ${current.label || project.tagline}`}
-        loading="lazy"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerPolicy="strict-origin-when-cross-origin"
-        frameBorder="0"
-        allowFullScreen
-        className="absolute inset-0 h-full w-full"
-      />
-    );
-  } else if (current.images?.length) {
-    media = (
-      <MediaGallery
-        key={current.label}
-        images={current.images}
-        fit={current.fit}
-        altBase={`${project.name} — ${current.label}`}
-      />
-    );
-  } else if (current.image) {
-    media = (
-      <div className="group relative h-full w-full overflow-hidden">
-        <Image
-          src={current.image}
-          alt={`${project.name} — ${project.tagline}`}
-          className="h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-          fittingType="fill"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
-      </div>
-    );
-  } else {
-    media = <Placeholder project={project} />;
-  }
 
   return (
     <div>
@@ -92,13 +54,55 @@ export default function ProjectMedia({ project, index, total }) {
           hasVideo ? "aspect-video" : "aspect-[16/10]"
         }`}
       >
-        {media}
+        {items.map((item, i) => {
+          const videoId = getYouTubeId(item.video);
+          const isActive = i === active;
+
+          return (
+            <div
+              key={item.label || project.id}
+              aria-hidden={!isActive}
+              className={`absolute inset-0 transition-opacity duration-300 ${
+                isActive ? "z-10 opacity-100" : "pointer-events-none opacity-0"
+              }`}
+            >
+              {videoId ? (
+                <VideoEmbed
+                  videoId={videoId}
+                  active={isActive}
+                  title={`${project.name} — ${item.label || project.tagline}`}
+                />
+              ) : item.images?.length ? (
+                <MediaGallery
+                  images={item.images}
+                  fit={item.fit}
+                  altBase={`${project.name} — ${item.label}`}
+                />
+              ) : item.image ? (
+                <div className="group relative h-full w-full overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={`${project.name} — ${project.tagline}`}
+                    className="h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    fittingType="fill"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
+                </div>
+              ) : (
+                <Placeholder project={project} />
+              )}
+            </div>
+          );
+        })}
+
         <div
-          className={`pointer-events-none absolute left-4 top-4 z-10 rounded-md border bg-ink/70 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest backdrop-blur-sm ${
+          className={`pointer-events-none absolute left-4 top-4 z-20 rounded-md border bg-ink/70 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest backdrop-blur-sm ${
             showsImages ? "border-cyan/40 text-cyan" : "border-border text-muted-foreground"
           }`}
         >
-          {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+          {tabs
+            ? current.label
+            : `${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`}
         </div>
       </div>
 

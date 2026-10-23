@@ -58,7 +58,7 @@ export const projects = [
     genre: "Social VR · Multiplayer",
     role: "Unity Developer — Multiplayer & Integration",
     description:
-      "Built multiplayer with Photon PUN2 & Fusion 2.0; integrated Agora RTC camera streaming, VLC-based Twitch playback, Deepmotion dance animations and Meta IAPs — optimized build size from ~750MB to ~350MB via UGS, CCD, Addressables & remote config.",
+      "Built **multiplayer** with **Photon PUN2** & **Fusion 2.0**; integrated **Agora RTC** camera streaming, VLC-based **Twitch** playback, **Deepmotion** dance animations and **Meta IAPs** — *Optimized build size from **~750MB** to **~350MB** via UGS, CCD, Addressables & PlayFab remote-config.*",
     status: "Live",
     accent: "amber",
     media: [
@@ -82,6 +82,7 @@ export const projects = [
         images: [
           "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642657/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Ui/logo.jpg",
           "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642659/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Ui/ui_2.jpg",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642656/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Ui/ui_1.jpg",
           "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642656/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Ui/ui_3.jpg",
           "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642655/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Ui/ui_4.jpg",
         ],
