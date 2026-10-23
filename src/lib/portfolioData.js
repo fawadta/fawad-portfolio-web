@@ -54,16 +54,49 @@ export const projects = [
     id: "byops-live",
     name: "BYOPS Live",
     tagline: "Multiplayer VR party app — live concerts, streaming & NFT showcases",
-    platform: "Meta Quest · WebGL",
-    genre: "Multiplayer · Social VR",
+    platform: "Meta Quest",
+    genre: "Social VR · Multiplayer",
     role: "Unity Developer — Multiplayer & Integration",
     description:
-      "Built multiplayer with Photon PUN2 & Fusion 2.0; integrated Agora RTC camera streaming, VLC-based Twitch playback, Deepmotion dance animations and Meta IAPs — then cut build size from 750MB to 350MB via UGS Hosting, CCD & Addressables.",
-    status: "Shipped",
-    accent: "cyan",
-    image:
-      "https://media.base44.com/images/public/user_688b52e098e3ad38d84629e9/52fd01253_ChatGPTImageAug9202508_17_30PM.png",
-    link: "https://fawadta.itch.io",
+      "Built multiplayer with Photon PUN2 & Fusion 2.0; integrated Agora RTC camera streaming, VLC-based Twitch playback, Deepmotion dance animations and Meta IAPs — optimized build size from ~750MB to ~350MB via UGS, CCD, Addressables & remote config.",
+    status: "Live",
+    accent: "amber",
+    media: [
+      { label: "Trailer", video: "https://youtube.com/shorts/suPXEMibAbA" },
+      {
+        label: "Environment",
+        images: [
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642865/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Environment/1.jpg",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642882/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Environment/4.jpg",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642872/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Environment/6.jpg",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642866/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Environment/3.jpg",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642880/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Environment/10.jpg",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642877/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Environment/9.jpg",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642864/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Environment/11.jpg",
+        ],
+      },
+      { label: "Live Streaming", video: "https://youtu.be/bjoZslR4L3k" },
+      {
+        label: "UI Screens",
+        fit: "contain",
+        images: [
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642657/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Ui/logo.jpg",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642659/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Ui/ui_2.jpg",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642656/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Ui/ui_3.jpg",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642655/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Ui/ui_4.jpg",
+        ],
+      },
+      {
+        label: "Project Insights",
+        fit: "contain",
+        images: [
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642816/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Insights/insights_of_CCD_in_UnityCloud.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642807/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Insights/playfab_player_accounts_handling_insights_of_last_month.png",
+        ],
+      },
+    ],
+    link: "https://www.meta.com/experiences/byops-live/6562112693878888",
+    linkLabel: "Meta Store",
   },
   {
     id: "see-no-evil",

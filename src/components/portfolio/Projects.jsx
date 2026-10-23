@@ -43,13 +43,7 @@ export default function Projects() {
                     reversed ? "lg:order-2" : "lg:order-1"
                   }`}
                 >
-                  <div
-                    className={`group relative overflow-hidden rounded-xl border border-border bg-surface ${
-                      project.video ? "aspect-video" : "aspect-[16/10]"
-                    }`}
-                  >
-                    <ProjectMedia project={project} index={i} total={projects.length} />
-                  </div>
+                  <ProjectMedia project={project} index={i} total={projects.length} />
                 </div>
 
                 <div
