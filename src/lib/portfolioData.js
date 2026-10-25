@@ -284,6 +284,11 @@ export const projects = [
       downloads: "100K+",
       category: "Simulation",
       platforms: "Android · Windows",
+      screenshots: [
+        "https://play-lh.googleusercontent.com/t6SVqlYA7Et1uqKkzYjuT2EQjmOAHdHWlIoZKuV3-NHypRQ5sBr_7kIlRgnk13-0KV5SUvwCCO9EpH-porRH=w526-h296-rw",
+        "https://play-lh.googleusercontent.com/RricsYSZhG0tUWCFBVmuVhdNJ3w6CIUsO88TQrVGmqJT--jd-d-KzXW_Wnrk7v93xygu6FDgw1EwbkKIIHhDMw=w526-h296-rw",
+        "https://play-lh.googleusercontent.com/MJM8r4dJaqAo9uWJgbRbw-c2fpqDmKzYDHxWasMiFV3v0Ov-JKYx3xGYqS7vng-oRQfRRyZhb5U6avX26KKR=w526-h296-rw",
+      ],
     },
     link: "https://play.google.com/store/apps/details?id=com.fgl.water.park.sim",
     linkLabel: "Playstore",
