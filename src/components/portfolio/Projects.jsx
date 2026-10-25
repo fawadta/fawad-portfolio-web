@@ -6,6 +6,7 @@ import { projects } from "@/lib/portfolioData";
 import SectionHeading from "./SectionHeading";
 import ProjectMedia from "./ProjectMedia";
 import PrototypeCollection from "./PrototypeCollection";
+import JamCollection from "./JamCollection";
 
 const INITIAL_VISIBLE = 5;
 
@@ -30,7 +31,7 @@ export default function Projects() {
         <div className="space-y-20 sm:space-y-28">
           {visible.map((project, i) => {
             const reversed = i % 2 === 1;
-            const isCollection = Boolean(project.prototypes);
+            const isCollection = Boolean(project.prototypes || project.jams);
             return (
               <motion.article
                 key={project.id}
@@ -153,9 +154,11 @@ export default function Projects() {
                   )}
                 </div>
 
-                {isCollection && (
+                {project.prototypes && (
                   <PrototypeCollection prototypes={project.prototypes} />
                 )}
+
+                {project.jams && <JamCollection jams={project.jams} />}
               </motion.article>
             );
           })}
