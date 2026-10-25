@@ -3,6 +3,9 @@ import { Maximize2 } from "lucide-react";
 import Lightbox from "./Lightbox";
 import StoreListing from "./StoreListing";
 
+/** @typedef {import("./StoreListing").StoreListingData} StoreListingData */
+
+/** @param {{ store?: StoreListingData }} props */
 export default function StoreCard({ store = {} }) {
   const [open, setOpen] = useState(false);
 

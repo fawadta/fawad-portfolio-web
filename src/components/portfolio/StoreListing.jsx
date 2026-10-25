@@ -28,6 +28,24 @@ const SIZES = {
   },
 };
 
+/**
+ * Shape of the Google Play listing data rendered by this card (see portfolioData.js).
+ * @typedef {Object} StoreListingData
+ * @property {string} [title] App name.
+ * @property {string} [developer] Publisher name.
+ * @property {string} [icon] App icon URL.
+ * @property {string[]} [screenshots] Screenshot URLs used for the blurred backdrop.
+ * @property {string} [downloads] Download count label, e.g. "100K+".
+ * @property {string} [category] Store category.
+ * @property {string} [platforms] Supported platforms.
+ */
+
+/**
+ * @param {Object} props
+ * @param {StoreListingData} [props.store] Store listing details.
+ * @param {"frame" | "lg"} [props.size] Layout preset.
+ * @param {string} [props.className] Extra classes for the card shell.
+ */
 export default function StoreListing({ store = {}, size = "frame", className = "" }) {
   const s = SIZES[size] || SIZES.frame;
   const shots = (store.screenshots || []).slice(0, 3);
