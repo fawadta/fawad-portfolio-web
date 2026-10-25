@@ -266,6 +266,45 @@ export const projects = [
     linkLabel: "View on itch.io",
   },
   {
+    id: "mechanics-lab",
+    name: "Gameplay Mechanics Lab",
+    tagline: "Four mechanics-first prototypes — each one rebuilding a system I set out to master",
+    platform: "Mobile · PC",
+    genre: "Prototypes · Mechanics Studies",
+    role: "Solo Developer — Code, Design, Art & Audio",
+    description:
+      "A set of focused **mechanics studies**: instead of chasing a finished title, each prototype rebuilds one system end to end — *grid logic and chain reactions, momentum physics, endless-runner flow and stealth AI.* Solo work throughout: **code, design, art and audio**.",
+    status: "Showcase",
+    accent: "cyan",
+    prototypes: [
+      {
+        name: "Color Wars",
+        focus: "Turn-based grid logic",
+        note: "A take on the 1-2-3-4 Player mini-game: click a tile to grow your stack, and every fourth dot splits into its four neighbours, capturing whatever it touches. Extra skins and characters on top of the plain dots.",
+        video: "https://youtube.com/shorts/T3yIP1QJ4QA",
+      },
+      {
+        name: "Getting Over It — Mechanics Prototype",
+        focus: "Hammer & momentum physics",
+        note: "Rebuilding the hammer-and-bowl movement system: momentum-driven climbing with a single tool, where every swing is a physics decision.",
+        video: "https://youtu.be/6iAr49IqNlg",
+      },
+      {
+        name: "Puppy Runner",
+        focus: "Endless runner flow",
+        note: "A Subway Surfers-style runner: three lanes, jump and slide, trains and obstacles, jetpack and gift-box power-ups — a puppy in the lead with its owner chasing behind.",
+        video: "https://youtu.be/tYqcIwog9hM",
+      },
+      {
+        name: "Spy Heist Shadows",
+        focus: "Stealth, lighting & AI states",
+        note: "A stealth slice built around a third-person controller, dynamic lighting and shadows, enemy states and detection.",
+        video: "https://youtu.be/KUW3Fkx4s80",
+      },
+    ],
+    link: null,
+  },
+  {
     id: "water-park-simulator",
     name: "Water Park Simulator",
     tagline: "Built the systems behind a lively water park; from its first cleanup to a crowd of happy visitors.",

@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import { projects } from "@/lib/portfolioData";
 import SectionHeading from "./SectionHeading";
 import ProjectMedia from "./ProjectMedia";
+import PrototypeCollection from "./PrototypeCollection";
 
 const INITIAL_VISIBLE = 5;
 
@@ -29,6 +30,7 @@ export default function Projects() {
         <div className="space-y-20 sm:space-y-28">
           {visible.map((project, i) => {
             const reversed = i % 2 === 1;
+            const isCollection = Boolean(project.prototypes);
             return (
               <motion.article
                 key={project.id}
@@ -36,20 +38,28 @@ export default function Projects() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.6 }}
-                className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12"
+                className={
+                  isCollection
+                    ? ""
+                    : "grid items-center gap-8 lg:grid-cols-12 lg:gap-12"
+                }
               >
-                <div
-                  className={`lg:col-span-7 ${
-                    reversed ? "lg:order-2" : "lg:order-1"
-                  }`}
-                >
-                  <ProjectMedia project={project} />
-                </div>
+                {!isCollection && (
+                  <div
+                    className={`lg:col-span-7 ${
+                      reversed ? "lg:order-2" : "lg:order-1"
+                    }`}
+                  >
+                    <ProjectMedia project={project} />
+                  </div>
+                )}
 
                 <div
-                  className={`lg:col-span-5 ${
-                    reversed ? "lg:order-1" : "lg:order-2"
-                  }`}
+                  className={
+                    isCollection
+                      ? "max-w-3xl"
+                      : `lg:col-span-5 ${reversed ? "lg:order-1" : "lg:order-2"}`
+                  }
                 >
                   <div className="flex items-center gap-2.5">
                     <span
@@ -142,6 +152,10 @@ export default function Projects() {
                     </a>
                   )}
                 </div>
+
+                {isCollection && (
+                  <PrototypeCollection prototypes={project.prototypes} />
+                )}
               </motion.article>
             );
           })}
