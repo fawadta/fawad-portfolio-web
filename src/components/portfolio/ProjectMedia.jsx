@@ -3,6 +3,7 @@ import { Box } from "lucide-react";
 import { Image } from "@/components/ui/image";
 import MediaGallery from "./MediaGallery";
 import MediaTabs from "./MediaTabs";
+import StoreCard from "./StoreCard";
 import VideoEmbed from "./VideoEmbed";
 
 export function getYouTubeId(url) {
@@ -64,6 +65,7 @@ export default function ProjectMedia({ project }) {
       >
         {items.map((item, i) => {
           const videoId = getYouTubeId(item.video);
+          const store = item.media && !Array.isArray(item.media) ? item.media : null;
           const isActive = i === active;
 
           return (
@@ -98,6 +100,8 @@ export default function ProjectMedia({ project }) {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
                 </div>
+              ) : store ? (
+                <StoreCard store={store} />
               ) : (
                 <Placeholder project={project} />
               )}

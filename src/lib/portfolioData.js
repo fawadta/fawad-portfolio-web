@@ -265,6 +265,29 @@ export const projects = [
     link: "https://fawadta.itch.io",
     linkLabel: "View on itch.io",
   },
+  {
+    id: "water-park-simulator",
+    name: "Water Park Simulator",
+    tagline: "Built the systems behind a lively water park; from its first cleanup to a crowd of happy visitors.",
+    platform: "Mobile",
+    genre: "Simulation",
+    role: "Game Generalist — Gameplay & Systems",
+    description:
+      "A water park management simulation where players restore and grow a park, attract visitors, and bring its attractions to life. I handled the game’s development end to end—including prototyping, gameplay mechanics, player controls, sound, SFX, VFX, ads, and publishing. The 3D environment was provided by an artist.",
+    status: "Live",
+    accent: "cyan",
+    media: {
+      playstore: "https://play.google.com/store/apps/details?id=com.fgl.water.park.sim",
+      icon: "https://play-lh.googleusercontent.com/yBow4N_KMFLcqCY8tQIoFUbKHNR7oXL47u7V71NCUVzNu5KkXsJel8Mi2k_ix_2rRqveyP_QCXDaMHab_ljmtQ=w240-h480-rw",
+      title: "Water Park Fun Simulator Game",
+      developer: "Furious Games Lab",
+      downloads: "100K+",
+      category: "Simulation",
+      platforms: "Android · Windows",
+    },
+    link: "https://play.google.com/store/apps/details?id=com.fgl.water.park.sim",
+    linkLabel: "Playstore",
+  },
 ];
 
 export const expertise = [
