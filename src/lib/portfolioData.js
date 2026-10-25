@@ -46,6 +46,9 @@ export const projects = [
     status: "Shipped",
     accent: "cyan",
     video: "https://youtu.be/ORDini_pzew?t=70",
+    videoEnd: 80,
+    videoCaption:
+      "Multiplayer gameplay excerpt from Avataris’ product overview — my contribution: real-time synchronization.",
     link: "https://www.avataris.ai",
     linkLabel: "Company Website",
   },
@@ -106,8 +109,14 @@ export const projects = [
         label: "Project Insights",
         fit: "contain",
         images: [
-          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642816/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Insights/insights_of_CCD_in_UnityCloud.png",
-          "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642807/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Insights/playfab_player_accounts_handling_insights_of_last_month.png",
+          {
+            src: "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642816/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Insights/insights_of_CCD_in_UnityCloud.png",
+            caption: "Unity Cloud CCD insights.",
+          },
+          {
+            src: "https://res.cloudinary.com/dyw2byty5/image/upload/v1792642807/Portfolio%20Related%20Media/Projects/Skyimpel/Byops%20Live/Insights/playfab_player_accounts_handling_insights_of_last_month.png",
+            caption: "PlayFab Title Overview — player accounts handling insights.",
+          },
         ],
       },
     ],

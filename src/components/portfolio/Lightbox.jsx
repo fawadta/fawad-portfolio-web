@@ -8,7 +8,9 @@ const ARROW =
   "absolute top-1/2 z-10 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-border bg-ink/80 text-ghost backdrop-blur-sm transition-colors hover:border-cyan/60 hover:text-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan";
 
 export default function Lightbox({ open, images = [], index = 0, onIndexChange, onClose, altBase = "" }) {
-  const count = images.length;
+  const items = images.map((img) => (typeof img === "string" ? { src: img } : img));
+  const count = items.length;
+  const current = items[index];
 
   useEffect(() => {
     if (!open) return;
@@ -49,7 +51,7 @@ export default function Lightbox({ open, images = [], index = 0, onIndexChange, 
             className="relative h-[78vh] w-[92vw] max-w-6xl"
           >
             <Image
-              src={images[index]}
+              src={current?.src}
               alt={`${altBase} ${index + 1}`}
               loading="eager"
               fittingType="fit"
@@ -89,6 +91,12 @@ export default function Lightbox({ open, images = [], index = 0, onIndexChange, 
                 {String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
               </div>
             </>
+          )}
+
+          {current?.caption && (
+            <div className="pointer-events-none absolute left-4 top-4 max-w-[min(78%,560px)] rounded-lg border border-border bg-ink/80 px-3 py-1.5 text-[11px] leading-snug text-ghost/85 backdrop-blur-sm">
+              {current.caption}
+            </div>
           )}
 
           <button

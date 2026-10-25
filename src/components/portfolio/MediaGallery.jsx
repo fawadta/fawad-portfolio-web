@@ -9,7 +9,9 @@ const ARROW =
 export default function MediaGallery({ images = [], fit = "cover", altBase = "" }) {
   const [i, setI] = useState(0);
   const [open, setOpen] = useState(false);
-  const count = images.length;
+  const items = images.map((img) => (typeof img === "string" ? { src: img } : img));
+  const count = items.length;
+  const activeCaption = items[i]?.caption;
   const objectFit = fit === "contain" ? "object-contain" : "object-cover";
 
   return (
@@ -19,16 +21,16 @@ export default function MediaGallery({ images = [], fit = "cover", altBase = "" 
           className="flex h-full w-full transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${i * 100}%)` }}
         >
-          {images.map((src, d) => (
+          {items.map((item, d) => (
             <button
-              key={`${src}-${d}`}
+              key={`${item.src}-${d}`}
               type="button"
               aria-label={`Enlarge image ${d + 1}`}
               onClick={() => setOpen(true)}
               className="relative h-full w-full shrink-0 cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
             >
               <Image
-                src={src}
+                src={item.src}
                 alt={`${altBase} ${d + 1}`}
                 loading={Math.abs(d - i) > 1 ? "lazy" : undefined}
                 fittingType={fit === "contain" ? "fit" : "fill"}
@@ -44,6 +46,12 @@ export default function MediaGallery({ images = [], fit = "cover", altBase = "" 
           <Maximize2 size={11} />
           Click to enlarge
         </span>
+
+        {activeCaption && (
+          <p className="pointer-events-none absolute bottom-3 left-3 z-20 max-w-[52%] rounded-md border border-border bg-ink/80 px-2.5 py-1.5 text-[11px] leading-snug text-ghost/85 backdrop-blur-sm">
+            {activeCaption}
+          </p>
+        )}
 
         {i > 0 && (
           <button
@@ -69,9 +77,9 @@ export default function MediaGallery({ images = [], fit = "cover", altBase = "" 
         {count > 1 && (
           <>
             <div className="absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1.5 rounded-full border border-border bg-ink/70 px-2.5 py-1.5 backdrop-blur-sm">
-              {images.map((src, d) => (
+              {items.map((item, d) => (
                 <button
-                  key={`${src}-${d}`}
+                  key={`${item.src}-${d}`}
                   type="button"
                   aria-label={`Show image ${d + 1}`}
                   onClick={() => setI(d)}
@@ -91,7 +99,7 @@ export default function MediaGallery({ images = [], fit = "cover", altBase = "" 
 
       <Lightbox
         open={open}
-        images={images}
+        images={items}
         index={i}
         onIndexChange={setI}
         onClose={() => setOpen(false)}

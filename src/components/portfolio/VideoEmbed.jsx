@@ -1,12 +1,13 @@
 import { useEffect, useRef } from "react";
 
-export default function VideoEmbed({ videoId, title, active, start }) {
+export default function VideoEmbed({ videoId, title, active, start, end }) {
   const ref = useRef(null);
   const params = new URLSearchParams({
     enablejsapi: "1",
     origin: window.location.origin,
   });
   if (start) params.set("start", String(start));
+  if (end) params.set("end", String(end));
 
   useEffect(() => {
     if (active) return;

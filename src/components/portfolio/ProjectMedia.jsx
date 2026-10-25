@@ -50,6 +50,10 @@ export default function ProjectMedia({ project }) {
   const [active, setActive] = useState(0);
 
   const hasVideo = items.some((item) => item.video);
+  const activeItem = items[active] || items[0];
+  const videoCaption = activeItem?.video
+    ? activeItem.caption || activeItem.videoCaption
+    : null;
 
   return (
     <div>
@@ -74,6 +78,7 @@ export default function ProjectMedia({ project }) {
                 <VideoEmbed
                   videoId={videoId}
                   start={getYouTubeStart(item.video)}
+                  end={item.end || item.videoEnd}
                   active={isActive}
                   title={`${project.name} — ${item.label || project.tagline}`}
                 />
@@ -100,6 +105,10 @@ export default function ProjectMedia({ project }) {
           );
         })}
       </div>
+
+      {videoCaption && (
+        <p className="mt-2.5 text-xs leading-relaxed text-muted-foreground">{videoCaption}</p>
+      )}
 
       {tabs && <MediaTabs tabs={tabs} active={active} onChange={setActive} />}
     </div>
