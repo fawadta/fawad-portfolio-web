@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Image } from "@/components/ui/image";
+import StoreListing from "./StoreListing";
 
 const ARROW =
   "absolute top-1/2 z-10 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-border bg-ink/80 text-ghost backdrop-blur-sm transition-colors hover:border-cyan/60 hover:text-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan";
@@ -11,6 +12,7 @@ export default function Lightbox({ open, images = [], index = 0, onIndexChange, 
   const items = images.map((img) => (typeof img === "string" ? { src: img } : img));
   const count = items.length;
   const current = items[index];
+  const isStore = Boolean(current?.store);
 
   useEffect(() => {
     if (!open) return;
@@ -48,15 +50,31 @@ export default function Lightbox({ open, images = [], index = 0, onIndexChange, 
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.96 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="relative h-[78vh] w-[92vw] max-w-6xl"
+            className={`relative ${isStore ? "w-[92vw] max-w-3xl" : "h-[78vh] w-[92vw] max-w-6xl"}`}
           >
-            <Image
-              src={current?.src}
-              alt={`${altBase} ${index + 1}`}
-              loading="eager"
-              fittingType="fit"
-              className="h-full w-full object-contain"
-            />
+            {isStore ? (
+              <div className="flex flex-col items-center">
+                <StoreListing store={current.store} size="lg" />
+                <a
+                  href={current.store.playstore}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={(event) => event.stopPropagation()}
+                  className="mt-5 inline-flex items-center gap-2 rounded-full border border-cyan/50 bg-cyan/10 px-5 py-2.5 font-mono text-[11px] uppercase tracking-widest text-cyan transition-colors hover:border-cyan hover:bg-cyan/20"
+                >
+                  View on Google Play
+                  <ArrowUpRight size={14} />
+                </a>
+              </div>
+            ) : (
+              <Image
+                src={current?.src}
+                alt={`${altBase} ${index + 1}`}
+                loading="eager"
+                fittingType="fit"
+                className="h-full w-full object-contain"
+              />
+            )}
           </motion.div>
 
           {count > 1 && (
