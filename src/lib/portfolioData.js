@@ -269,7 +269,7 @@ export const projects = [
     id: "water-park-simulator",
     name: "Water Park Simulator",
     tagline: "Built the systems behind a lively water park; from its first cleanup to a crowd of happy visitors.",
-    platform: "Mobile",
+    platform: "Mobile · Windows",
     genre: "Simulation",
     role: "Game Generalist — Gameplay & Systems",
     description:
