@@ -1,7 +1,12 @@
 import { useEffect, useRef } from "react";
 
-export default function VideoEmbed({ videoId, title, active }) {
+export default function VideoEmbed({ videoId, title, active, start }) {
   const ref = useRef(null);
+  const params = new URLSearchParams({
+    enablejsapi: "1",
+    origin: window.location.origin,
+  });
+  if (start) params.set("start", String(start));
 
   useEffect(() => {
     if (active) return;
@@ -14,9 +19,7 @@ export default function VideoEmbed({ videoId, title, active }) {
   return (
     <iframe
       ref={ref}
-      src={`https://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=${encodeURIComponent(
-        window.location.origin
-      )}`}
+      src={`https://www.youtube.com/embed/${videoId}?${params.toString()}`}
       title={title}
       loading="lazy"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

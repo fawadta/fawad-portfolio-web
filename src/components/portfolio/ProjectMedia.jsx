@@ -13,6 +13,12 @@ export function getYouTubeId(url) {
   return match ? match[1] : null;
 }
 
+export function getYouTubeStart(url) {
+  if (!url) return null;
+  const match = String(url).match(/[?&](?:t|start)=(\d+)/);
+  return match ? Number(match[1]) : null;
+}
+
 function Placeholder({ project }) {
   return (
     <div className="group relative grid h-full w-full place-items-center overflow-hidden bg-gradient-to-br from-surface to-ink">
@@ -67,6 +73,7 @@ export default function ProjectMedia({ project }) {
               {videoId ? (
                 <VideoEmbed
                   videoId={videoId}
+                  start={getYouTubeStart(item.video)}
                   active={isActive}
                   title={`${project.name} — ${item.label || project.tagline}`}
                 />

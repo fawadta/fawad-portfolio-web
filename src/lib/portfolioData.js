@@ -35,6 +35,21 @@ export const heroPulse = [
 
 export const projects = [
   {
+    id: "avataris",
+    name: "Avataris",
+    tagline: "Building real-time multiplayer systems for interactive digital humans",
+    platform: "Cross-platform",
+    genre: "Digital Humans · Real-time Multiplayer",
+    role: "Unity Developer (Contract)",
+    description:
+      "**Debugged** a **large Unity codebase** to **improve stability** and keep the project aligned with its requirements. Built **core real-time multiplayer synchronization systems** for Avataris, a cross-platform digital-human technology project.",
+    status: "Shipped",
+    accent: "cyan",
+    video: "https://youtu.be/ORDini_pzew?t=70",
+    link: "https://www.avataris.ai",
+    linkLabel: "Company Website",
+  },
+  {
     id: "evermore",
     name: "Evermore",
     tagline: "AAA multiplayer battle royale with real-time player data",
