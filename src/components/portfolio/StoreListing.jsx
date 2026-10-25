@@ -39,7 +39,7 @@ export default function StoreListing({ store = {}, size = "frame", className = "
 
   return (
     <div
-      className={`relative flex h-full w-full flex-col justify-center overflow-hidden rounded-xl border border-border bg-ink ${s.body} ${className}`}
+      className={`relative flex h-full w-full flex-col justify-center overflow-hidden rounded-xl border border-border bg-ink text-left ${s.body} ${className}`}
     >
       <div aria-hidden="true" className="absolute inset-0">
         {shots.length > 0 ? (
