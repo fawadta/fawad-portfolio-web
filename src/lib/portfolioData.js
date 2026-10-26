@@ -201,16 +201,21 @@ export const projects = [
   },
   {
     id: "yassu-panju",
-    name: "Yassu-Panju",
-    tagline: "3D mobile revival of the classic desi slap game",
+    name: "Yassu Panju",
+    tagline: "The traditional desi slap game, revived in 3D for Android & iOS",
     platform: "Android · iOS",
-    genre: "Casual · Mobile",
+    genre: "Casual · Cultural Nostalgia",
     role: "Game Developer (Solo)",
+    year: 2023,
     description:
-      "Digitized the classic desi slap game into a 3D mobile experience — offline multiplayer with bots, dynamic slap/dodge mechanics, low-poly visuals and juiced feedback. Ranked 1st in the COMSATS CS FYP competition.",
+      "Brought **Yassu Panju** — the traditional desi hand game — to mobile as a **3D experience**, played solo against **four bots** or with friends in **local multiplayer**. Built end to end on my own: the original **slap / dodge round** with a **first-person slapping view and power bar**, health and damage values, mercy passes and penalty taps for repeat calls, plus **level and XP progression**, low-poly art and juiced feedback. **Ranked 1st** in the CS Department's FYP Design Competition at **COMSATS University**.",
     status: "Award-winning",
     accent: "amber",
-    link: "https://fawadta.itch.io",
+    video: "https://youtu.be/XR6QcZ_tyVw",
+    videoCaption:
+      "Gameplay excerpt — the slap / dodge round, power bar and health system, built solo from design to build.",
+    link: "https://lahore.comsats.edu.pk/cs/fyp/position.aspx#sem-7:~:text=Yassu%20Panju%20%2D%20Dodge%20the%20Slap",
+    linkLabel: "Awarded 1st — FYP Results",
   },
   {
     id: "mahjong",
