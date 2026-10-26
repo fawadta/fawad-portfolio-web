@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, Globe } from "lucide-react";
 import { getYouTubeId } from "./ProjectMedia";
 import VideoEmbed from "./VideoEmbed";
+import { Image } from "@/components/ui/image";
 
 /**
  * A single game built during a game jam.
@@ -11,7 +12,10 @@ import VideoEmbed from "./VideoEmbed";
  * @property {string} focus Short mechanics or theme label.
  * @property {string} note Short description of what the jam project delivered.
  * @property {string} platform Platform it was built for.
- * @property {string} video YouTube URL for the gameplay recording.
+ * @property {string} [video] YouTube URL for the gameplay recording.
+ * @property {string} [image] Still image shown when there is no recording.
+ * @property {string} [label] Highlight label — used for Global Game Jam entries.
+ * @property {string} [link] Official Global Game Jam page for the entry.
  */
 
 /** @param {{ jams?: GameJam[] }} props */
@@ -23,6 +27,7 @@ export default function JamCollection({ jams = [] }) {
   const position = Math.min(index, jams.length - 1);
   const jam = jams[position];
   const videoId = getYouTubeId(jam.video);
+  const highlightCount = jams.filter((item) => item.label).length;
 
   return (
     <div className="mt-10 border-t border-border pt-8">
@@ -33,8 +38,14 @@ export default function JamCollection({ jams = [] }) {
           </span>
           <span className="h-3 w-px bg-border" />
           <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground/70">
-            2022 – 2023
+            2022 – 2024
           </span>
+          {highlightCount > 0 && (
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-amber/40 bg-amber/10 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-amber">
+              <Globe size={11} />
+              {highlightCount} Global Game Jam
+            </span>
+          )}
         </div>
 
         <div className="flex items-center gap-3">
@@ -74,16 +85,38 @@ export default function JamCollection({ jams = [] }) {
       >
         <div className="lg:col-span-7">
           <div className="relative aspect-video overflow-hidden rounded-xl border border-border bg-ink">
-            {videoId && (
+            {videoId ? (
               <VideoEmbed
                 videoId={videoId}
                 active
                 title={`${jam.name} — gameplay`}
               />
+            ) : jam.image ? (
+              <Image
+                src={jam.image}
+                alt={`${jam.name} — ${jam.label || "game jam project"}`}
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-surface px-6 text-center">
+                <Globe size={20} className="text-amber" />
+                <p className="font-display text-xl font-bold text-ghost">
+                  {jam.name}
+                </p>
+                <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                  {jam.label} · archive page offline
+                </p>
+              </div>
             )}
             <span className="absolute left-3 top-3 rounded-full border border-border/60 bg-ink/80 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-ghost backdrop-blur">
               {jam.platform}
             </span>
+            {jam.label && (
+              <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-amber px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-ink shadow-lg">
+                <Globe size={11} />
+                {jam.label}
+              </span>
+            )}
           </div>
         </div>
 
@@ -97,18 +130,37 @@ export default function JamCollection({ jams = [] }) {
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             {jam.note}
           </p>
-          <a
-            href={jam.video}
-            target="_blank"
-            rel="noreferrer"
-            className="group/link mt-5 inline-flex items-center gap-2 border-b border-amber/40 pb-1 font-mono text-xs uppercase tracking-widest text-amber transition-colors hover:border-amber"
-          >
-            Watch on YouTube
-            <ArrowUpRight
-              size={14}
-              className="transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
-            />
-          </a>
+          <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
+            {jam.video && (
+              <a
+                href={jam.video}
+                target="_blank"
+                rel="noreferrer"
+                className="group/link inline-flex items-center gap-2 border-b border-amber/40 pb-1 font-mono text-xs uppercase tracking-widest text-amber transition-colors hover:border-amber"
+              >
+                Watch on YouTube
+                <ArrowUpRight
+                  size={14}
+                  className="transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
+                />
+              </a>
+            )}
+            {jam.link && (
+              <a
+                href={jam.link}
+                target="_blank"
+                rel="noreferrer"
+                className="group/link inline-flex items-center gap-2 border-b border-amber/40 pb-1 font-mono text-xs uppercase tracking-widest text-amber transition-colors hover:border-amber"
+              >
+                <Globe size={13} />
+                GGJ Official Page
+                <ArrowUpRight
+                  size={14}
+                  className="transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
+                />
+              </a>
+            )}
+          </div>
         </div>
       </motion.div>
 
@@ -119,12 +171,13 @@ export default function JamCollection({ jams = [] }) {
             type="button"
             onClick={() => setIndex(i)}
             aria-current={i === position}
-            className={`whitespace-nowrap rounded-full border px-4 py-2 font-mono text-[10px] uppercase tracking-widest transition-colors ${
+            className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-4 py-2 font-mono text-[10px] uppercase tracking-widest transition-colors ${
               i === position
                 ? "border-amber/60 bg-amber/10 text-amber"
                 : "border-border text-muted-foreground hover:border-amber/40 hover:text-ghost"
             }`}
           >
+            {item.label && <Globe size={11} className="text-amber" />}
             {item.name}
           </button>
         ))}
