@@ -215,7 +215,7 @@ export const projects = [
     videoCaption:
       "Gameplay excerpt — the slap / dodge round, power bar and health system, built solo from design to build.",
     link: "https://lahore.comsats.edu.pk/cs/fyp/position.aspx#sem-7:~:text=Yassu%20Panju%20%2D%20Dodge%20the%20Slap",
-    linkLabel: "Awarded 1st — FYP Results",
+    linkLabel: "Awarded 1st — COMSATS official FYP Results",
   },
   {
     id: "mahjong",
