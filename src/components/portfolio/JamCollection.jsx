@@ -14,6 +14,7 @@ import { Image } from "@/components/ui/image";
  * @property {string} platform Platform it was built for.
  * @property {string} [video] YouTube URL for the gameplay recording.
  * @property {string} [image] Still image shown when there is no recording.
+ * @property {string} [mediaNote] Small note shown in place of a recording.
  * @property {string} [label] Highlight label — used for Global Game Jam entries.
  * @property {string} [link] Official Global Game Jam page for the entry.
  */
@@ -103,9 +104,11 @@ export default function JamCollection({ jams = [] }) {
                 <p className="font-display text-xl font-bold text-ghost">
                   {jam.name}
                 </p>
-                <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                  {jam.label} · archive page offline
-                </p>
+                {jam.mediaNote && (
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                    {jam.mediaNote}
+                  </p>
+                )}
               </div>
             )}
             <span className="absolute left-3 top-3 rounded-full border border-border/60 bg-ink/80 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-ghost backdrop-blur">

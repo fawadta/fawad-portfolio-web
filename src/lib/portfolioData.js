@@ -378,7 +378,7 @@ export const projects = [
         focus: "First-person arena shooter",
         platform: "PC",
         note: "My Global Game Jam 2024 entry, built to the theme 'Make Me Laugh': a first-person shooter where every capsule you take down splits into smaller ones, with a Giggle Grenade that knocks the crowd out with laughter. A bare-minimum core-loop build in Unity and C# over the jam weekend, submitted and listed on the official GGJ site.",
-        image: "https://storage-v4.globalgamejam.org/files/styles/flexslider_full/s3/games/2024/735163/screenshot/Screenshot%202024-01-29%20043754.png?VersionId=vWzR1qRqoMwX7K7JcDhewS.dnARULnQB&itok=YDDWscpK",
+        mediaNote: "Listed on the official GGJ site — globalgamejam.org",
         link: "https://globalgamejam.org/games/2024/bounceburst-3",
       },
       {
@@ -387,6 +387,7 @@ export const projects = [
         focus: "Wave defence · theme prototype",
         platform: "PC",
         note: "My Global Game Jam 2023 entry, built to the theme 'Roots': demonic nukes land on Root's home and the forest's creatures mutate into a wave of destruction. Again a bare-minimum core-loop build rather than a finished game. The 2023 archive page is temporarily offline while GGJ rebuilds its old site.",
+        mediaNote: "Official 2023 archive page currently offline",
         link: "https://v3.globalgamejam.org/2023/games/ggj-game-9",
       },
     ],
