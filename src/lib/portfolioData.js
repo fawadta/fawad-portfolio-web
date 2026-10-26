@@ -331,18 +331,18 @@ export const projects = [
     accent: "amber",
     jams: [
       {
-        name: "Deep Sea Delicacies",
-        focus: "Underwater restaurant sim",
-        platform: "Mobile",
-        note: "An underwater restaurant: customers queue up, you gather ingredients and run them through the machine to make each sushi, serve it, take the coins, and watch them sit down to eat before they leave. The coins go back into new tables and unlocking the next level.",
-        video: "https://youtube.com/shorts/O9kQVVJs12k",
-      },
-      {
         name: "Field Chaos",
         focus: "Tower defence",
         platform: "Mobile",
         note: "A Plants vs. Zombies-style defence: rabbits raid the carrot field in waves and you hold them back with cannons, an electric tower and a cat that sends them running. Harvested carrots fill a cart that drives off to sell them, and the income buys the next line of defence.",
         video: "https://youtu.be/pjAQi8ayWDY",
+      },
+      {
+        name: "Deep Sea Delicacies",
+        focus: "Underwater restaurant sim",
+        platform: "Mobile",
+        note: "An underwater restaurant: customers queue up, you gather ingredients and run them through the machine to make each sushi, serve it, take the coins, and watch them sit down to eat before they leave. The coins go back into new tables and unlocking the next level.",
+        video: "https://youtube.com/shorts/O9kQVVJs12k",
       },
       {
         name: "Super Mario Sweet Galaxy",
