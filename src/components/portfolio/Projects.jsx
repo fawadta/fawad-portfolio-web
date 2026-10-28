@@ -138,7 +138,7 @@ export default function Projects() {
                     </ReactMarkdown>
                   </div>
 
-                  {project.link && (
+                  {project.link ? (
                     <a
                       href={project.link}
                       target="_blank"
@@ -151,7 +151,14 @@ export default function Projects() {
                         className="transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
                       />
                     </a>
-                  )}
+                  ) : project.linkLabel ? (
+                    <span className="mt-6 inline-flex items-center gap-2 border-b border-dashed border-border pb-1 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                      {project.linkLabel}
+                      <span className="font-mono normal-case tracking-normal text-muted-foreground/70">
+                        (Coming soon)
+                      </span>
+                    </span>
+                  ) : null}
                 </div>
 
                 {project.prototypes && (
