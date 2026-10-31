@@ -168,7 +168,7 @@ export const projects = [
     status: "Live",
     accent: "amber",
     image:
-      "https://media.base44.com/images/public/6ad311f27fbd660ad2000e18/277e8272b_generated_fcf42344.png",
+      "https://media.base44.com/images/public/6ad311f27fbd660ad2000e18/6e447b929_generated_image.png",
     link: "https://www.meta.com/experiences/patient-vr/30896254266655552",
     linkLabel: "Meta Store",
   },
