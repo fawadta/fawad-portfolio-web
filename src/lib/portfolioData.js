@@ -167,6 +167,8 @@ export const projects = [
       "A **rehabilitation-first VR suite** for Meta Quest: guided **exercise and breathing sessions**, **hand-tracking** activities, animal interactions and **medical visualisations**, built around patients in recovery. Beyond rehab it carries full-scale game experiences too — *driving, sports and more* — with my work spanning **development, 2D/3D art, VFX, SFX and optimisation** across several of them.",
     status: "Live",
     accent: "amber",
+    image:
+      "https://media.base44.com/images/public/6ad311f27fbd660ad2000e18/277e8272b_generated_fcf42344.png",
     link: "https://www.meta.com/experiences/patient-vr/30896254266655552",
     linkLabel: "Meta Store",
   },
