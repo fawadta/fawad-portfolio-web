@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Box } from "lucide-react";
+import { Box, Maximize2 } from "lucide-react";
 import { Image } from "@/components/ui/image";
+import Lightbox from "./Lightbox";
 import MediaGallery from "./MediaGallery";
 import MediaTabs from "./MediaTabs";
 import StoreCard from "./StoreCard";
@@ -49,6 +50,7 @@ export default function ProjectMedia({ project }) {
   const tabs = project.media?.length ? project.media : null;
   const items = tabs || [project];
   const [active, setActive] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   const hasVideo = items.some((item) => item.video);
   const activeItem = items[active] || items[0];
@@ -91,15 +93,23 @@ export default function ProjectMedia({ project }) {
                   altBase={`${project.name} — ${item.label}`}
                 />
               ) : item.image ? (
-                <div className="group relative h-full w-full overflow-hidden">
+                <button
+                  type="button"
+                  onClick={() => setLightboxOpen(true)}
+                  aria-label={`Enlarge ${project.name} image`}
+                  className="group relative block h-full w-full cursor-zoom-in overflow-hidden text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
+                >
                   <Image
                     src={item.image}
                     alt={`${project.name} — ${project.tagline}`}
                     className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     fittingType="fill"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
-                </div>
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
+                  <span className="pointer-events-none absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full border border-border bg-ink/70 text-ghost opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100">
+                    <Maximize2 size={14} />
+                  </span>
+                </button>
               ) : store ? (
                 <StoreCard store={store} />
               ) : (
@@ -115,6 +125,15 @@ export default function ProjectMedia({ project }) {
       )}
 
       {tabs && <MediaTabs tabs={tabs} active={active} onChange={setActive} />}
+
+      <Lightbox
+        open={lightboxOpen}
+        images={activeItem?.image ? [activeItem.image] : []}
+        index={0}
+        onIndexChange={() => {}}
+        onClose={() => setLightboxOpen(false)}
+        altBase={project.name}
+      />
     </div>
   );
 }
