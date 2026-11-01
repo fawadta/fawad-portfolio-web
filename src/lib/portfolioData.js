@@ -168,7 +168,7 @@ export const projects = [
     status: "Live",
     accent: "amber",
     image:
-      "https://res.cloudinary.com/dyw2byty5/image/upload/v1793439391/Portfolio%20Related%20Media/Projects/Katana%20Games/PatientVR/patientVR_hero.jpg",
+      "https://res.cloudinary.com/dyw2byty5/image/upload/v1793545241/Portfolio%20Related%20Media/Projects/Katana%20Games/PatientVR/PVR.webp",
     link: "https://www.meta.com/experiences/patient-vr/30896254266655552",
     linkLabel: "Meta Store",
   },
