@@ -7,6 +7,7 @@ import Expertise from "@/components/portfolio/Expertise";
 import Timeline from "@/components/portfolio/Timeline";
 import Contact from "@/components/portfolio/Contact";
 import Footer from "@/components/portfolio/Footer";
+import BackToTop from "@/components/BackToTop";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <BackToTop />
     </div>
   );
 }

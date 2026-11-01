@@ -4,7 +4,7 @@ import { ArrowUpRight, ChevronDown } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { projects } from "@/lib/portfolioData";
 import SectionHeading from "./SectionHeading";
-import ProjectIndex from "./ProjectIndex";
+import ProjectRail from "./ProjectRail";
 import ProjectMedia from "./ProjectMedia";
 import PrototypeCollection from "./PrototypeCollection";
 import JamCollection from "./JamCollection";
@@ -40,8 +40,6 @@ export default function Projects() {
     <section id="work" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading index="01" kicker="Selected Work" title="Project Viewport" />
-
-        <ProjectIndex projects={projects} onSelect={jumpTo} />
 
         <div className="space-y-20 sm:space-y-28">
           {visible.map((project, i) => {
@@ -203,6 +201,8 @@ export default function Projects() {
           </div>
         )}
       </div>
+
+      <ProjectRail projects={projects} onSelect={jumpTo} />
     </section>
   );
 }
