@@ -8,7 +8,7 @@ export default function Expertise() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading index="02" kicker="Capability Map" title="The Expertise Matrix" />
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {expertise.map((group, gi) => (
             <motion.div
               key={group.title}
