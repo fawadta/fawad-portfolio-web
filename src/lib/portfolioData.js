@@ -231,6 +231,24 @@ export const projects = [
       "A year of work and **30,000+ lines of code** behind a deceptively simple board. The match opens with an **animated 3D table** — tile shuffling, wall building, dice-rolled dealer selection and the full **Charleston** — then transitions into a **touch-friendly 2D board**. Underneath sits a **hand-validation engine** for **NMJL-style 2025 & 2026 cards**, **three AI personalities** that adapt to your results, Joker exchanges and false-Mahjong detection, with scoring and standings carried across sessions. Built around it: **daily, weekly and practice modes**, global leaderboards, login rewards and a multi-currency economy with **subscriptions, rewarded ads and a MahjCredits store** — *including a paid in-game hint system.*",
     status: "Live",
     accent: "amber",
+    media: [
+      {
+        label: "Gameplay",
+        fit: "contain",
+        images: [
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1793472051/Portfolio%20Related%20Media/Projects/Katana%20Games/Mahjong/1.jpg",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1793514565/Portfolio%20Related%20Media/Projects/Katana%20Games/Mahjong/5.1.jpg",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1793472052/Portfolio%20Related%20Media/Projects/Katana%20Games/Mahjong/3.jpg",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1793472052/Portfolio%20Related%20Media/Projects/Katana%20Games/Mahjong/9.jpg",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1793472052/Portfolio%20Related%20Media/Projects/Katana%20Games/Mahjong/6.jpg",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1793472052/Portfolio%20Related%20Media/Projects/Katana%20Games/Mahjong/17.jpg",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1793472052/Portfolio%20Related%20Media/Projects/Katana%20Games/Mahjong/18.jpg",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1793472052/Portfolio%20Related%20Media/Projects/Katana%20Games/Mahjong/19.jpg",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1793472052/Portfolio%20Related%20Media/Projects/Katana%20Games/Mahjong/20.jpg",
+        ],
+      },
+      { label: "Video", video: "https://youtu.be/75pUggYndKo" },
+    ],
     link: "https://www.mahjmoney.com",
     linkLabel: "Official Website",
   },
@@ -245,6 +263,18 @@ export const projects = [
       "A **drone training simulation**: checkpoint **practice runs** and campaign missions across a military base, using **radar and target detection** to hunt convoys, tanks, helicopters, jets and jammers from a roster of **quadcopters, kamikaze drones and the MQ-9**. The centrepiece is the **replay system** — every position, velocity and event is recorded and then **re-simulated**, so a trainer can debrief any session from **first-person, third-person or aerial cameras** and see exactly how it was flown. *Currently in production.*",
     status: "In Production",
     accent: "cyan",
+    media: [
+      {
+        label: "Gameplay",
+        fit: "contain",
+        images: [
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1793519402/Portfolio%20Related%20Media/Projects/Katana%20Games/DroneSim/1.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1793519402/Portfolio%20Related%20Media/Projects/Katana%20Games/DroneSim/4.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1793519402/Portfolio%20Related%20Media/Projects/Katana%20Games/DroneSim/5.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1793519402/Portfolio%20Related%20Media/Projects/Katana%20Games/DroneSim/8.png",
+        ],
+      },
+    ],
     linkLabel: "Playable Demo",
     link: null,
   },
