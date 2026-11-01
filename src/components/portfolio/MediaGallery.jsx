@@ -12,13 +12,25 @@ export default function MediaGallery({ images = [], fit = "cover", altBase = "" 
   const items = images.map((img) => (typeof img === "string" ? { src: img } : img));
   const count = items.length;
   const activeCaption = items[i]?.caption;
-  const objectFit = fit === "contain" ? "object-contain" : "object-cover";
+  const isContain = fit === "contain";
+  const objectFit = isContain ? "object-contain" : "object-cover";
 
   return (
     <>
       <div className="group relative h-full w-full overflow-hidden bg-ink">
+        {isContain && items[i]?.src && (
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+            <Image
+              src={items[i].src}
+              alt=""
+              fittingType="fill"
+              className="h-full w-full scale-125 object-cover opacity-85 blur-[26px]"
+            />
+            <div className="absolute inset-0 bg-ink/25" />
+          </div>
+        )}
         <div
-          className="flex h-full w-full transition-transform duration-500 ease-out"
+          className="relative flex h-full w-full transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${i * 100}%)` }}
         >
           {items.map((item, d) => (
