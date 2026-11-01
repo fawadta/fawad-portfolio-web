@@ -54,10 +54,10 @@ export default function ProjectRail({ projects, onSelect }) {
           >
             <span
               aria-hidden="true"
-              className={`hidden whitespace-nowrap rounded-md border bg-ink/90 px-2 py-1 font-mono text-[10px] uppercase tracking-widest backdrop-blur-sm transition-all duration-200 sm:block ${
+              className={`whitespace-nowrap rounded-md border bg-ink/90 px-1.5 py-1 font-mono text-[9px] uppercase tracking-wider backdrop-blur-sm transition-all duration-200 sm:block sm:px-2 sm:text-[10px] sm:tracking-widest ${
                 isActive
-                  ? "border-cyan/30 text-cyan opacity-100"
-                  : "border-border/60 text-ghost opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100"
+                  ? "block border-cyan/30 text-cyan opacity-100"
+                  : "hidden border-border/60 text-ghost opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 sm:block"
               }`}
             >
               {project.name}
@@ -67,7 +67,7 @@ export default function ProjectRail({ projects, onSelect }) {
               className={`h-[2px] rounded-full transition-all duration-300 ${
                 isActive
                   ? "w-5 bg-cyan sm:w-7"
-                  : "w-3 bg-muted-foreground/50 group-hover:w-5 group-hover:bg-ghost/70 sm:w-4"
+                  : "w-3 bg-muted-foreground/50 group-hover:bg-ghost/70 sm:w-4"
               }`}
             />
           </button>
