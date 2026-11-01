@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Download } from "lucide-react";
 import { profile, heroPulse } from "@/lib/portfolioData";
 
 export default function Hero() {
@@ -64,6 +64,17 @@ export default function Hero() {
               >
                 View Work
                 <ArrowDown size={15} className="transition-transform group-hover:translate-y-0.5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  const url = profile.resume?.trim();
+                  if (url) window.open(url, "_blank", "noopener,noreferrer");
+                }}
+                className="inline-flex items-center gap-2 rounded-md border border-border px-5 py-3 font-mono text-xs uppercase tracking-widest text-ghost transition-colors hover:border-cyan/60 hover:text-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
+              >
+                Download Résumé
+                <Download size={15} />
               </button>
               <a
                 href="#contact"
