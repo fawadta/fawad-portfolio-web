@@ -307,6 +307,8 @@ export const projects = [
     status: "Shipped",
     accent: "amber",
     link: null,
+    image:
+      "https://media.base44.com/images/public/6ad311f27fbd660ad2000e18/3f8547602_generated_image.png",
   },
   {
     id: "epu-vaccination",
