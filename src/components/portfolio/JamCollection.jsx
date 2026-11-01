@@ -167,7 +167,7 @@ export default function JamCollection({ jams = [] }) {
         </div>
       </motion.div>
 
-      <div className="-mx-1 mt-6 flex gap-2 overflow-x-auto px-1 pb-1">
+      <div className="scrollbar-themed -mx-1 mt-6 flex gap-2 overflow-x-auto px-1 pb-2">
         {jams.map((item, i) => (
           <button
             key={item.name}
