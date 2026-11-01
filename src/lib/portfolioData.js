@@ -33,7 +33,7 @@ export const heroPulse = [
   { k: "STACK", v: "Unity · C# · Photon" },
 ];
 
-export const projects = [
+const projectsRaw = [
   {
     id: "avataris",
     name: "Avataris",
@@ -467,6 +467,29 @@ export const projects = [
     linkLabel: "View on itch.io",
   },
 ];
+
+// Display order for the project viewport (top to bottom).
+const PROJECT_ORDER = [
+  "eternity",
+  "mahjong",
+  "water-park-simulator",
+  "patient-vr",
+  "drone-simulator",
+  "exloris",
+  "epu-vaccination",
+  "see-no-evil",
+  "evermore",
+  "byops-live",
+  "avataris",
+  "neon-nitro",
+  "yassu-panju",
+  "mechanics-lab",
+  "game-jams",
+];
+
+export const projects = [...projectsRaw].sort(
+  (a, b) => PROJECT_ORDER.indexOf(a.id) - PROJECT_ORDER.indexOf(b.id)
+);
 
 export const expertise = [
   {
