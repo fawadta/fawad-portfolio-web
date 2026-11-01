@@ -270,7 +270,7 @@ export const projects = [
         images: [
           "https://res.cloudinary.com/dyw2byty5/image/upload/v1793519402/Portfolio%20Related%20Media/Projects/Katana%20Games/DroneSim/1.png",
           "https://res.cloudinary.com/dyw2byty5/image/upload/v1793519402/Portfolio%20Related%20Media/Projects/Katana%20Games/DroneSim/4.png",
-          "https://res.cloudinary.com/dyw2byty5/image/upload/v1793519402/Portfolio%20Related%20Media/Projects/Katana%20Games/DroneSim/5.png",
+          "https://res.cloudinary.com/dyw2byty5/image/upload/v1793519402/Portfolio%20Related%20Media/Projects/Katana%20Games/DroneSim/6.png",
           "https://res.cloudinary.com/dyw2byty5/image/upload/v1793519402/Portfolio%20Related%20Media/Projects/Katana%20Games/DroneSim/8.png",
         ],
       },
