@@ -4,6 +4,7 @@ import { ArrowUpRight, ChevronDown } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { projects } from "@/lib/portfolioData";
 import SectionHeading from "./SectionHeading";
+import ProjectIndex from "./ProjectIndex";
 import ProjectMedia from "./ProjectMedia";
 import PrototypeCollection from "./PrototypeCollection";
 import JamCollection from "./JamCollection";
@@ -23,10 +24,24 @@ export default function Projects() {
   const hasOverflow = projects.length > INITIAL_VISIBLE;
   const visible = expanded ? projects : projects.slice(0, INITIAL_VISIBLE);
 
+  const jumpTo = (id) => {
+    const index = projects.findIndex((project) => project.id === id);
+    if (index >= INITIAL_VISIBLE) setExpanded(true);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document
+          .getElementById(`project-${id}`)
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+  };
+
   return (
     <section id="work" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading index="01" kicker="Selected Work" title="Project Viewport" />
+
+        <ProjectIndex projects={projects} onSelect={jumpTo} />
 
         <div className="space-y-20 sm:space-y-28">
           {visible.map((project, i) => {
@@ -39,10 +54,11 @@ export default function Projects() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.6 }}
+                id={`project-${project.id}`}
                 className={
                   isCollection
-                    ? ""
-                    : "grid items-center gap-8 lg:grid-cols-12 lg:gap-12"
+                    ? "scroll-mt-32"
+                    : "grid scroll-mt-32 items-center gap-8 lg:grid-cols-12 lg:gap-12"
                 }
               >
                 {!isCollection && (
