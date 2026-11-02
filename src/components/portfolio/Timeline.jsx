@@ -41,7 +41,7 @@ export default function Timeline() {
   return (
     <section id="experience" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading index="03" kicker="Lifecycle" title="Experience Timeline" />
+        <SectionHeading index="04" kicker="Lifecycle" title="Experience Timeline" />
 
         <div className="relative">
           <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border sm:left-[11px]" />

@@ -690,6 +690,7 @@ export const experience = [
 export const navLinks = [
   { label: "Work", href: "#work" },
   { label: "Expertise", href: "#expertise" },
+  { label: "Activity", href: "#activity" },
   { label: "Experience", href: "#experience" },
   { label: "Contact", href: "#contact" },
 ];
