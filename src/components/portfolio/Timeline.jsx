@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
-import { experience } from "@/lib/portfolioData";
+import { experience, projects } from "@/lib/portfolioData";
 import SectionHeading from "./SectionHeading";
+
+// Project names mentioned in the timeline → showcase anchor
+const projectByName = new Map(projects.map((project) => [project.name, project.id]));
+projectByName.set("EPU", "epu-vaccination");
 
 const renderPoint = (text) =>
   text
@@ -8,9 +12,22 @@ const renderPoint = (text) =>
     .filter(Boolean)
     .map((chunk, i) => {
       if (chunk.startsWith("**")) {
+        const label = chunk.slice(2, -2);
+        const targetId = projectByName.get(label);
+        if (targetId) {
+          return (
+            <a
+              key={i}
+              href={`#project-${targetId}`}
+              className="font-semibold text-ghost underline decoration-cyan/40 decoration-dotted underline-offset-4 transition-colors hover:text-cyan hover:decoration-cyan"
+            >
+              {label}
+            </a>
+          );
+        }
         return (
           <strong key={i} className="font-semibold text-ghost">
-            {chunk.slice(2, -2)}
+            {label}
           </strong>
         );
       }

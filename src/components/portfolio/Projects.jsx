@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, ChevronDown } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, ChevronDown } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { projects } from "@/lib/portfolioData";
 import SectionHeading from "./SectionHeading";
@@ -21,8 +21,34 @@ const statusStyles = {
 
 export default function Projects() {
   const [expanded, setExpanded] = useState(false);
+  const [linkedId, setLinkedId] = useState(null);
   const hasOverflow = projects.length > INITIAL_VISIBLE;
   const visible = expanded ? projects : projects.slice(0, INITIAL_VISIBLE);
+
+  // Deep links from the experience timeline (#project-<id>) reveal the project first
+  useEffect(() => {
+    const sync = () => {
+      const match = /^#project-(.+)$/.exec(window.location.hash);
+      const index = match ? projects.findIndex((p) => p.id === match[1]) : -1;
+      if (index < 0) {
+        setLinkedId(null);
+        return;
+      }
+      if (index >= INITIAL_VISIBLE) setExpanded(true);
+      setLinkedId(match[1]);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          document
+            .getElementById(`project-${match[1]}`)
+            ?.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+    };
+
+    sync();
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, []);
 
   const jumpTo = (id) => {
     const index = projects.findIndex((project) => project.id === id);
@@ -76,6 +102,16 @@ export default function Projects() {
                       : `lg:col-span-5 ${reversed ? "lg:order-1" : "lg:order-2"}`
                   }
                 >
+                  {linkedId === project.id && (
+                    <a
+                      href="#experience"
+                      className="mb-4 inline-flex items-center gap-1.5 rounded-md border border-border bg-surface/60 px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground transition-colors hover:border-cyan/60 hover:text-cyan"
+                    >
+                      <ArrowLeft size={12} />
+                      Back to experience
+                    </a>
+                  )}
+
                   <div className="flex items-center gap-2.5">
                     <span
                       className={`flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest ${
