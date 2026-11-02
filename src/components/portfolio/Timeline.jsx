@@ -2,6 +2,24 @@ import { motion } from "framer-motion";
 import { experience } from "@/lib/portfolioData";
 import SectionHeading from "./SectionHeading";
 
+const renderPoint = (text) =>
+  text
+    .split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g)
+    .filter(Boolean)
+    .map((chunk, i) => {
+      if (chunk.startsWith("**")) {
+        return (
+          <strong key={i} className="font-semibold text-ghost">
+            {chunk.slice(2, -2)}
+          </strong>
+        );
+      }
+      if (chunk.startsWith("*")) {
+        return <em key={i}>{chunk.slice(1, -1)}</em>;
+      }
+      return chunk;
+    });
+
 export default function Timeline() {
   return (
     <section id="experience" className="relative py-24 sm:py-32">
@@ -53,7 +71,7 @@ export default function Timeline() {
                       className="flex gap-3 text-sm leading-relaxed text-muted-foreground"
                     >
                       <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-border" />
-                      <span>{point}</span>
+                      <span>{renderPoint(point)}</span>
                     </li>
                   ))}
                 </ul>
