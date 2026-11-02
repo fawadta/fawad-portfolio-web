@@ -15,7 +15,8 @@ export const profile = {
   linkedin: "https://linkedin.com/in/fawadta",
   github: "https://github.com/fawadta",
   itch: "https://fawadta.itch.io",
-  resume: "",
+  resume:
+    "https://drive.google.com/uc?export=download&id=1zWL3dkVPT24_UVY2WeUFA3gC1E9IK49T",
 };
 
 export const proofPoints = [
