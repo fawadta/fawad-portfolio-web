@@ -26,7 +26,7 @@ export default function GitHubActivity() {
     : [];
 
   return (
-    <section id="activity" className="relative py-24 sm:py-32">
+    <section id="activity" className="relative pt-10 pb-12 sm:pt-14 sm:pb-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading index="03" kicker="Live Signal" title="Commit Activity" />
 

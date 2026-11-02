@@ -4,7 +4,10 @@ import SectionHeading from "./SectionHeading";
 
 export default function Expertise() {
   return (
-    <section id="expertise" className="relative border-t border-border bg-surface-2/40 py-24 sm:py-32">
+    <section
+      id="expertise"
+      className="relative border-t border-border bg-surface-2/40 pt-24 pb-14 sm:pt-32 sm:pb-16"
+    >
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading index="02" kicker="Capability Map" title="The Expertise Matrix" />
 

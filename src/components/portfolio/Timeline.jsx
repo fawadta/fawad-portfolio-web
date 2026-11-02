@@ -39,7 +39,7 @@ const renderPoint = (text) =>
 
 export default function Timeline() {
   return (
-    <section id="experience" className="relative py-24 sm:py-32">
+    <section id="experience" className="relative pt-14 pb-24 sm:pt-16 sm:pb-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading index="04" kicker="Lifecycle" title="Experience Timeline" />
 

@@ -18,31 +18,34 @@ const monthLabel = (date) =>
   new Date(date).toLocaleString("en-US", { month: "short", timeZone: "UTC" });
 
 export default function ActivityHeatmap({ weeks }) {
+  const columns = { gridTemplateColumns: `repeat(${weeks.length}, minmax(0, 1fr))` };
+
   return (
-    <div className="mt-6 overflow-x-auto scrollbar-themed pb-2">
-      <div className="inline-flex min-w-full flex-col gap-1.5">
-        <div className="flex gap-[3px]">
+    <div className="mt-5 w-full overflow-x-auto scrollbar-themed pb-2">
+      <div className="mx-auto w-full min-w-[540px] max-w-[900px]">
+        <div className="grid gap-[3px]" style={columns}>
           {weeks.map((week, i) => {
             const month = monthLabel(week[0].date);
             const previous = i > 0 ? monthLabel(weeks[i - 1][0].date) : null;
             return (
-              <div key={week[0].date} className="w-[10px] shrink-0 sm:w-3">
-                <span className="block h-3 overflow-visible whitespace-nowrap font-mono text-[9px] uppercase tracking-wider text-muted-foreground">
-                  {month !== previous ? month : ""}
-                </span>
-              </div>
+              <span
+                key={week[0].date}
+                className="block h-3 overflow-visible whitespace-nowrap font-mono text-[9px] uppercase tracking-wider text-muted-foreground"
+              >
+                {month !== previous ? month : ""}
+              </span>
             );
           })}
         </div>
 
-        <div className="flex gap-[3px]">
+        <div className="mt-1 grid gap-[3px]" style={columns}>
           {weeks.map((week) => (
-            <div key={week[0].date} className="flex w-[10px] shrink-0 flex-col gap-[3px] sm:w-3">
+            <div key={week[0].date} className="flex flex-col gap-[3px]">
               {week.map((day) => (
                 <span
                   key={day.date}
                   title={`${day.count} contribution${day.count === 1 ? "" : "s"} on ${day.date}`}
-                  className={`h-[10px] w-[10px] rounded-[2px] border transition-colors sm:h-3 sm:w-3 ${
+                  className={`aspect-square w-full rounded-[2px] border transition-colors ${
                     LEVELS[levelOf(day.count)]
                   }`}
                 />
@@ -51,12 +54,12 @@ export default function ActivityHeatmap({ weeks }) {
           ))}
         </div>
 
-        <div className="mt-2 flex items-center justify-end gap-1.5">
+        <div className="mt-3 flex items-center justify-end gap-1.5">
           <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
             Less
           </span>
           {LEVELS.map((level) => (
-            <span key={level} className={`h-[9px] w-[9px] rounded-[2px] border ${level}`} />
+            <span key={level} className={`h-[10px] w-[10px] rounded-[2px] border ${level}`} />
           ))}
           <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
             More
