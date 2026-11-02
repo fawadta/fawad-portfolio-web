@@ -677,8 +677,11 @@ export const experience = [
     role: "Developer · Designer · Artist",
     duration: "2022 — 2024",
     points: [
+      "**Water Park Simulator** — a commercial management sim built solo from prototype to release: mechanics, controls, audio, VFX, ads and publishing; *100K+ downloads on Google Play.*",
+      "**Gameplay Mechanics Lab** — **Color Wars** (turn-based grid logic and chain captures), **Getting Over It** (hammer momentum physics), **Puppy Runner** (endless-runner flow) and **Spy Heist Shadows** (stealth AI with dynamic lighting).",
+      "**Field Chaos** (tower defence), **Deep Sea Delicacies** (underwater restaurant sim) and **Super Mario Sweet Galaxy** (3D platformer replication) — jam and freelance builds taken to a playable core loop.",
+      "**Aftermath — The Last Stand** (boss fight), **TeqBall 3D** (slow-motion sports with single-device side switching) and **World Flip** (card matching and UI showcase).",
       "**BounceBurst** (GGJ 2024) and **Root Seed Rising** (GGJ 2023) — entries listed on the official Global Game Jam site.",
-      "Eight prototypes across jams and freelance builds: tower defence, restaurant sim, 3D platformer, sports and stealth slices.",
       "Solo and team roles spanning development, game design and 2D/3D art, shipping playable builds inside jam deadlines.",
     ],
   },

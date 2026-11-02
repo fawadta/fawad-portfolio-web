@@ -70,7 +70,7 @@ export default function Timeline() {
                       key={pi}
                       className="flex gap-3 text-sm leading-relaxed text-muted-foreground"
                     >
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-border" />
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground" />
                       <span>{renderPoint(point)}</span>
                     </li>
                   ))}
