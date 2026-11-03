@@ -3,6 +3,20 @@ import { motion } from "framer-motion";
 import { Mail, Linkedin, Github, Phone, Send, Gamepad2, CheckCircle2, Loader2 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { profile } from "@/lib/portfolioData";
+import { CONTACT_ENDPOINT } from "@/lib/contactConfig";
+
+const sendMessage = async (payload) => {
+  if (!CONTACT_ENDPOINT) {
+    await base44.functions.invoke("sendContactMessage", payload);
+    return;
+  }
+  const response = await fetch(CONTACT_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!response.ok) throw new Error("Send failed");
+};
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -29,7 +43,7 @@ export default function Contact() {
     setStatus("sending");
     setError("");
     try {
-      await base44.functions.invoke("sendContactMessage", {
+      await sendMessage({
         name: form.name.trim(),
         email: form.email.trim(),
         message: form.message.trim(),
