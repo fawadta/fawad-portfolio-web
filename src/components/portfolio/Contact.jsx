@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Linkedin, Github, Phone, Send, Gamepad2, CheckCircle2 } from "lucide-react";
+import { Mail, Linkedin, Github, Phone, Send, Gamepad2, CheckCircle2, Loader2 } from "lucide-react";
+import { base44 } from "@/api/base44Client";
 import { profile } from "@/lib/portfolioData";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
@@ -13,8 +14,9 @@ export default function Contact() {
     setError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (status === "sending") return;
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       setError("Please fill in all fields.");
       return;
@@ -24,14 +26,21 @@ export default function Contact() {
       setError("Please enter a valid email address.");
       return;
     }
-    const subject = encodeURIComponent(`Portfolio inquiry from ${form.name}`);
-    const body = encodeURIComponent(
-      `${form.message}\n\n— ${form.name}\n${form.email}`
-    );
-    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
-    setSent(true);
-    setForm({ name: "", email: "", message: "" });
-    setTimeout(() => setSent(false), 6000);
+    setStatus("sending");
+    setError("");
+    try {
+      await base44.functions.invoke("sendContactMessage", {
+        name: form.name.trim(),
+        email: form.email.trim(),
+        message: form.message.trim(),
+      });
+      setForm({ name: "", email: "", message: "" });
+      setStatus("sent");
+      setTimeout(() => setStatus("idle"), 8000);
+    } catch {
+      setStatus("idle");
+      setError(`Couldn't send just now — you can email me directly at ${profile.email}.`);
+    }
   };
 
   const channels = [
@@ -195,21 +204,26 @@ export default function Contact() {
               {error && (
                 <p className="font-mono text-xs text-destructive">{error}</p>
               )}
-              {sent && (
+              {status === "sent" && (
                 <div className="flex items-center gap-2 rounded-md border border-cyan/40 bg-cyan/5 px-3 py-2.5">
                   <CheckCircle2 size={16} className="text-cyan" />
                   <p className="font-mono text-xs text-cyan">
-                    Opening your email client — message ready to send.
+                    Message sent — it's in my inbox. I'll get back to you soon.
                   </p>
                 </div>
               )}
 
               <button
                 type="submit"
-                className="group inline-flex w-full items-center justify-center gap-2 rounded-md bg-cyan px-5 py-3 font-mono text-xs uppercase tracking-widest text-ink transition-transform hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
+                disabled={status === "sending"}
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-md bg-cyan px-5 py-3 font-mono text-xs uppercase tracking-widest text-ink transition-transform hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
               >
-                Send Message
-                <Send size={14} className="transition-transform group-hover:translate-x-0.5" />
+                {status === "sending" ? "Sending…" : "Send Message"}
+                {status === "sending" ? (
+                  <Loader2 size={14} className="animate-spin" />
+                ) : (
+                  <Send size={14} className="transition-transform group-hover:translate-x-0.5" />
+                )}
               </button>
             </div>
           </motion.form>
