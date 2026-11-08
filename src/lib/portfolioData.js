@@ -10,6 +10,9 @@ export const profile = {
   experience: "5+ Years",
   focus: "XR · Cross-Platform",
   stack: "Unity · C# · Photon",
+  // Flip to false when you're not taking new work — the hero badge and footer
+  // status both follow this one value.
+  isAvailable: true,
   email: "fawadshah501@gmail.com",
   phone: "+92-309-8181679",
   linkedin: "https://linkedin.com/in/fawadta",

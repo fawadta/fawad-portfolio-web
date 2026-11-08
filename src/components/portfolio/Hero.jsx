@@ -23,11 +23,19 @@ export default function Hero() {
               className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-surface/40 px-3 py-1.5"
             >
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-cyan/60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan" />
+                {profile.isAvailable !== false && (
+                  <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-success/60" />
+                )}
+                <span
+                  className={`relative inline-flex h-2 w-2 rounded-full ${
+                    profile.isAvailable !== false ? "bg-success" : "bg-muted-foreground"
+                  }`}
+                />
               </span>
               <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-                Available for Unity & XR roles
+                {profile.isAvailable !== false
+                  ? "Available for Unity & XR roles"
+                  : "Not taking new roles right now"}
               </span>
             </motion.div>
 
