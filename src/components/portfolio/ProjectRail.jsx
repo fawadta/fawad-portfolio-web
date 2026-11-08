@@ -37,8 +37,8 @@ export default function ProjectRail({ projects, onSelect }) {
   return (
     <div
       aria-hidden={!visible}
-      className={`fixed right-1.5 top-1/2 z-40 flex -translate-y-1/2 flex-col items-end gap-0.5 transition-opacity duration-300 sm:right-3 sm:gap-1.5 ${
-        visible ? "opacity-100" : "pointer-events-none opacity-0"
+      className={`pointer-events-none fixed right-1 top-1/2 z-40 flex max-h-[calc(100svh-8rem)] w-11 -translate-y-1/2 flex-col items-center transition-opacity duration-300 sm:right-3 ${
+        visible ? "opacity-100" : "opacity-0"
       }`}
     >
       {projects.map((project) => {
@@ -50,14 +50,13 @@ export default function ProjectRail({ projects, onSelect }) {
             onClick={() => onSelect(project.id)}
             aria-label={`Jump to ${project.name}`}
             aria-current={isActive ? "true" : undefined}
-            className="group flex min-h-[18px] items-center gap-2.5 py-0 focus-visible:outline-none sm:min-h-0 sm:py-1"
+            tabIndex={visible ? 0 : -1}
+            className={`group relative flex h-7 min-h-0 w-11 items-center justify-center rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary sm:h-6 ${visible ? "pointer-events-auto" : "pointer-events-none"}`}
           >
             <span
               aria-hidden="true"
-              className={`whitespace-nowrap rounded-md border bg-ink/90 px-1.5 py-1 font-mono text-[9px] uppercase tracking-wider backdrop-blur-sm transition-all duration-200 sm:block sm:px-2 sm:text-[10px] sm:tracking-widest ${
-                isActive
-                  ? "block border-cyan/30 text-cyan opacity-100"
-                  : "hidden border-border/60 text-ghost opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 sm:block"
+              className={`pointer-events-none absolute right-full top-1/2 mr-1.5 hidden -translate-y-1/2 whitespace-nowrap rounded-md border bg-background px-2 py-1 font-mono text-[10px] uppercase tracking-widest opacity-0 transition-opacity duration-200 sm:block group-focus-visible:opacity-100 [@media(hover:hover)]:group-hover:opacity-100 ${
+                isActive ? "border-primary/30 text-primary" : "border-border text-foreground"
               }`}
             >
               {project.name}

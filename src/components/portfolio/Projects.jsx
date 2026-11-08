@@ -50,43 +50,6 @@ export default function Projects() {
     return () => window.removeEventListener("hashchange", sync);
   }, []);
 
-  // Each project recedes — scaled down and faded — as the next one slides over it.
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const panels = Array.from(document.querySelectorAll("#work [data-stack-panel]"));
-    if (!panels.length) return;
-
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const viewport = window.innerHeight;
-      panels.forEach((panel, index) => {
-        const next = panels[index + 1];
-        let recede = 0;
-        if (next) {
-          const panelTop = parseFloat(window.getComputedStyle(panel).top) || 88;
-          const nextTop = next.parentElement.getBoundingClientRect().top;
-          recede = Math.min(Math.max((viewport - nextTop) / (viewport - panelTop), 0), 1);
-        }
-        panel.style.transform = `scale(${(1 - recede * 0.1).toFixed(4)})`;
-        panel.style.opacity = (1 - recede * 0.72).toFixed(3);
-      });
-    };
-
-    const requestUpdate = () => {
-      if (!frame) frame = window.requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
-    return () => {
-      window.removeEventListener("scroll", requestUpdate);
-      window.removeEventListener("resize", requestUpdate);
-      if (frame) window.cancelAnimationFrame(frame);
-    };
-  }, [expanded]);
-
   const jumpTo = (id) => {
     const index = projects.findIndex((project) => project.id === id);
     if (index >= INITIAL_VISIBLE) setExpanded(true);
@@ -101,36 +64,27 @@ export default function Projects() {
 
   return (
     <section id="work" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+      <div className="mx-auto max-w-7xl pl-5 pr-16 sm:pl-8 sm:pr-20">
         <SectionHeading index="01" kicker="Selected Work" title="Project Viewport" />
 
-        <div>
+        <div className="space-y-20 sm:space-y-28">
           {visible.map((project, i) => {
             const reversed = i % 2 === 1;
             const isCollection = Boolean(project.prototypes || project.jams);
             return (
-              <div key={project.id} className="relative" style={{ zIndex: i + 1 }}>
-                <div
-                  data-stack-panel
-                  className="sticky"
-                  style={{
-                    top: `${88 + Math.min(i, 6) * 8}px`,
-                    transformOrigin: "center top",
-                    willChange: "transform, opacity",
-                  }}
-                >
-                  <motion.article
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.6 }}
-                    id={`project-${project.id}`}
-                    className={`scroll-mt-28 border-t border-border/60 bg-background pb-10 pt-8 sm:pt-10 ${
-                      isCollection
-                        ? ""
-                        : "grid items-center gap-8 lg:grid-cols-12 lg:gap-10"
-                    }`}
-                  >
+              <motion.article
+                key={project.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.6 }}
+                id={`project-${project.id}`}
+                className={
+                  isCollection
+                    ? "scroll-mt-32"
+                    : "grid scroll-mt-32 items-center gap-8 lg:grid-cols-12 lg:gap-12"
+                }
+              >
                 {!isCollection && (
                   <div
                     className={`lg:col-span-7 ${
@@ -261,13 +215,8 @@ export default function Projects() {
                   <PrototypeCollection prototypes={project.prototypes} />
                 )}
 
-                    {project.jams && <JamCollection jams={project.jams} />}
-                  </motion.article>
-                </div>
-                {i < visible.length - 1 && (
-                  <div aria-hidden="true" className="h-[42vh] sm:h-[50vh]" />
-                )}
-              </div>
+                {project.jams && <JamCollection jams={project.jams} />}
+              </motion.article>
             );
           })}
         </div>

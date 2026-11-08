@@ -5,6 +5,7 @@ import { profile } from "@/lib/portfolioData";
 import { CONTACT_ENDPOINT } from "@/lib/contactConfig";
 import { CONTACT_LIMITS, validateContact, friendlySendError } from "@/lib/contactValidation";
 import BinaryRain from "./BinaryRain";
+import ContactChannel from "@/components/portfolio/ContactChannel";
 
 const inputClass = (hasError) =>
   `w-full rounded-md border bg-ink/50 px-3.5 py-2.5 text-sm text-ghost placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 ${
@@ -76,6 +77,7 @@ export default function Contact() {
     { label: "LinkedIn", value: "linkedin.com/in/fawadta", href: profile.linkedin, icon: Linkedin },
     { label: "GitHub", value: "github.com/fawadta", href: profile.github, icon: Github },
     { label: "itch.io", value: "fawadta.itch.io", href: profile.itch, icon: Gamepad2 },
+    { label: "Phone", value: profile.phone, href: `tel:${profile.phone.replace(/[^+\d]/g, "")}`, icon: Phone },
   ];
 
   return (
@@ -116,56 +118,9 @@ export default function Contact() {
             transition={{ duration: 0.5 }}
             className="space-y-3"
           >
-            {channels.map((c) => {
-              const Icon = c.icon;
-              return (
-                <a
-                  key={c.label}
-                  href={c.href}
-                  target={c.href.startsWith("http") ? "_blank" : undefined}
-                  rel={c.href.startsWith("http") ? "noreferrer" : undefined}
-                  className={`group flex items-center gap-4 rounded-xl border p-4 transition-all hover:border-cyan/50 ${
-                    c.accent
-                      ? "border-cyan/40 bg-surface"
-                      : "border-border bg-surface hover:bg-surface-2"
-                  }`}
-                >
-                  <span
-                    className={`grid h-11 w-11 shrink-0 place-items-center rounded-lg border ${
-                      c.accent
-                        ? "border-cyan/50 bg-cyan/10 text-cyan"
-                        : "border-border bg-ink/50 text-muted-foreground group-hover:text-cyan"
-                    }`}
-                  >
-                    <Icon size={18} />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                      {c.label}
-                    </span>
-                    <span className="block truncate text-sm font-medium text-ghost">
-                      {c.value}
-                    </span>
-                  </span>
-                </a>
-              );
-            })}
-            <a
-              href={`tel:${profile.phone.replace(/[^+\d]/g, "")}`}
-              className="group flex items-center gap-4 rounded-xl border border-border bg-surface p-4 transition-all hover:border-cyan/50 hover:bg-surface-2"
-            >
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg border border-border bg-ink/50 text-muted-foreground group-hover:text-cyan">
-                <Phone size={18} />
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                  Phone
-                </span>
-                <span className="block text-sm font-medium text-ghost">
-                  {profile.phone}
-                </span>
-              </span>
-            </a>
+            {channels.map((channel) => (
+              <ContactChannel key={channel.label} channel={channel} />
+            ))}
           </motion.div>
 
           <motion.form
