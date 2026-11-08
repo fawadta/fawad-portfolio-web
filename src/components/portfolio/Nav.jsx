@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { navLinks, profile } from "@/lib/portfolioData";
+import { navLinks } from "@/lib/portfolioData";
+
+// Contact is reached through the Get in Touch button, so it isn't repeated as a nav item.
+const sectionLinks = navLinks.filter((link) => link.href !== "#contact");
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -46,7 +49,7 @@ export default function Nav() {
           </a>
 
           <div className="hidden items-center gap-1 md:flex">
-            {navLinks.map((link) => (
+            {sectionLinks.map((link) => (
               <button
                 key={link.href}
                 onClick={() => handleNav(link.href)}
@@ -55,12 +58,12 @@ export default function Nav() {
                 {link.label}
               </button>
             ))}
-            <a
-              href={`mailto:${profile.email}`}
+            <button
+              onClick={() => handleNav("#contact")}
               className="ml-2 rounded-md border border-cyan/50 px-4 py-2 font-mono text-xs uppercase tracking-widest text-cyan transition-all hover:bg-cyan hover:text-ink focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-cyan"
             >
               Get in Touch
-            </a>
+            </button>
           </div>
 
           <button
@@ -76,7 +79,7 @@ export default function Nav() {
         {open && (
           <div className="border-t border-border/60 bg-ink/95 backdrop-blur-xl md:hidden">
             <div className="flex flex-col py-3">
-              {navLinks.map((link) => (
+              {sectionLinks.map((link) => (
                 <button
                   key={link.href}
                   onClick={() => handleNav(link.href)}
@@ -85,13 +88,12 @@ export default function Nav() {
                   {link.label}
                 </button>
               ))}
-              <a
-                href={`mailto:${profile.email}`}
-                onClick={() => setOpen(false)}
+              <button
+                onClick={() => handleNav("#contact")}
                 className="mt-2 rounded-md bg-cyan px-4 py-3 text-center font-mono text-xs uppercase tracking-widest text-ink"
               >
                 Get in Touch
-              </a>
+              </button>
             </div>
           </div>
         )}

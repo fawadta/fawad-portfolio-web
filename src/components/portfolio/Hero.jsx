@@ -28,7 +28,7 @@ export default function Hero() {
                 )}
                 <span
                   className={`relative inline-flex h-2 w-2 rounded-full ${
-                    profile.isAvailable !== false ? "bg-success" : "bg-muted-foreground"
+                    profile.isAvailable !== false ? "animate-breathe bg-success" : "bg-muted-foreground"
                   }`}
                 />
               </span>
@@ -111,7 +111,7 @@ export default function Hero() {
                 </span>
                 <span className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest text-amber">
                   <span className="h-1.5 w-1.5 animate-breathe rounded-full bg-amber" />
-                  Quest 3 · VisionOS
+                  40+ builds shipped
                 </span>
               </div>
 
