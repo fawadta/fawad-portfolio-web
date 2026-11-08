@@ -10,7 +10,7 @@
 // The API key never reaches the browser, and message contents are never logged.
 
 const LIMITS = { name: 120, email: 200, message: 5000 };
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const DEFAULT_ORIGINS = "https://fawadta.com,https://www.fawadta.com,https://fawadahmad.base44.app";
 
 const json = (body, status, cors) =>

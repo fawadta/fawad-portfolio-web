@@ -32,7 +32,7 @@ export default function Contact() {
       setError("Please fill in all fields.");
       return;
     }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     if (!emailRegex.test(form.email)) {
       setError("Please enter a valid email address.");
       return;
