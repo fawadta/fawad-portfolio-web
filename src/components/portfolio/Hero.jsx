@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Download } from "lucide-react";
 import { profile, heroRoles } from "@/lib/portfolioData";
 import RotatingRoles from "@/components/portfolio/RotatingRoles";
-import ProcessRail from "@/components/portfolio/ProcessRail";
+import ProfileCard from "@/components/portfolio/ProfileCard";
 
 export default function Hero() {
   const scrollToWork = () => {
@@ -22,7 +22,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-surface/40 px-3 py-1.5"
+              className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-cyan/35 bg-surface/70 px-3.5 py-2 backdrop-blur"
             >
               <span className="relative flex h-2 w-2">
                 {profile.isAvailable !== false && (
@@ -34,7 +34,7 @@ export default function Hero() {
                   }`}
                 />
               </span>
-              <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-ghost">
                 {profile.isAvailable !== false
                   ? "Available for game development & XR roles"
                   : "Not taking new roles right now"}
@@ -111,7 +111,7 @@ export default function Hero() {
           </div>
 
           <div className="lg:col-span-5">
-            <ProcessRail />
+            <ProfileCard />
           </div>
         </div>
       </div>

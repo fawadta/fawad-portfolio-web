@@ -1,0 +1,68 @@
+import { motion } from "framer-motion";
+import { profile } from "@/lib/portfolioData";
+
+const rows = [
+  { label: "Location", value: profile.location },
+  { label: "Role", value: profile.title },
+  { label: "Experience", value: profile.experience },
+  { label: "Focus", value: profile.focus },
+];
+
+const equipped = ["Unity", "C#", "Photon"];
+
+export default function ProfileCard() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay: 0.3 }}
+      className="relative overflow-hidden rounded-xl border border-border bg-surface/50 backdrop-blur-sm"
+    >
+      <span className="pointer-events-none absolute left-0 top-0 h-5 w-5 border-l border-t border-cyan/70" />
+      <span className="pointer-events-none absolute right-0 top-0 h-5 w-5 border-r border-t border-cyan/70" />
+      <span className="pointer-events-none absolute bottom-0 left-0 h-5 w-5 border-b border-l border-cyan/30" />
+      <span className="pointer-events-none absolute bottom-0 right-0 h-5 w-5 border-b border-r border-cyan/30" />
+
+      <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-3.5 sm:px-6">
+        <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-cyan">
+          // profile
+        </span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-amber">
+          build 2026
+        </span>
+      </div>
+
+      <dl className="px-5 sm:px-6">
+        {rows.map((row) => (
+          <div
+            key={row.label}
+            className="flex items-baseline justify-between gap-6 border-b border-border/60 py-3.5 last:border-b-0"
+          >
+            <dt className="shrink-0 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+              {row.label}
+            </dt>
+            <dd className="text-right text-[13px] font-medium leading-snug text-ghost">
+              {row.value}
+            </dd>
+          </div>
+        ))}
+      </dl>
+
+      <div className="border-t border-border px-5 py-4 sm:px-6">
+        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+          Equipped
+        </span>
+        <ul className="mt-3 flex flex-wrap gap-2">
+          {equipped.map((tag) => (
+            <li
+              key={tag}
+              className="rounded-full border border-cyan/40 bg-cyan/5 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-cyan"
+            >
+              {tag}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </motion.div>
+  );
+}

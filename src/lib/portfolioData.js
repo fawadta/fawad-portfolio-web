@@ -24,10 +24,10 @@ export const profile = {
 };
 
 export const proofPoints = [
-  { value: "5+", label: "Years in Unity" },
   { value: "40+", label: "Titles & Prototypes" },
   { value: "8+", label: "Platforms Shipped" },
-  { value: "XR", label: "Quest · VisionOS" },
+  { value: "100K+", label: "Store Downloads" },
+  { value: "1st", label: "FYP Design Award" },
 ];
 
 // Cycled by the typewriter line under your name in the hero.

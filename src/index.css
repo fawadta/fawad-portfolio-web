@@ -15,14 +15,14 @@
     --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217 33% 14%;
-    --muted-foreground: 215 20% 65%;
+    --muted-foreground: 200 16% 74%;
     --accent: 33 100% 64%;
     --accent-foreground: 204 36% 6%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 210 40% 98%;
     --success: 152 66% 42%;
-    --border: 217 33% 18%;
-    --input: 217 33% 18%;
+    --border: 217 24% 26%;
+    --input: 217 24% 26%;
     --ring: 184 100% 50%;
     --radius: 0.5rem;
     --font-heading: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
