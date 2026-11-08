@@ -9,7 +9,7 @@ export const profile = {
   quote: "Every frame counts.",
   location: "Lahore, PK",
   experience: "5+ Years",
-  focus: "XR · Cross-Platform",
+  focus: "Cross-Platform · Mobile · Desktop · VR/AR",
   stack: "Unity · C# · Photon",
   // Flip to false when you're not taking new work — the hero badge and footer
   // status both follow this one value.

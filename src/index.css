@@ -39,6 +39,7 @@
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
     -webkit-font-smoothing: antialiased;
     scrollbar-width: thin;
     scrollbar-color: rgba(0, 245, 255, 0.35) #0A0F14;
@@ -73,6 +74,22 @@
   }
 }
 
+@layer base {
+  section[id],
+  [id^="project-"] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+@keyframes edge-chase-spin {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+
 @layer utilities {
   .font-display {
     font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
@@ -94,6 +111,38 @@
 
   .glow-cyan {
     box-shadow: 0 0 0 1px rgba(0, 245, 255, 0.25), 0 0 40px -8px rgba(0, 245, 255, 0.35);
+  }
+
+  /* A light that travels around a rounded card edge. */
+  .edge-chase {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .edge-chase::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 260%;
+    aspect-ratio: 1 / 1;
+    translate: -50% -50%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg 296deg,
+      rgba(0, 245, 255, 0.5) 322deg,
+      rgba(0, 245, 255, 0.95) 344deg,
+      transparent 360deg
+    );
+    animation: edge-chase-spin 6s linear infinite;
   }
 
   .text-stroke {

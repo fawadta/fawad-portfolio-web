@@ -30,7 +30,7 @@ export default function ActivityHeatmap({ weeks }) {
             return (
               <span
                 key={week[0].date}
-                className="block h-3 overflow-visible whitespace-nowrap font-mono text-[9px] uppercase tracking-wider text-muted-foreground"
+                className="block h-3 overflow-visible whitespace-nowrap font-mono text-[10px] uppercase tracking-wider text-muted-foreground"
               >
                 {month !== previous ? month : ""}
               </span>

@@ -18,10 +18,7 @@ export default function ProfileCard() {
       transition={{ duration: 0.7, delay: 0.3 }}
       className="relative overflow-hidden rounded-xl border border-border bg-surface/50 backdrop-blur-sm"
     >
-      <span className="pointer-events-none absolute left-0 top-0 h-5 w-5 border-l border-t border-cyan/70" />
-      <span className="pointer-events-none absolute right-0 top-0 h-5 w-5 border-r border-t border-cyan/70" />
-      <span className="pointer-events-none absolute bottom-0 left-0 h-5 w-5 border-b border-l border-cyan/30" />
-      <span className="pointer-events-none absolute bottom-0 right-0 h-5 w-5 border-b border-r border-cyan/30" />
+      <span className="edge-chase" aria-hidden="true" />
 
       <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-3.5 sm:px-6">
         <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-cyan">
@@ -52,11 +49,11 @@ export default function ProfileCard() {
         <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
           Equipped
         </span>
-        <ul className="mt-3 flex flex-wrap gap-2">
+        <ul className="mt-3 grid grid-cols-3 gap-2">
           {equipped.map((tag) => (
             <li
               key={tag}
-              className="rounded-full border border-cyan/40 bg-cyan/5 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-cyan"
+              className="rounded-md border border-cyan/30 bg-cyan/5 py-2 text-center font-mono text-[10px] uppercase tracking-[0.14em] text-cyan transition-colors hover:border-cyan/60 hover:bg-cyan/10"
             >
               {tag}
             </li>

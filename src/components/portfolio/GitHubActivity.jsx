@@ -93,7 +93,7 @@ export default function GitHubActivity() {
                     <span className="block font-display text-xl font-bold text-ghost sm:text-2xl">
                       {stat.value}
                     </span>
-                    <span className="mt-0.5 block font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
+                    <span className="mt-0.5 block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
                       {stat.label}
                     </span>
                   </div>
