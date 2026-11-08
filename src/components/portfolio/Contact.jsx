@@ -4,6 +4,7 @@ import { Mail, Linkedin, Github, Phone, Send, Gamepad2, CheckCircle2, Loader2 } 
 import { profile } from "@/lib/portfolioData";
 import { CONTACT_ENDPOINT } from "@/lib/contactConfig";
 import { CONTACT_LIMITS, validateContact, friendlySendError } from "@/lib/contactValidation";
+import BinaryRain from "./BinaryRain";
 
 const inputClass = (hasError) =>
   `w-full rounded-md border bg-ink/50 px-3.5 py-2.5 text-sm text-ghost placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 ${
@@ -82,6 +83,7 @@ export default function Contact() {
       id="contact"
       className="relative overflow-hidden border-t border-border bg-surface-2/60 py-24 sm:py-32"
     >
+      <BinaryRain />
       <div className="pointer-events-none absolute -top-20 left-1/2 h-[400px] w-[600px] -translate-x-1/2 rounded-full bg-cyan/10 blur-[140px]" />
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">

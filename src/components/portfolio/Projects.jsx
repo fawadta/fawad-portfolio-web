@@ -67,24 +67,25 @@ export default function Projects() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading index="01" kicker="Selected Work" title="Project Viewport" />
 
-        <div className="space-y-20 sm:space-y-28">
+        <div>
           {visible.map((project, i) => {
             const reversed = i % 2 === 1;
             const isCollection = Boolean(project.prototypes || project.jams);
             return (
-              <motion.article
-                key={project.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.6 }}
-                id={`project-${project.id}`}
-                className={
-                  isCollection
-                    ? "scroll-mt-32"
-                    : "grid scroll-mt-32 items-center gap-8 lg:grid-cols-12 lg:gap-12"
-                }
-              >
+              <div key={project.id} className="relative" style={{ zIndex: i + 1 }}>
+                <div className="sticky" style={{ top: `${84 + Math.min(i, 6) * 10}px` }}>
+                  <motion.article
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ duration: 0.6 }}
+                    id={`project-${project.id}`}
+                    className={`scroll-mt-28 overflow-hidden rounded-2xl border border-border bg-surface/95 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.9)] backdrop-blur-sm ${
+                      isCollection
+                        ? "p-5 sm:p-8"
+                        : "grid items-center gap-8 p-4 sm:p-6 lg:grid-cols-12 lg:gap-10"
+                    }`}
+                  >
                 {!isCollection && (
                   <div
                     className={`lg:col-span-7 ${
@@ -215,8 +216,11 @@ export default function Projects() {
                   <PrototypeCollection prototypes={project.prototypes} />
                 )}
 
-                {project.jams && <JamCollection jams={project.jams} />}
-              </motion.article>
+                    {project.jams && <JamCollection jams={project.jams} />}
+                  </motion.article>
+                </div>
+                {i < visible.length - 1 && <div aria-hidden="true" className="h-[20vh]" />}
+              </div>
             );
           })}
         </div>

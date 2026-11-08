@@ -20,6 +20,7 @@ function TrailDot({ x, y, stiffness, damping, size, opacity, visible }) {
 export default function CustomCursor() {
   const [enabled, setEnabled] = useState(false);
   const [label, setLabel] = useState("");
+  const [onAccent, setOnAccent] = useState(false);
   const [pressed, setPressed] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -48,11 +49,14 @@ export default function CustomCursor() {
       const hit = target instanceof Element ? target.closest(INTERACTIVE) : null;
       if (!hit) {
         setLabel("");
+        setOnAccent(false);
         return;
       }
       const href = hit.getAttribute("href") || "";
       const external = hit.getAttribute("target") === "_blank" || /^https?:/i.test(href);
       setLabel(hit.getAttribute("data-cursor-label") || (external ? "open" : "view"));
+      // A solid cyan surface swallows a cyan cursor — flip it to amber there.
+      setOnAccent(Boolean(hit.closest(".bg-cyan")) || /(^|\s)bg-cyan(\s|$)/.test(hit.className || ""));
     };
 
     const onDown = () => setPressed(true);
@@ -93,12 +97,16 @@ export default function CustomCursor() {
         <motion.div
           animate={{ scale: ringScale, opacity: visible ? (label ? 1 : 0.7) : 0 }}
           transition={{ duration: 0.18, ease: "easeOut" }}
-          className="-ml-3.5 -mt-3.5 h-7 w-7 rounded-full border border-cyan/70 bg-cyan/5"
+          className={`-ml-3.5 -mt-3.5 h-7 w-7 rounded-full border ${
+            onAccent ? "border-amber/80 bg-amber/10" : "border-cyan/70 bg-cyan/5"
+          }`}
         />
         <motion.div
           animate={{ opacity: visible && label ? 1 : 0, x: label ? 0 : -4 }}
           transition={{ duration: 0.18, ease: "easeOut" }}
-          className="absolute left-5 top-2 whitespace-nowrap rounded-sm border border-cyan/25 bg-ink/80 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-cyan"
+          className={`absolute left-5 top-2 whitespace-nowrap rounded-sm border bg-ink/80 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] ${
+            onAccent ? "border-amber/40 text-amber" : "border-cyan/25 text-cyan"
+          }`}
         >
           {label}
         </motion.div>
@@ -106,7 +114,9 @@ export default function CustomCursor() {
 
       <motion.div style={{ x, y }} className="absolute left-0 top-0">
         <div
-          className="-ml-[3px] -mt-[3px] h-1.5 w-1.5 rounded-full bg-cyan transition-opacity duration-200"
+          className={`-ml-[3px] -mt-[3px] h-1.5 w-1.5 rounded-full transition-opacity duration-200 ${
+            onAccent ? "bg-amber" : "bg-cyan"
+          }`}
           style={{ opacity: visible ? 1 : 0 }}
         />
       </motion.div>

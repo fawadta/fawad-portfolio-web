@@ -71,7 +71,7 @@ export default function Timeline() {
                 <span
                   className={`absolute left-0 top-1.5 grid h-4 w-4 place-items-center rounded-full border-2 sm:h-6 sm:w-6 ${
                     job.current
-                      ? "border-amber bg-amber/20"
+                      ? "border-amber bg-ink"
                       : "border-cyan bg-ink"
                   }`}
                 >
