@@ -15,7 +15,9 @@ const sendMessage = async (payload) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
-  if (!response.ok) throw new Error("Send failed");
+  if (response.ok) return;
+  const detail = await response.json().catch(() => null);
+  throw new Error(detail?.error || `Request failed (${response.status})`);
 };
 
 export default function Contact() {
@@ -51,9 +53,11 @@ export default function Contact() {
       setForm({ name: "", email: "", message: "" });
       setStatus("sent");
       setTimeout(() => setStatus("idle"), 8000);
-    } catch {
+    } catch (err) {
       setStatus("idle");
-      setError(`Couldn't send just now — you can email me directly at ${profile.email}.`);
+      const detail =
+        err?.message && err.message !== "Failed to fetch" ? ` (${err.message})` : "";
+      setError(`Couldn't send just now${detail}. You can email me directly at ${profile.email}.`);
     }
   };
 
