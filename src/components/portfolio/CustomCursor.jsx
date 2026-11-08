@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 const INTERACTIVE = "a,button,[role='button'],[data-cursor='hover']";
-const follow = { stiffness: 260, damping: 24, mass: 0.4 };
+const follow = { stiffness: 380, damping: 32, mass: 0.4 };
 
 export default function CustomCursor() {
   const [enabled, setEnabled] = useState(false);
@@ -22,10 +22,12 @@ export default function CustomCursor() {
     if (!fine || reduceMotion) return;
 
     setEnabled(true);
+    const root = document.documentElement;
 
     const onMove = (event) => {
       x.set(event.clientX);
       y.set(event.clientY);
+      root.classList.add("hide-native-cursor");
       setVisible(true);
     };
 
@@ -46,12 +48,17 @@ export default function CustomCursor() {
 
     const onDown = () => setPressed(true);
     const onUp = () => setPressed(false);
-    const onLeaveWindow = () => setVisible(false);
+    const onLeaveWindow = () => {
+      setVisible(false);
+      setPressed(false);
+      root.classList.remove("hide-native-cursor");
+    };
 
     window.addEventListener("mousemove", onMove, { passive: true });
     window.addEventListener("mouseover", onOver, { passive: true });
     window.addEventListener("mousedown", onDown);
     window.addEventListener("mouseup", onUp);
+    window.addEventListener("blur", onLeaveWindow);
     document.addEventListener("mouseleave", onLeaveWindow);
 
     return () => {
@@ -59,14 +66,16 @@ export default function CustomCursor() {
       window.removeEventListener("mouseover", onOver);
       window.removeEventListener("mousedown", onDown);
       window.removeEventListener("mouseup", onUp);
+      window.removeEventListener("blur", onLeaveWindow);
       document.removeEventListener("mouseleave", onLeaveWindow);
+      root.classList.remove("hide-native-cursor");
     };
   }, [x, y]);
 
   if (!enabled) return null;
 
   const size = pressed ? 18 : hovering ? 40 : 24;
-  const color = onAccent ? "#FFB347" : "rgba(0, 245, 255, 0.7)";
+  const color = onAccent ? "hsl(var(--accent))" : "hsl(var(--primary) / 0.7)";
 
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100]">
@@ -83,14 +92,16 @@ export default function CustomCursor() {
           style={{ opacity: visible ? 1 : 0 }}
         >
           <span
-            className="block rounded-full border transition-all duration-200 ease-out"
+            className="grid place-items-center rounded-full border transition-all duration-200 ease-out"
             style={{
               width: size,
               height: size,
               borderColor: color,
               boxShadow: hovering ? `0 0 14px -3px ${color}` : "none",
             }}
-          />
+          >
+            <span className="cursor-ring-core block h-1 w-1 rounded-full" />
+          </span>
         </div>
       </motion.div>
     </div>

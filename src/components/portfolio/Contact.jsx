@@ -23,7 +23,7 @@ const sendMessage = async (payload) => {
       body: JSON.stringify(payload),
     });
   } catch {
-    throw new Error("Your message wasn't sent — check your connection and try again.");
+    throw new Error("Your message wasn't sent. Check your connection and try again.");
   }
   if (response.ok) return;
   const body = await response.json().catch(() => null);
@@ -105,8 +105,8 @@ export default function Contact() {
             <span className="text-stroke">NEXT REALITY.</span>
           </h2>
           <p className="mx-auto mt-5 max-w-lg text-base text-muted-foreground">
-            Open to Unity work across mobile, PC and XR — full-time roles, contracts and
-            collaborations. Drop a line, I read every message.
+            Building for <strong className="font-semibold text-foreground">mobile, PC and XR</strong>;
+            open to roles, contracts and collaborations. Drop a line, <em>I read every message.</em>
           </p>
         </motion.div>
 

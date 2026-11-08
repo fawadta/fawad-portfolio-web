@@ -81,6 +81,40 @@
   }
 }
 
+/* Override native cursors on every descendant, including link icons and controls. */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html.hide-native-cursor,
+  html.hide-native-cursor *,
+  html.hide-native-cursor *::before,
+  html.hide-native-cursor *::after {
+    cursor: none !important;
+  }
+}
+
+.cursor-ring-core {
+  background: radial-gradient(
+    circle at 35% 30%,
+    hsl(var(--foreground) / 0.65) 0%,
+    hsl(var(--muted-foreground) / 0.4) 45%,
+    hsl(var(--muted-foreground) / 0) 80%
+  );
+}
+
+@keyframes contribution-cell-reveal {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.activity-cell-fill {
+  animation: contribution-cell-reveal 300ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .activity-cell-fill {
+    animation: none !important;
+  }
+}
+
 @keyframes edge-chase-spin {
   from {
     rotate: 0deg;

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const LEVELS = [
-  "border-border bg-white/[0.04]",
+  "border-border bg-foreground/[0.04]",
   "border-cyan/20 bg-cyan/20",
   "border-cyan/30 bg-cyan/40",
   "border-cyan/40 bg-cyan/70",
@@ -19,8 +19,9 @@ const levelOf = (count) => {
 const monthLabel = (date) =>
   new Date(date).toLocaleString("en-US", { month: "short", timeZone: "UTC" });
 
-// Cells light up in reading order and finish filling inside ~1.6s.
+// The stagger and final cell animation together take 1.6 seconds.
 const FILL_MS = 1600;
+const CELL_MS = 300;
 
 export default function ActivityHeatmap({ weeks }) {
   const ref = useRef(null);
@@ -29,7 +30,7 @@ export default function ActivityHeatmap({ weeks }) {
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
-    if (!("IntersectionObserver" in window)) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
       setRevealed(true);
       return;
     }
@@ -40,7 +41,7 @@ export default function ActivityHeatmap({ weeks }) {
           observer.disconnect();
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.5, rootMargin: "0px 0px -32px 0px" }
     );
     observer.observe(node);
     return () => observer.disconnect();
@@ -48,12 +49,12 @@ export default function ActivityHeatmap({ weeks }) {
 
   const columns = { gridTemplateColumns: `repeat(${weeks.length}, minmax(0, 1fr))` };
   const total = weeks.reduce((sum, week) => sum + week.length, 0);
-  const step = Math.min(4, FILL_MS / Math.max(total, 1));
+  const step = (FILL_MS - CELL_MS) / Math.max(total - 1, 1);
   const offsets = weeks.reduce((acc, week) => [...acc, acc[acc.length - 1] + week.length], [0]);
 
   return (
-    <div className="mt-5 w-full overflow-x-auto scrollbar-themed pb-2">
-      <div ref={ref} className="mx-auto w-full min-w-[540px] max-w-[900px]">
+    <div ref={ref} className="mt-5 w-full overflow-x-auto scrollbar-themed pb-2">
+      <div className="mx-auto w-full min-w-[540px] max-w-[900px]">
         <div className="grid gap-[3px]" style={columns}>
           {weeks.map((week, i) => {
             const month = monthLabel(week[0].date);
@@ -78,15 +79,16 @@ export default function ActivityHeatmap({ weeks }) {
                   <span
                     key={day.date}
                     title={`${day.count} contribution${day.count === 1 ? "" : "s"} on ${day.date}`}
-                    className={`aspect-square w-full rounded-[2px] border transition-colors duration-300 ${
-                      revealed ? LEVELS[level] : LEVELS[0]
-                    }`}
-                    style={
-                      revealed
-                        ? { transitionDelay: `${Math.round((offsets[wi] + di) * step)}ms` }
-                        : undefined
-                    }
-                  />
+                    className="relative aspect-square w-full rounded-[2px] border border-border bg-foreground/[0.04]"
+                  >
+                    {level > 0 && (
+                      <span
+                        aria-hidden="true"
+                        className={`absolute -inset-px rounded-[inherit] border ${LEVELS[level]} ${revealed ? "activity-cell-fill" : "opacity-0"}`}
+                        style={{ animationDelay: `${Math.round((offsets[wi] + di) * step)}ms` }}
+                      />
+                    )}
+                  </span>
                 );
               })}
             </div>
