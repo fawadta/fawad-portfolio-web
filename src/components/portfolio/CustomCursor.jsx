@@ -2,24 +2,10 @@ import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 const INTERACTIVE = "a,button,[role='button'],[data-cursor='hover']";
-const ringSpring = { stiffness: 380, damping: 32, mass: 0.4 };
-
-function TrailDot({ x, y, stiffness, damping, size, opacity, visible }) {
-  const sx = useSpring(x, { stiffness, damping, mass: 0.5 });
-  const sy = useSpring(y, { stiffness, damping, mass: 0.5 });
-  return (
-    <motion.div style={{ x: sx, y: sy }} className="absolute left-0 top-0">
-      <div
-        className="rounded-full bg-cyan"
-        style={{ width: size, height: size, marginLeft: -size / 2, marginTop: -size / 2, opacity: visible ? opacity : 0 }}
-      />
-    </motion.div>
-  );
-}
+const follow = { stiffness: 900, damping: 55, mass: 0.35 };
 
 export default function CustomCursor() {
   const [enabled, setEnabled] = useState(false);
-  const [label, setLabel] = useState("");
   const [onAccent, setOnAccent] = useState(false);
   const [hovering, setHovering] = useState(false);
   const [pressed, setPressed] = useState(false);
@@ -27,8 +13,8 @@ export default function CustomCursor() {
 
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
-  const ringX = useSpring(x, ringSpring);
-  const ringY = useSpring(y, ringSpring);
+  const cx = useSpring(x, follow);
+  const cy = useSpring(y, follow);
 
   useEffect(() => {
     const fine = window.matchMedia("(pointer: fine)").matches;
@@ -49,15 +35,12 @@ export default function CustomCursor() {
       const target = event.target;
       const hit = target instanceof Element ? target.closest(INTERACTIVE) : null;
       if (!hit) {
-        setLabel("");
-        setOnAccent(false);
         setHovering(false);
+        setOnAccent(false);
         return;
       }
       setHovering(true);
-      // Labels are opt-in only: they show where an element sets data-cursor-label.
-      setLabel(hit.getAttribute("data-cursor-label") || "");
-      // A solid cyan surface swallows a cyan cursor — flip it to amber there.
+      // A solid cyan surface swallows a cyan reticle — flip it to amber there.
       setOnAccent(Boolean(hit.closest(".bg-cyan")) || /(^|\s)bg-cyan(\s|$)/.test(hit.className || ""));
     };
 
@@ -83,44 +66,32 @@ export default function CustomCursor() {
 
   if (!enabled) return null;
 
-  const ringScale = pressed ? 0.85 : label ? 1.7 : hovering ? 1.35 : 1;
+  // Reticle tightens on click, opens up over something interactive.
+  const arm = pressed ? 5 : hovering ? 12 : 9;
+  const gap = pressed ? 4 : hovering ? 8 : 6;
+  const color = onAccent ? "#FFB347" : "rgba(0, 245, 255, 0.85)";
+  const arms = [
+    { key: "top", style: { left: -0.5, width: 1, height: arm, top: -(gap + arm) } },
+    { key: "bottom", style: { left: -0.5, width: 1, height: arm, top: gap } },
+    { key: "left", style: { top: -0.5, height: 1, width: arm, left: -(gap + arm) } },
+    { key: "right", style: { top: -0.5, height: 1, width: arm, left: gap } },
+  ];
 
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100]">
-      {visible && (
-        <>
-          <TrailDot x={x} y={y} stiffness={280} damping={30} size={4} opacity={0.35} visible={visible} />
-          <TrailDot x={x} y={y} stiffness={190} damping={26} size={3} opacity={0.22} visible={visible} />
-          <TrailDot x={x} y={y} stiffness={120} damping={22} size={2} opacity={0.14} visible={visible} />
-        </>
-      )}
-
-      <motion.div style={{ x: ringX, y: ringY }} className="absolute left-0 top-0">
-        <motion.div
-          animate={{ scale: ringScale, opacity: visible ? (label ? 1 : 0.7) : 0 }}
-          transition={{ duration: 0.18, ease: "easeOut" }}
-          className={`-ml-3.5 -mt-3.5 h-7 w-7 rounded-full border ${
-            onAccent ? "border-amber/80 bg-amber/10" : "border-cyan/70 bg-cyan/5"
-          }`}
-        />
-        <motion.div
-          animate={{ opacity: visible && label ? 1 : 0, x: label ? 0 : -4 }}
-          transition={{ duration: 0.18, ease: "easeOut" }}
-          className={`absolute left-5 top-2 whitespace-nowrap rounded-sm border bg-ink/80 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] ${
-            onAccent ? "border-amber/40 text-amber" : "border-cyan/25 text-cyan"
-          }`}
-        >
-          {label}
-        </motion.div>
-      </motion.div>
-
-      <motion.div style={{ x, y }} className="absolute left-0 top-0">
+      <motion.div style={{ x: cx, y: cy }} className="absolute left-0 top-0">
         <div
-          className={`-ml-[3px] -mt-[3px] h-1.5 w-1.5 rounded-full transition-opacity duration-200 ${
-            onAccent ? "bg-amber" : "bg-cyan"
-          }`}
+          className="absolute left-0 top-0 transition-opacity duration-150"
           style={{ opacity: visible ? 1 : 0 }}
-        />
+        >
+          {arms.map((armPart) => (
+            <span
+              key={armPart.key}
+              className="absolute transition-all duration-150 ease-out"
+              style={{ background: color, ...armPart.style }}
+            />
+          ))}
+        </div>
       </motion.div>
     </div>
   );
