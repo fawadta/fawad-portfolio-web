@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Download } from "lucide-react";
-import { profile, heroPulse } from "@/lib/portfolioData";
+import { profile, heroPulse, heroRoles } from "@/lib/portfolioData";
+import RotatingRoles from "@/components/portfolio/RotatingRoles";
 
 export default function Hero() {
   const scrollToWork = () => {
@@ -34,7 +35,7 @@ export default function Hero() {
               </span>
               <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
                 {profile.isAvailable !== false
-                  ? "Available for Unity & XR roles"
+                  ? "Available for game development & XR roles"
                   : "Not taking new roles right now"}
               </span>
             </motion.div>
@@ -54,10 +55,29 @@ export default function Hero() {
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.12 }}
+              className="mt-6 flex min-h-[1.6em] items-baseline font-mono text-sm tracking-wide text-muted-foreground sm:text-base"
+            >
+              <span className="whitespace-nowrap">I build&nbsp;</span>
+              <RotatingRoles roles={heroRoles} />
+            </motion.p>
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
-              className="mt-7 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
+              className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
             >
               {profile.tagline}
+            </motion.p>
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mt-6 border-l-2 border-cyan/60 pl-3 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground"
+            >
+              {profile.quote}
             </motion.p>
 
             <motion.div
@@ -111,7 +131,7 @@ export default function Hero() {
                 </span>
                 <span className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest text-amber">
                   <span className="h-1.5 w-1.5 animate-breathe rounded-full bg-amber" />
-                  40+ builds shipped
+                  Live from the editor
                 </span>
               </div>
 

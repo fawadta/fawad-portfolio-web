@@ -6,6 +6,7 @@ export const profile = {
   subtitle: "Unity Generalist · XR · Cross-Platform",
   tagline:
     "I build immersive cross-platform experiences — from hyper-casual mobile hits to VR rehab worlds and live multiplayer adventures.",
+  quote: "Every frame counts.",
   location: "Lahore, PK",
   experience: "5+ Years",
   focus: "XR · Cross-Platform",
@@ -27,6 +28,15 @@ export const proofPoints = [
   { value: "40+", label: "Titles & Prototypes" },
   { value: "8+", label: "Platforms Shipped" },
   { value: "XR", label: "Quest · VisionOS" },
+];
+
+// Cycled by the typewriter line under your name in the hero.
+export const heroRoles = [
+  "VR rehabilitation worlds",
+  "hyper-casual mobile hits",
+  "real-time multiplayer systems",
+  "drone training simulators",
+  "cross-platform experiences",
 ];
 
 export const heroPulse = [
