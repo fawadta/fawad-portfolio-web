@@ -5,7 +5,7 @@ export const profile = {
   title: "Sr. Unity Game Developer / Generalist",
   subtitle: "Unity Generalist · XR · Cross-Platform",
   tagline:
-    "I build immersive cross-platform experiences — from hyper-casual mobile hits to VR rehab worlds and live multiplayer adventures.",
+    "Immersive cross-platform experiences, from hyper-casual mobile hits to VR rehab worlds and live multiplayer adventures.",
   quote: "Every frame counts.",
   location: "Lahore, PK",
   experience: "5+ Years",
@@ -37,14 +37,6 @@ export const heroRoles = [
   "real-time multiplayer systems",
   "drone training simulators",
   "cross-platform experiences",
-];
-
-export const heroPulse = [
-  { k: "LOCATION", v: "Lahore, PK" },
-  { k: "ROLE", v: "Sr. Unity Game Developer / Generalist" },
-  { k: "EXPERIENCE", v: "5+ Years" },
-  { k: "FOCUS", v: "XR · Cross-Platform" },
-  { k: "STACK", v: "Unity · C# · Photon" },
 ];
 
 const projectsRaw = [
