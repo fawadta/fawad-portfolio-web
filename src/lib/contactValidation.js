@@ -1,8 +1,9 @@
 // Shared contact-form rules. The Cloudflare Worker mirrors these checks server-side.
 export const CONTACT_LIMITS = { name: 120, email: 200, message: 5000 };
 
-// Conventional shape check: local part, domain labels, and a 2+ letter ending.
-const EMAIL_RE = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
+// Conventional permissive shape check only: something@domain.tld.
+// No assumptions about how long the last part is — deliverability is left to the mail service.
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function validateEmail(value) {
   const email = String(value ?? "").trim();

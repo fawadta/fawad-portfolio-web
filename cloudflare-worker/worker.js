@@ -10,8 +10,8 @@
 // The API key never reaches the browser, and message contents are never logged.
 
 const LIMITS = { name: 120, email: 200, message: 5000 };
-// Mirrors the client-side rule in src/lib/contactValidation.js
-const EMAIL_RE = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
+// Mirrors the client-side rule in src/lib/contactValidation.js — permissive shape only.
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_MESSAGE = 10;
 const DEFAULT_ORIGINS = "https://fawadta.com,https://www.fawadta.com,https://fawadahmad.base44.app";
 
