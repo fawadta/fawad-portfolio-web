@@ -10,6 +10,7 @@ import Timeline from "@/components/portfolio/Timeline";
 import Contact from "@/components/portfolio/Contact";
 import Footer from "@/components/portfolio/Footer";
 import BackToTop from "@/components/BackToTop";
+import CustomCursor from "@/components/portfolio/CustomCursor";
 
 export default function Home() {
   return (
@@ -28,6 +29,7 @@ export default function Home() {
       </main>
       <Footer />
       <BackToTop />
+      <CustomCursor />
     </div>
   );
 }

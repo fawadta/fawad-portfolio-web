@@ -3,6 +3,7 @@ import { ArrowDown, ArrowUpRight, Download } from "lucide-react";
 import { profile, heroRoles } from "@/lib/portfolioData";
 import RotatingRoles from "@/components/portfolio/RotatingRoles";
 import ProfileCard from "@/components/portfolio/ProfileCard";
+import NodeField from "@/components/portfolio/NodeField";
 
 export default function Hero() {
   const scrollToWork = () => {
@@ -12,6 +13,7 @@ export default function Hero() {
   return (
     <section id="top" className="relative overflow-hidden pt-16">
       <div className="absolute inset-0 grid-bg opacity-60" />
+      <NodeField />
       <div className="pointer-events-none absolute -top-40 right-0 h-[480px] w-[480px] rounded-full bg-cyan/10 blur-[120px]" />
       <div className="pointer-events-none absolute bottom-0 left-1/4 h-[360px] w-[360px] rounded-full bg-amber/5 blur-[120px]" />
 

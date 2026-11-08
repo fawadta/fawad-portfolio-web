@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import TiltCard from "./TiltCard";
 import { expertise, domains, tools } from "@/lib/portfolioData";
 import SectionHeading from "./SectionHeading";
 import TagCloud from "./TagCloud";
@@ -21,41 +21,44 @@ export default function Expertise() {
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {expertise.map((group, gi) => (
-            <motion.div
+            <TiltCard
               key={group.title}
               {...cardMotion(gi * 0.08)}
-              className="rounded-xl border border-border bg-surface/40 p-5"
+              max={4}
+              className="relative overflow-hidden rounded-xl border border-border bg-surface/40 p-5"
             >
               <h3 className="mb-4 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-cyan">
                 <span className="h-1.5 w-1.5 rounded-full bg-cyan" />
                 {group.title}
               </h3>
               <TagCloud items={group.items} accent="cyan" />
-            </motion.div>
+            </TiltCard>
           ))}
         </div>
 
-        <motion.div
+        <TiltCard
           {...cardMotion()}
-          className="mt-5 rounded-xl border border-border bg-surface/40 p-5"
+          max={3}
+          className="relative mt-5 overflow-hidden rounded-xl border border-border bg-surface/40 p-5"
         >
           <h3 className="mb-4 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-amber">
             <span className="h-1.5 w-1.5 rounded-full bg-amber" />
             Domains & Genres
           </h3>
           <TagCloud items={domains} accent="amber" />
-        </motion.div>
+        </TiltCard>
 
-        <motion.div
+        <TiltCard
           {...cardMotion()}
-          className="mt-5 rounded-xl border border-border bg-surface/40 p-5"
+          max={3}
+          className="relative mt-5 overflow-hidden rounded-xl border border-border bg-surface/40 p-5"
         >
           <h3 className="mb-4 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground" />
             Tools & Production
           </h3>
           <TagCloud items={tools} accent="ghost" />
-        </motion.div>
+        </TiltCard>
       </div>
     </section>
   );

@@ -128,6 +128,15 @@
     animation: caret-blink 1.05s steps(1, end) infinite;
   }
 
+  @media (pointer: fine) {
+    .hide-native-cursor,
+    .hide-native-cursor a,
+    .hide-native-cursor button,
+    .hide-native-cursor [role="button"] {
+      cursor: none !important;
+    }
+  }
+
   /* A light that travels around a rounded card edge. */
   .edge-chase {
     position: absolute;
