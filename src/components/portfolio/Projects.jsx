@@ -50,6 +50,43 @@ export default function Projects() {
     return () => window.removeEventListener("hashchange", sync);
   }, []);
 
+  // Each project recedes — scaled down and faded — as the next one slides over it.
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const panels = Array.from(document.querySelectorAll("#work [data-stack-panel]"));
+    if (!panels.length) return;
+
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const viewport = window.innerHeight;
+      panels.forEach((panel, index) => {
+        const next = panels[index + 1];
+        let recede = 0;
+        if (next) {
+          const panelTop = parseFloat(window.getComputedStyle(panel).top) || 88;
+          const nextTop = next.parentElement.getBoundingClientRect().top;
+          recede = Math.min(Math.max((viewport - nextTop) / (viewport - panelTop), 0), 1);
+        }
+        panel.style.transform = `scale(${(1 - recede * 0.1).toFixed(4)})`;
+        panel.style.opacity = (1 - recede * 0.72).toFixed(3);
+      });
+    };
+
+    const requestUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    return () => {
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, [expanded]);
+
   const jumpTo = (id) => {
     const index = projects.findIndex((project) => project.id === id);
     if (index >= INITIAL_VISIBLE) setExpanded(true);
@@ -73,17 +110,25 @@ export default function Projects() {
             const isCollection = Boolean(project.prototypes || project.jams);
             return (
               <div key={project.id} className="relative" style={{ zIndex: i + 1 }}>
-                <div className="sticky" style={{ top: `${84 + Math.min(i, 6) * 10}px` }}>
+                <div
+                  data-stack-panel
+                  className="sticky"
+                  style={{
+                    top: `${88 + Math.min(i, 6) * 8}px`,
+                    transformOrigin: "center top",
+                    willChange: "transform, opacity",
+                  }}
+                >
                   <motion.article
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-80px" }}
                     transition={{ duration: 0.6 }}
                     id={`project-${project.id}`}
-                    className={`scroll-mt-28 overflow-hidden rounded-2xl border border-border bg-surface/95 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.9)] backdrop-blur-sm ${
+                    className={`scroll-mt-28 border-t border-border/60 bg-background pb-10 pt-8 sm:pt-10 ${
                       isCollection
-                        ? "p-5 sm:p-8"
-                        : "grid items-center gap-8 p-4 sm:p-6 lg:grid-cols-12 lg:gap-10"
+                        ? ""
+                        : "grid items-center gap-8 lg:grid-cols-12 lg:gap-10"
                     }`}
                   >
                 {!isCollection && (
@@ -219,7 +264,9 @@ export default function Projects() {
                     {project.jams && <JamCollection jams={project.jams} />}
                   </motion.article>
                 </div>
-                {i < visible.length - 1 && <div aria-hidden="true" className="h-[20vh]" />}
+                {i < visible.length - 1 && (
+                  <div aria-hidden="true" className="h-[42vh] sm:h-[50vh]" />
+                )}
               </div>
             );
           })}
