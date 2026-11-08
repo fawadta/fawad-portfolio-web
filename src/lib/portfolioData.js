@@ -39,6 +39,13 @@ export const heroRoles = [
   "cross-platform experiences",
 ];
 
+// The three-step card beside the hero copy.
+export const processSteps = [
+  { title: "Prototype", detail: "A playable core loop in days, not weeks, so the idea gets tested early." },
+  { title: "Vertical slice", detail: "One level built to final quality, proving the feel and the scope." },
+  { title: "Ship", detail: "Store-ready builds across mobile, VR and PC, with the platform quirks handled." },
+];
+
 const projectsRaw = [
   {
     id: "avataris",
