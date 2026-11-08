@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Linkedin, Github, Phone, Send, Gamepad2, CheckCircle2, Loader2 } from "lucide-react";
-import { base44 } from "@/api/base44Client";
 import { profile } from "@/lib/portfolioData";
 import { CONTACT_ENDPOINT } from "@/lib/contactConfig";
 
-const postToRelay = async (payload) => {
+const sendMessage = async (payload) => {
   const response = await fetch(CONTACT_ENDPOINT, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -14,19 +13,6 @@ const postToRelay = async (payload) => {
   if (response.ok) return;
   const detail = await response.json().catch(() => null);
   throw new Error(detail?.error || `Request failed (${response.status})`);
-};
-
-const sendMessage = async (payload) => {
-  if (!CONTACT_ENDPOINT) {
-    await base44.functions.invoke("sendContactMessage", payload);
-    return;
-  }
-  try {
-    await postToRelay(payload);
-  } catch {
-    // Relay unavailable or refused the message — deliver through the app's own sender.
-    await base44.functions.invoke("sendContactMessage", payload);
-  }
 };
 
 export default function Contact() {
@@ -66,7 +52,7 @@ export default function Contact() {
       setStatus("idle");
       const detail =
         err?.message && err.message !== "Failed to fetch" ? ` (${err.message})` : "";
-      setError(`Couldn't send just now${detail}. You can email me directly at ${profile.email}.`);
+      setError(`Couldn't send just now${detail}. Please try again.`);
     }
   };
 
@@ -235,7 +221,7 @@ export default function Contact() {
                 <div className="flex items-center gap-2 rounded-md border border-cyan/40 bg-cyan/5 px-3 py-2.5">
                   <CheckCircle2 size={16} className="text-cyan" />
                   <p className="font-mono text-xs text-cyan">
-                    Message sent — it's in my inbox. I'll get back to you soon.
+                    Message submitted successfully. I'll get back to you soon.
                   </p>
                 </div>
               )}
