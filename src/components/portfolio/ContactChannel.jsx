@@ -6,7 +6,8 @@ export default function ContactChannel({ channel }) {
   return (
     <TiltCard
       max={5}
-      className={`relative rounded-xl border bg-card transition-colors hover:border-primary/50 motion-reduce:!transform-none [@media(hover:none)]:!transform-none ${
+      glareOnHover
+      className={`relative rounded-xl border bg-card transition-colors motion-reduce:!transform-none [@media(hover:none)]:!transform-none ${
         channel.accent ? "border-primary/40" : "border-border"
       }`}
     >
@@ -14,7 +15,7 @@ export default function ContactChannel({ channel }) {
         href={channel.href}
         target={external ? "_blank" : undefined}
         rel={external ? "noreferrer" : undefined}
-        className="group flex items-center gap-4 rounded-xl p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        className="group flex items-center gap-4 rounded-xl p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary [@media(hover:hover)]:hover:bg-white/[0.02]"
       >
         <span
           className={`grid h-11 w-11 shrink-0 place-items-center rounded-lg border transition-colors ${

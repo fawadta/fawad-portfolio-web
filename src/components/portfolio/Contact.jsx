@@ -105,8 +105,8 @@ export default function Contact() {
             <span className="text-stroke">NEXT REALITY.</span>
           </h2>
           <p className="mx-auto mt-5 max-w-lg text-base text-muted-foreground">
-            Open to Unity, XR and cross-platform roles, contracts and collaborations.
-            Drop a line — I read every message.
+            Open to Unity work across mobile, PC and XR — full-time roles, contracts and
+            collaborations. Drop a line, I read every message.
           </p>
         </motion.div>
 

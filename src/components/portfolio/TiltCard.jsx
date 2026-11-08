@@ -5,7 +5,13 @@ const spring = { stiffness: 180, damping: 18, mass: 0.4 };
 const ringMask =
   "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)";
 
-export default function TiltCard({ children, className = "", max = 6, ...rest }) {
+export default function TiltCard({
+  children,
+  className = "",
+  max = 6,
+  glareOnHover = false,
+  ...rest
+}) {
   const ref = useRef(null);
   const [hovered, setHovered] = useState(false);
   const px = useMotionValue(0.5);
@@ -47,7 +53,12 @@ export default function TiltCard({ children, className = "", max = 6, ...rest })
       onMouseMove={handleMove}
       onMouseEnter={handleEnter}
       onMouseLeave={reset}
-      style={{ rotateX, rotateY, transformPerspective: 1000, backgroundImage: glare }}
+      style={{
+        rotateX,
+        rotateY,
+        transformPerspective: 1000,
+        backgroundImage: glareOnHover && !hovered ? undefined : glare,
+      }}
       className={className}
       {...rest}
     >
