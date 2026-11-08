@@ -22,8 +22,9 @@ export default function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-cyan/35 bg-surface/70 px-3.5 py-2 backdrop-blur"
+              className="relative mb-6 inline-flex items-center gap-2.5 overflow-hidden rounded-full border border-cyan/35 bg-surface/70 px-3.5 py-2 backdrop-blur"
             >
+              <span className="edge-chase" aria-hidden="true" />
               <span className="relative flex h-2 w-2">
                 {profile.isAvailable !== false && (
                   <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-success/60" />

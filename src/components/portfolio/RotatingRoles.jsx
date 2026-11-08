@@ -31,9 +31,13 @@ export default function RotatingRoles({ roles }) {
   }, [text, deleting, index, roles]);
 
   return (
-    <span className="text-cyan">
+    <span className="relative inline-block text-cyan">
       {text}
-      <span className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[2px] animate-pulse bg-cyan" />
+      <span
+        aria-hidden="true"
+        style={{ left: text ? "calc(100% - 0.55em)" : "0" }}
+        className="pointer-events-none absolute bottom-[2px] h-[2px] w-[0.55em] animate-caret bg-cyan"
+      />
     </span>
   );
 }
