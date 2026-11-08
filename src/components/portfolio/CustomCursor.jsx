@@ -21,6 +21,7 @@ export default function CustomCursor() {
   const [enabled, setEnabled] = useState(false);
   const [label, setLabel] = useState("");
   const [onAccent, setOnAccent] = useState(false);
+  const [hovering, setHovering] = useState(false);
   const [pressed, setPressed] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -50,11 +51,12 @@ export default function CustomCursor() {
       if (!hit) {
         setLabel("");
         setOnAccent(false);
+        setHovering(false);
         return;
       }
-      const href = hit.getAttribute("href") || "";
-      const external = hit.getAttribute("target") === "_blank" || /^https?:/i.test(href);
-      setLabel(hit.getAttribute("data-cursor-label") || (external ? "open" : "view"));
+      setHovering(true);
+      // Labels are opt-in only: they show where an element sets data-cursor-label.
+      setLabel(hit.getAttribute("data-cursor-label") || "");
       // A solid cyan surface swallows a cyan cursor — flip it to amber there.
       setOnAccent(Boolean(hit.closest(".bg-cyan")) || /(^|\s)bg-cyan(\s|$)/.test(hit.className || ""));
     };
@@ -81,7 +83,7 @@ export default function CustomCursor() {
 
   if (!enabled) return null;
 
-  const ringScale = pressed ? 0.85 : label ? 1.7 : 1;
+  const ringScale = pressed ? 0.85 : label ? 1.7 : hovering ? 1.35 : 1;
 
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100]">

@@ -1,7 +1,10 @@
 import { useEffect, useRef } from "react";
 
-const FONT_SIZE = 14;
-const COLUMN_STEP = FONT_SIZE * 1.6;
+const FONT_SIZE = 13;
+const CELL_W = 11;
+const ROW_H = 22;
+const CYAN = "rgba(0,245,255,0.55)";
+const AMBER = "rgba(255,179,71,0.9)";
 
 export default function BinaryRain() {
   const canvasRef = useRef(null);
@@ -15,42 +18,50 @@ export default function BinaryRain() {
 
     let width = 0;
     let height = 0;
-    let columns = 0;
-    let drops = [];
-    let speeds = [];
+    let rows = 0;
+    let cells = [];
+    let paces = [];
     let frame = 0;
+    let raf = 0;
     let visible = true;
 
+    const randomStart = () => {
+      const span = Math.max(1, Math.ceil(width / CELL_W));
+      return -Math.floor(Math.random() * span * 0.8) - 1;
+    };
+
     const draw = () => {
-      // Fade what is already drawn, leaving a short trail behind each drop.
+      // Gentle dissolve so each character leaves a fading trail behind the head.
       ctx.globalCompositeOperation = "destination-out";
-      ctx.fillStyle = "rgba(0,0,0,0.09)";
+      ctx.fillStyle = "rgba(0,0,0,0.055)";
       ctx.fillRect(0, 0, width, height);
       ctx.globalCompositeOperation = "source-over";
 
       ctx.font = `${FONT_SIZE}px "JetBrains Mono", ui-monospace, monospace`;
-      ctx.textBaseline = "top";
+      ctx.textBaseline = "middle";
 
-      for (let c = 0; c < columns; c += 1) {
-        const x = c * COLUMN_STEP;
-        const y = drops[c] * FONT_SIZE;
+      for (let r = 0; r < rows; r += 1) {
+        if (frame % paces[r] !== 0) continue;
 
-        if (y > -FONT_SIZE && y < height) {
-          ctx.fillStyle =
-            Math.random() < 0.05
-              ? "rgba(255,179,71,0.75)"
-              : "rgba(0,245,255,0.55)";
+        const cell = cells[r];
+        const x = cell * CELL_W;
+        const y = r * ROW_H + ROW_H / 2;
+
+        if (x >= -CELL_W && x <= width) {
+          ctx.fillStyle = Math.random() < 0.12 ? AMBER : CYAN;
           ctx.fillText(Math.random() < 0.5 ? "0" : "1", x, y);
         }
 
-        drops[c] += speeds[c];
-        if (y > height && Math.random() > 0.975) drops[c] = 0;
+        cells[r] = cell + 1;
+        if (x > width + CELL_W && Math.random() > 0.9) cells[r] = randomStart();
       }
+
+      frame += 1;
     };
 
     const loop = () => {
       if (visible) draw();
-      frame = window.requestAnimationFrame(loop);
+      raf = window.requestAnimationFrame(loop);
     };
 
     const setup = () => {
@@ -63,17 +74,18 @@ export default function BinaryRain() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, width, height);
 
-      columns = Math.max(1, Math.ceil(width / COLUMN_STEP));
-      drops = Array.from({ length: columns }, () => Math.random() * (height / FONT_SIZE));
-      speeds = Array.from({ length: columns }, () => 0.35 + Math.random() * 0.9);
+      rows = Math.max(1, Math.ceil(height / ROW_H));
+      cells = Array.from({ length: rows }, randomStart);
+      // One cell every 5-9 frames: slow enough to read each 0 and 1.
+      paces = Array.from({ length: rows }, () => 5 + Math.floor(Math.random() * 5));
 
       if (reduceMotion) {
         ctx.font = `${FONT_SIZE}px "JetBrains Mono", ui-monospace, monospace`;
-        ctx.textBaseline = "top";
-        for (let c = 0; c < columns; c += 1) {
-          for (let r = 0; r < height / FONT_SIZE; r += 3) {
-            ctx.fillStyle = "rgba(0,245,255,0.28)";
-            ctx.fillText(Math.random() < 0.5 ? "0" : "1", c * COLUMN_STEP, r * FONT_SIZE);
+        ctx.textBaseline = "middle";
+        for (let r = 0; r < rows; r += 1) {
+          for (let c = 0; c * CELL_W < width; c += 4) {
+            ctx.fillStyle = "rgba(0,245,255,0.22)";
+            ctx.fillText(Math.random() < 0.5 ? "0" : "1", c * CELL_W, r * ROW_H + ROW_H / 2);
           }
         }
       }
@@ -90,10 +102,10 @@ export default function BinaryRain() {
     );
     intersectionObserver.observe(canvas);
 
-    if (!reduceMotion) frame = window.requestAnimationFrame(loop);
+    if (!reduceMotion) raf = window.requestAnimationFrame(loop);
 
     return () => {
-      window.cancelAnimationFrame(frame);
+      window.cancelAnimationFrame(raf);
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
     };
@@ -103,7 +115,7 @@ export default function BinaryRain() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 h-full w-full opacity-40"
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-60"
     />
   );
 }

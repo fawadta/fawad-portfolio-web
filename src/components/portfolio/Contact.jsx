@@ -126,8 +126,8 @@ export default function Contact() {
                   rel={c.href.startsWith("http") ? "noreferrer" : undefined}
                   className={`group flex items-center gap-4 rounded-xl border p-4 transition-all hover:border-cyan/50 ${
                     c.accent
-                      ? "border-cyan/40 bg-cyan/5"
-                      : "border-border bg-surface/40 hover:bg-surface/70"
+                      ? "border-cyan/40 bg-surface"
+                      : "border-border bg-surface hover:bg-surface-2"
                   }`}
                 >
                   <span
@@ -152,7 +152,7 @@ export default function Contact() {
             })}
             <a
               href={`tel:${profile.phone.replace(/[^+\d]/g, "")}`}
-              className="group flex items-center gap-4 rounded-xl border border-border bg-surface/40 p-4 transition-all hover:border-cyan/50 hover:bg-surface/70"
+              className="group flex items-center gap-4 rounded-xl border border-border bg-surface p-4 transition-all hover:border-cyan/50 hover:bg-surface-2"
             >
               <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg border border-border bg-ink/50 text-muted-foreground group-hover:text-cyan">
                 <Phone size={18} />
@@ -174,7 +174,7 @@ export default function Contact() {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: 0.1 }}
             onSubmit={handleSubmit}
-            className="rounded-xl border border-border bg-surface/40 p-6 sm:p-7"
+            className="rounded-xl border border-border bg-surface p-6 sm:p-7"
             noValidate
           >
             <div className="space-y-4">
