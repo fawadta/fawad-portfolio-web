@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import DecodeText from "./DecodeText";
 
 export default function SectionHeading({ index, title, kicker }) {
   return (
@@ -25,7 +26,7 @@ export default function SectionHeading({ index, title, kicker }) {
         transition={{ duration: 0.5, delay: 0.05 }}
         className="mt-4 font-display text-3xl font-bold tracking-tight text-ghost sm:text-4xl md:text-5xl"
       >
-        {title}
+        <DecodeText text={title} />
       </motion.h2>
     </div>
   );

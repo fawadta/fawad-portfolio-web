@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { proofPoints } from "@/lib/portfolioData";
+import CountUp from "./CountUp";
 
 export default function ProofStrip() {
   return (
@@ -20,7 +21,7 @@ export default function ProofStrip() {
               }`}
             >
               <div className="font-display text-3xl font-bold text-ghost sm:text-4xl">
-                {p.value}
+                <CountUp value={p.value} />
               </div>
               <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:text-[11px]">
                 {p.label}

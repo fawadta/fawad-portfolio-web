@@ -4,9 +4,22 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 const INTERACTIVE = "a,button,[role='button'],[data-cursor='hover']";
 const ringSpring = { stiffness: 380, damping: 32, mass: 0.4 };
 
+function TrailDot({ x, y, stiffness, damping, size, opacity, visible }) {
+  const sx = useSpring(x, { stiffness, damping, mass: 0.5 });
+  const sy = useSpring(y, { stiffness, damping, mass: 0.5 });
+  return (
+    <motion.div style={{ x: sx, y: sy }} className="absolute left-0 top-0">
+      <div
+        className="rounded-full bg-cyan"
+        style={{ width: size, height: size, marginLeft: -size / 2, marginTop: -size / 2, opacity: visible ? opacity : 0 }}
+      />
+    </motion.div>
+  );
+}
+
 export default function CustomCursor() {
   const [enabled, setEnabled] = useState(false);
-  const [hovering, setHovering] = useState(false);
+  const [label, setLabel] = useState("");
   const [pressed, setPressed] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -29,12 +42,19 @@ export default function CustomCursor() {
       y.set(event.clientY);
       setVisible(true);
     };
+
     const onOver = (event) => {
       const target = event.target;
-      const next =
-        target instanceof Element ? Boolean(target.closest(INTERACTIVE)) : false;
-      setHovering(next);
+      const hit = target instanceof Element ? target.closest(INTERACTIVE) : null;
+      if (!hit) {
+        setLabel("");
+        return;
+      }
+      const href = hit.getAttribute("href") || "";
+      const external = hit.getAttribute("target") === "_blank" || /^https?:/i.test(href);
+      setLabel(hit.getAttribute("data-cursor-label") || (external ? "open" : "view"));
     };
+
     const onDown = () => setPressed(true);
     const onUp = () => setPressed(false);
     const onLeaveWindow = () => setVisible(false);
@@ -57,17 +77,33 @@ export default function CustomCursor() {
 
   if (!enabled) return null;
 
-  const ringScale = pressed ? 0.85 : hovering ? 1.9 : 1;
+  const ringScale = pressed ? 0.85 : label ? 1.7 : 1;
 
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100]">
+      {visible && (
+        <>
+          <TrailDot x={x} y={y} stiffness={280} damping={30} size={4} opacity={0.35} visible={visible} />
+          <TrailDot x={x} y={y} stiffness={190} damping={26} size={3} opacity={0.22} visible={visible} />
+          <TrailDot x={x} y={y} stiffness={120} damping={22} size={2} opacity={0.14} visible={visible} />
+        </>
+      )}
+
       <motion.div style={{ x: ringX, y: ringY }} className="absolute left-0 top-0">
         <motion.div
-          animate={{ scale: ringScale, opacity: visible ? (hovering ? 1 : 0.7) : 0 }}
+          animate={{ scale: ringScale, opacity: visible ? (label ? 1 : 0.7) : 0 }}
           transition={{ duration: 0.18, ease: "easeOut" }}
           className="-ml-3.5 -mt-3.5 h-7 w-7 rounded-full border border-cyan/70 bg-cyan/5"
         />
+        <motion.div
+          animate={{ opacity: visible && label ? 1 : 0, x: label ? 0 : -4 }}
+          transition={{ duration: 0.18, ease: "easeOut" }}
+          className="absolute left-5 top-2 whitespace-nowrap rounded-sm border border-cyan/25 bg-ink/80 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-cyan"
+        >
+          {label}
+        </motion.div>
       </motion.div>
+
       <motion.div style={{ x, y }} className="absolute left-0 top-0">
         <div
           className="-ml-[3px] -mt-[3px] h-1.5 w-1.5 rounded-full bg-cyan transition-opacity duration-200"

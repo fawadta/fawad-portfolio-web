@@ -120,6 +120,25 @@
     background-size: 56px 56px;
   }
 
+  .lens-grid {
+    background-image:
+      linear-gradient(to right, rgba(0, 245, 255, 0.3) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 245, 255, 0.3) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(
+      circle 240px at var(--lens-x, 50%) var(--lens-y, 40%),
+      #000 0%,
+      rgba(0, 0, 0, 0.45) 55%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      circle 240px at var(--lens-x, 50%) var(--lens-y, 40%),
+      #000 0%,
+      rgba(0, 0, 0, 0.45) 55%,
+      transparent 100%
+    );
+  }
+
   .glow-cyan {
     box-shadow: 0 0 0 1px rgba(0, 245, 255, 0.25), 0 0 40px -8px rgba(0, 245, 255, 0.35);
   }

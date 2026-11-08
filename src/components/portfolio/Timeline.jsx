@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll } from "framer-motion";
 import { experience, projects } from "@/lib/portfolioData";
 import SectionHeading from "./SectionHeading";
 
@@ -38,13 +39,24 @@ const renderPoint = (text) =>
     });
 
 export default function Timeline() {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start 75%", "end 65%"],
+  });
+
   return (
-    <section id="experience" className="relative pt-14 pb-24 sm:pt-16 sm:pb-32">
+    <section ref={sectionRef} id="experience" className="relative pt-14 pb-24 sm:pt-16 sm:pb-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading index="04" kicker="Lifecycle" title="Experience Timeline" />
 
         <div className="relative">
-          <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border sm:left-[11px]" />
+          <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border sm:left-[11px]">
+            <motion.div
+              style={{ scaleY: scrollYProgress }}
+              className="h-full w-full origin-top bg-cyan/50"
+            />
+          </div>
 
           <div className="space-y-12">
             {experience.map((job, i) => (
