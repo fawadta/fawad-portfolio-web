@@ -5,11 +5,7 @@ import { base44 } from "@/api/base44Client";
 import { profile } from "@/lib/portfolioData";
 import { CONTACT_ENDPOINT } from "@/lib/contactConfig";
 
-const sendMessage = async (payload) => {
-  if (!CONTACT_ENDPOINT) {
-    await base44.functions.invoke("sendContactMessage", payload);
-    return;
-  }
+const postToRelay = async (payload) => {
   const response = await fetch(CONTACT_ENDPOINT, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -18,6 +14,19 @@ const sendMessage = async (payload) => {
   if (response.ok) return;
   const detail = await response.json().catch(() => null);
   throw new Error(detail?.error || `Request failed (${response.status})`);
+};
+
+const sendMessage = async (payload) => {
+  if (!CONTACT_ENDPOINT) {
+    await base44.functions.invoke("sendContactMessage", payload);
+    return;
+  }
+  try {
+    await postToRelay(payload);
+  } catch {
+    // Relay unavailable or refused the message — deliver through the app's own sender.
+    await base44.functions.invoke("sendContactMessage", payload);
+  }
 };
 
 export default function Contact() {

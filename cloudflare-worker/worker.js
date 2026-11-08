@@ -103,7 +103,22 @@ export default {
     }
 
     if (!brevoResponse.ok) {
-      return json({ error: "Email service rejected the message." }, 502, cors);
+      let detail = "";
+      try {
+        const body = await brevoResponse.json();
+        detail = body?.message || body?.code || "";
+      } catch {
+        detail = (await brevoResponse.text().catch(() => "")).slice(0, 300);
+      }
+      return json(
+        {
+          error: `Email service rejected the message (${brevoResponse.status}${
+            detail ? `: ${detail}` : ""
+          }).`,
+        },
+        502,
+        cors
+      );
     }
 
     return json({ success: true }, 200, cors);
