@@ -39,11 +39,12 @@ export function validateContact(form) {
 
 // Any failure becomes plain, non-technical copy. 400s already carry friendly text.
 export function friendlySendError(status, serverMessage) {
+  // Fallback only where the form genuinely can't deliver — not where the visitor can fix it.
+  const direct = `Please email me directly at ${profile.email}.`;
   if (status === 400 && serverMessage) return serverMessage;
   if (status === 429) return "Too many messages just now — please wait a minute and try again.";
   if (status === 413) return "That message is too long to send.";
-  if (status === 403) return "This page isn't allowed to send messages right now. Please try again in a moment.";
-  if (status >= 500)
-    return `The message couldn't be delivered right now. Please email me directly at ${profile.email}.`;
-  return "Your message wasn't sent. Please try again.";
+  if (status === 403) return `This page isn't allowed to send messages right now. ${direct}`;
+  if (status >= 500) return `The message couldn't be delivered right now. ${direct}`;
+  return `Your message wasn't sent. ${direct}`;
 }
