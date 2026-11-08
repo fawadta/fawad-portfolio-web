@@ -10,7 +10,9 @@
 // The API key never reaches the browser, and message contents are never logged.
 
 const LIMITS = { name: 120, email: 200, message: 5000 };
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+// Mirrors the client-side rule in src/lib/contactValidation.js
+const EMAIL_RE = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
+const MIN_MESSAGE = 10;
 const DEFAULT_ORIGINS = "https://fawadta.com,https://www.fawadta.com,https://fawadahmad.base44.app";
 
 const json = (body, status, cors) =>
@@ -64,13 +66,16 @@ export default {
     const message = String(payload?.message ?? "").trim();
 
     if (!name || !email || !message) {
-      return json({ error: "Name, email and message are required." }, 400, cors);
+      return json({ error: "Please fill in your name, email and message." }, 400, cors);
     }
     if (name.length > LIMITS.name || email.length > LIMITS.email || message.length > LIMITS.message) {
-      return json({ error: "One of the fields is too long." }, 400, cors);
+      return json({ error: "One of the fields is a little too long." }, 400, cors);
     }
-    if (!EMAIL_RE.test(email)) {
-      return json({ error: "Please enter a valid email address." }, 400, cors);
+    if (message.length < MIN_MESSAGE) {
+      return json({ error: "Please add a little more detail to your message." }, 400, cors);
+    }
+    if (email.includes("..") || email.split("@")[0].length > 64 || !EMAIL_RE.test(email)) {
+      return json({ error: "That email address doesn't look right — please check it for a typo." }, 400, cors);
     }
     if (!env.BREVO_API_KEY || !env.TO_EMAIL || !env.FROM_EMAIL) {
       return json({ error: "Email service is not configured." }, 500, cors);
@@ -103,19 +108,16 @@ export default {
     }
 
     if (!brevoResponse.ok) {
-      let detail = "";
+      // Detail stays in the Worker log for debugging; visitors get plain copy.
       try {
         const body = await brevoResponse.json();
-        detail = body?.message || body?.code || "";
+        console.error("Brevo rejected the message", brevoResponse.status, body?.message || body?.code);
       } catch {
-        detail = (await brevoResponse.text().catch(() => "")).slice(0, 300);
+        const text = await brevoResponse.text().catch(() => "");
+        console.error("Brevo rejected the message", brevoResponse.status, text.slice(0, 300));
       }
       return json(
-        {
-          error: `Email service rejected the message (${brevoResponse.status}${
-            detail ? `: ${detail}` : ""
-          }).`,
-        },
+        { error: "The message couldn't be delivered right now. Please try again in a moment." },
         502,
         cors
       );

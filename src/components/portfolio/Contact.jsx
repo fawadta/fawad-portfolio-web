@@ -3,42 +3,58 @@ import { motion } from "framer-motion";
 import { Mail, Linkedin, Github, Phone, Send, Gamepad2, CheckCircle2, Loader2 } from "lucide-react";
 import { profile } from "@/lib/portfolioData";
 import { CONTACT_ENDPOINT } from "@/lib/contactConfig";
+import { CONTACT_LIMITS, validateContact, friendlySendError } from "@/lib/contactValidation";
+
+const inputClass = (hasError) =>
+  `w-full rounded-md border bg-ink/50 px-3.5 py-2.5 text-sm text-ghost placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 ${
+    hasError
+      ? "border-destructive focus:border-destructive focus:ring-destructive"
+      : "border-border focus:border-cyan focus:ring-cyan"
+  }`;
 
 const sendMessage = async (payload) => {
-  const response = await fetch(CONTACT_ENDPOINT, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
+  let response;
+  try {
+    response = await fetch(CONTACT_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+  } catch {
+    throw new Error("Your message wasn't sent — check your connection and try again.");
+  }
   if (response.ok) return;
-  const detail = await response.json().catch(() => null);
-  throw new Error(detail?.error || `Request failed (${response.status})`);
+  const body = await response.json().catch(() => null);
+  throw new Error(friendlySendError(response.status, body?.error));
 };
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [fieldErrors, setFieldErrors] = useState({});
   const [status, setStatus] = useState("idle");
-  const [error, setError] = useState("");
+  const [sendError, setSendError] = useState("");
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-    setError("");
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+    setFieldErrors((prev) => ({ ...prev, [name]: "" }));
+    setSendError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (status === "sending") return;
-    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
-      setError("Please fill in all fields.");
+
+    const errors = validateContact(form);
+    setFieldErrors(errors);
+    setSendError("");
+    const firstInvalid = Object.keys(errors)[0];
+    if (firstInvalid) {
+      document.getElementById(firstInvalid)?.focus();
       return;
     }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-    if (!emailRegex.test(form.email)) {
-      setError("Please enter a valid email address.");
-      return;
-    }
+
     setStatus("sending");
-    setError("");
     try {
       await sendMessage({
         name: form.name.trim(),
@@ -50,9 +66,7 @@ export default function Contact() {
       setTimeout(() => setStatus("idle"), 8000);
     } catch (err) {
       setStatus("idle");
-      const detail =
-        err?.message && err.message !== "Failed to fetch" ? ` (${err.message})` : "";
-      setError(`Couldn't send just now${detail}. Please try again.`);
+      setSendError(err.message);
     }
   };
 
@@ -175,9 +189,17 @@ export default function Contact() {
                   type="text"
                   value={form.name}
                   onChange={handleChange}
-                  className="w-full rounded-md border border-border bg-ink/50 px-3.5 py-2.5 text-sm text-ghost placeholder:text-muted-foreground/60 focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan"
+                  maxLength={CONTACT_LIMITS.name}
+                  aria-invalid={Boolean(fieldErrors.name)}
+                  aria-describedby={fieldErrors.name ? "name-error" : undefined}
+                  className={inputClass(Boolean(fieldErrors.name))}
                   placeholder="Jane Recruiter"
                 />
+                {fieldErrors.name && (
+                  <p id="name-error" className="mt-1.5 font-mono text-xs text-destructive">
+                    {fieldErrors.name}
+                  </p>
+                )}
               </div>
               <div>
                 <label
@@ -192,9 +214,17 @@ export default function Contact() {
                   type="email"
                   value={form.email}
                   onChange={handleChange}
-                  className="w-full rounded-md border border-border bg-ink/50 px-3.5 py-2.5 text-sm text-ghost placeholder:text-muted-foreground/60 focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan"
+                  maxLength={CONTACT_LIMITS.email}
+                  aria-invalid={Boolean(fieldErrors.email)}
+                  aria-describedby={fieldErrors.email ? "email-error" : undefined}
+                  className={inputClass(Boolean(fieldErrors.email))}
                   placeholder="jane@studio.com"
                 />
+                {fieldErrors.email && (
+                  <p id="email-error" className="mt-1.5 font-mono text-xs text-destructive">
+                    {fieldErrors.email}
+                  </p>
+                )}
               </div>
               <div>
                 <label
@@ -209,13 +239,23 @@ export default function Contact() {
                   rows={4}
                   value={form.message}
                   onChange={handleChange}
-                  className="w-full resize-none rounded-md border border-border bg-ink/50 px-3.5 py-2.5 text-sm text-ghost placeholder:text-muted-foreground/60 focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan"
+                  maxLength={CONTACT_LIMITS.message}
+                  aria-invalid={Boolean(fieldErrors.message)}
+                  aria-describedby={fieldErrors.message ? "message-error" : undefined}
+                  className={`${inputClass(Boolean(fieldErrors.message))} resize-none`}
                   placeholder="Tell me about the role or project..."
                 />
+                {fieldErrors.message && (
+                  <p id="message-error" className="mt-1.5 font-mono text-xs text-destructive">
+                    {fieldErrors.message}
+                  </p>
+                )}
               </div>
 
-              {error && (
-                <p className="font-mono text-xs text-destructive">{error}</p>
+              {sendError && (
+                <p role="alert" className="font-mono text-xs text-destructive">
+                  {sendError}
+                </p>
               )}
               {status === "sent" && (
                 <div className="flex items-center gap-2 rounded-md border border-cyan/40 bg-cyan/5 px-3 py-2.5">
