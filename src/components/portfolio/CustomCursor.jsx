@@ -1,8 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 const INTERACTIVE = "a,button,[role='button'],[data-cursor='hover']";
 const follow = { stiffness: 380, damping: 32, mass: 0.4 };
+
+// Reads the rendered background so solid cyan fills are caught even when the
+// fill comes from a hover class, a gradient or a child element.
+const isSolidCyan = (element) => {
+  let node = element;
+  for (let depth = 0; node && depth < 3; depth += 1, node = node.parentElement) {
+    const raw = window.getComputedStyle(node).backgroundColor;
+    const match = raw.match(/rgba?\(([^)]+)\)/);
+    if (!match) continue;
+    const [r, g, b, a = 1] = match[1].split(",").map(Number);
+    if (a > 0.5 && r < 120 && (g + b) / 2 > 140) return true;
+  }
+  return false;
+};
 
 export default function CustomCursor() {
   const [enabled, setEnabled] = useState(false);
@@ -15,6 +29,7 @@ export default function CustomCursor() {
   const y = useMotionValue(-100);
   const cx = useSpring(x, follow);
   const cy = useSpring(y, follow);
+  const checkTimer = useRef(null);
 
   useEffect(() => {
     const fine = window.matchMedia("(pointer: fine)").matches;
@@ -40,10 +55,15 @@ export default function CustomCursor() {
         return;
       }
       setHovering(true);
-      // Over a solid cyan surface a cyan ring vanishes — flip it to amber.
-      setOnAccent(
-        Boolean(hit.closest(".bg-cyan")) || /(^|\s)bg-cyan(\s|$)/.test(hit.className || "")
-      );
+
+      // Over a solid cyan surface a cyan ring vanishes, so it flips to amber.
+      // Re-checked once the hover transition lands, which is when fills appear.
+      const applyAccent = () => setOnAccent(isSolidCyan(hit));
+      applyAccent();
+      if (checkTimer.current) clearTimeout(checkTimer.current);
+      checkTimer.current = setTimeout(() => {
+        if (hit.isConnected && hit.matches(":hover")) applyAccent();
+      }, 280);
     };
 
     const onDown = () => setPressed(true);
@@ -62,6 +82,7 @@ export default function CustomCursor() {
     document.addEventListener("mouseleave", onLeaveWindow);
 
     return () => {
+      if (checkTimer.current) clearTimeout(checkTimer.current);
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseover", onOver);
       window.removeEventListener("mousedown", onDown);
@@ -74,7 +95,7 @@ export default function CustomCursor() {
 
   if (!enabled) return null;
 
-  const size = pressed ? 18 : hovering ? 40 : 24;
+  const size = pressed ? 20 : hovering ? 42 : 26;
   const color = onAccent ? "hsl(var(--accent))" : "hsl(var(--primary) / 0.7)";
 
   return (
