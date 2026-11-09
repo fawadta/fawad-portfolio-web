@@ -14,7 +14,7 @@ export const profile = {
   // Flip to false when you're not taking new work — the hero badge and footer
   // status both follow this one value.
   isAvailable: true,
-  email: "fawadshah501@gmail.com",
+  email: "contact@fawadta.com",
   phone: "+92-309-8181679",
   linkedin: "https://linkedin.com/in/fawadta",
   github: "https://github.com/fawadta",

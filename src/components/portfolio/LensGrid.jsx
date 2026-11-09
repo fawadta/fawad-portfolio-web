@@ -9,6 +9,7 @@ export default function LensGrid() {
     const el = ref.current;
     if (!el) return;
     if (!window.matchMedia("(pointer: fine)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let x = 50;
     let y = 40;

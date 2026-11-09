@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Linkedin, Github, Phone, Send, Gamepad2, CheckCircle2, Loader2 } from "lucide-react";
 import { profile } from "@/lib/portfolioData";
@@ -31,7 +31,9 @@ const sendMessage = async (payload) => {
 };
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", message: "", company: "" });
+  // Real visitors take seconds to type; bots submit the moment the page loads.
+  const startedAt = useRef(Date.now());
   const [fieldErrors, setFieldErrors] = useState({});
   const [status, setStatus] = useState("idle");
   const [sendError, setSendError] = useState("");
@@ -62,8 +64,11 @@ export default function Contact() {
         name: form.name.trim(),
         email: form.email.trim(),
         message: form.message.trim(),
+        company: form.company.trim(),
+        elapsedMs: Date.now() - startedAt.current,
       });
-      setForm({ name: "", email: "", message: "" });
+      setForm({ name: "", email: "", message: "", company: "" });
+      startedAt.current = Date.now();
       setStatus("sent");
       setTimeout(() => setStatus("idle"), 8000);
     } catch (err) {
@@ -129,10 +134,26 @@ export default function Contact() {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: 0.1 }}
             onSubmit={handleSubmit}
-            className="rounded-xl border border-border bg-surface p-6 sm:p-7"
+            className="relative overflow-hidden rounded-xl border border-border bg-surface p-6 sm:p-7"
             noValidate
           >
             <div className="space-y-4">
+              {/* Honeypot: hidden from people, irresistible to bots. */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -left-[10000px] top-0 h-0 w-0 overflow-hidden"
+              >
+                <label htmlFor="company">Company</label>
+                <input
+                  id="company"
+                  name="company"
+                  type="text"
+                  value={form.company}
+                  onChange={handleChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
               <div>
                 <label
                   htmlFor="name"

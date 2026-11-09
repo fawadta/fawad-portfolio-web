@@ -16,6 +16,26 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
 const MIN_MESSAGE = 10;
 const DEFAULT_ORIGINS = "https://fawadta.com,https://www.fawadta.com,https://fawadahmad.base44.app";
 
+// Spam guard: a filled honeypot or an instant submit is a bot, and no real
+// visitor sends more than RATE_MAX messages per RATE_WINDOW.
+const MIN_FILL_MS = 2500;
+const RATE_MAX = 5;
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+const recentByIp = new Map();
+
+const isRateLimited = (ip) => {
+  const now = Date.now();
+  const hits = (recentByIp.get(ip) || []).filter((time) => now - time < RATE_WINDOW_MS);
+  hits.push(now);
+  recentByIp.set(ip, hits);
+  if (recentByIp.size > 500) {
+    for (const [key, times] of recentByIp) {
+      if (!times.some((time) => now - time < RATE_WINDOW_MS)) recentByIp.delete(key);
+    }
+  }
+  return hits.length > RATE_MAX;
+};
+
 const json = (body, status, cors) =>
   new Response(JSON.stringify(body), {
     status,
@@ -60,6 +80,21 @@ export default {
       payload = await request.json();
     } catch {
       return json({ error: "Invalid request body" }, 400, cors);
+    }
+
+    // Bots fill the hidden field and submit faster than a person can type.
+    // Answering 200 without sending keeps them from probing for a weakness.
+    if (String(payload?.company ?? "").trim()) {
+      return json({ success: true }, 200, cors);
+    }
+    const fillMs = Number(payload?.elapsedMs);
+    if (Number.isFinite(fillMs) && fillMs >= 0 && fillMs < MIN_FILL_MS) {
+      return json({ success: true }, 200, cors);
+    }
+
+    const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+    if (isRateLimited(ip)) {
+      return json({ error: "Too many messages sent. Please try again in a few minutes." }, 429, cors);
     }
 
     const name = String(payload?.name ?? "").trim();
