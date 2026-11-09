@@ -1,17 +1,14 @@
 // Cloudflare Worker — relays portfolio contact submissions to Brevo.
 //
-// Configure in Cloudflare (Settings → Variables and Secrets):
+// Variables (Settings → Variables and Secrets):
 //   BREVO_API_KEY   (secret)  Brevo → SMTP & API → API Keys
 //   TO_EMAIL        (text)    inbox that receives the messages
 //   FROM_EMAIL      (text)    a Brevo-verified sender address
 //   FROM_NAME       (text)    display name, e.g. "Portfolio Contact"
 //   ALLOWED_ORIGINS (text)    comma-separated site origins allowed to post here
-//
-// The API key never reaches the browser, and message contents are never logged.
 
 const LIMITS = { name: 120, email: 200, message: 5000 };
-// Mirrors the client-side rule in src/lib/contactValidation.js — permissive shape,
-// at least two characters after the last dot (catches "user@g.c" typos).
+// At least two characters after the last dot (catches "user@g.c" typos).
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const MIN_MESSAGE = 10;
 const DEFAULT_ORIGINS = "https://fawadta.com,https://www.fawadta.com,https://fawadahmad.base44.app";
@@ -117,7 +114,28 @@ export default {
       return json({ error: "Email service is not configured." }, 500, cors);
     }
 
-    const subject = `Portfolio inquiry from ${name.replace(/[\r\n]+/g, " ")}`;
+    const subject = `New message from ${name.replace(/[\r\n]+/g, " ")} · fawadta.com`;
+
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const htmlContent = `
+    <div style="background-color: #f3f8fa; padding: 24px 12px; font-family: Arial, Helvetica, sans-serif;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #dbe7ec;">
+        <tr><td style="background-color: #e9f9fc; border-top: 5px solid #00c2d9; padding: 22px 28px;">
+          <a href="https://fawadta.com" style="color: #067a8c; text-decoration: none; font-size: 12px; letter-spacing: 2px; font-weight: bold;">FAWADTA.COM</a>
+          <div style="color: #12202b; font-size: 20px; font-weight: bold; margin-top: 6px;">New portfolio message</div>
+        </td></tr>
+        <tr><td style="padding: 24px 28px; color: #1f2d38;">
+          <p style="margin: 0 0 4px; font-size: 12px; letter-spacing: 1px; color: #6b7c88;">FROM</p>
+          <p style="margin: 0 0 18px; font-size: 16px;"><strong>${safeName}</strong><br>
+            <a href="mailto:${safeEmail}" style="color: #067a8c;">${safeEmail}</a></p>
+          <p style="margin: 0 0 4px; font-size: 12px; letter-spacing: 1px; color: #6b7c88;">MESSAGE</p>
+          <div style="border-left: 4px solid #00c2d9; background-color: #f3f8fa; padding: 14px 16px; font-size: 15px; line-height: 1.6; white-space: pre-wrap; color: #1f2d38;">${escapeHtml(message)}</div>
+          <p style="margin: 24px 0 0;"><a href="mailto:${safeEmail}?subject=Re:%20Your%20message%20on%20fawadta.com" style="background-color: #067a8c; color: #ffffff; text-decoration: none; padding: 11px 22px; border-radius: 8px; font-size: 14px; font-weight: bold; display: inline-block;">Reply to ${safeName}</a></p>
+        </td></tr>
+        <tr><td style="padding: 14px 28px; background-color: #f3f8fa; color: #6b7c88; font-size: 12px;">Sent from the contact form at <a href="https://fawadta.com" style="color: #067a8c; text-decoration: none;">fawadta.com</a>. Hit Reply to answer directly.</td></tr>
+      </table>
+    </div>`;
 
     let brevoResponse;
     try {
@@ -133,9 +151,7 @@ export default {
           to: [{ email: env.TO_EMAIL }],
           replyTo: { email, name },
           subject,
-          htmlContent: `<p style="white-space:pre-wrap">${escapeHtml(message)}</p><hr><p>${escapeHtml(
-            name
-          )} &lt;${escapeHtml(email)}&gt;</p>`,
+          htmlContent,
           textContent: `${message}\n\n— ${name}\n${email}`,
         }),
       });
