@@ -11,8 +11,8 @@
 
 const LIMITS = { name: 120, email: 200, message: 5000 };
 // Mirrors the client-side rule in src/lib/contactValidation.js — permissive shape,
-// at least two letters after the last dot (catches "user@g.c" typos).
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
+// at least two characters after the last dot (catches "user@g.c" typos).
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const MIN_MESSAGE = 10;
 const DEFAULT_ORIGINS = "https://fawadta.com,https://www.fawadta.com,https://fawadahmad.base44.app";
 
