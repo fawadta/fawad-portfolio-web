@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { profile } from "@/lib/portfolioData";
 
 export default function Footer() {
@@ -29,6 +30,24 @@ export default function Footer() {
             {available ? "Currently available" : "Currently unavailable"}
           </span>
         </div>
+
+        <nav
+          aria-label="Site pages"
+          className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground"
+        >
+          <Link to="/" className="transition-colors hover:text-cyan">
+            Home
+          </Link>
+          <Link to="/about" className="transition-colors hover:text-cyan">
+            About
+          </Link>
+          <Link to="/contact" className="transition-colors hover:text-cyan">
+            Contact
+          </Link>
+          <a href={`mailto:${profile.email}`} className="transition-colors hover:text-cyan">
+            {profile.email}
+          </a>
+        </nav>
 
         <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
           © {year} {profile.name}

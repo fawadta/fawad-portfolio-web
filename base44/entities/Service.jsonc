@@ -1,0 +1,55 @@
+{
+  "name": "Service",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Short name of the service, e.g. Unity game development."
+    },
+    "description": {
+      "type": "string",
+      "description": "What the service covers and what the client gets."
+    },
+    "deliverables": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Concrete outputs included in the engagement."
+    },
+    "best_for": {
+      "type": "string",
+      "description": "Who the service suits, e.g. studios needing a senior Unity developer."
+    },
+    "platforms": {
+      "type": "string",
+      "description": "Platforms the service typically ships on."
+    },
+    "sort_order": {
+      "type": "number",
+      "description": "Display order on the About page."
+    }
+  },
+  "required": [
+    "title",
+    "description"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

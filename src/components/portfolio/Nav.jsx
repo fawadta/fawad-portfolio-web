@@ -25,10 +25,13 @@ export default function Nav() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  // On the standalone pages the section anchors don't exist, so fall back to
+  // the matching section on the home page.
   const handleNav = (href) => {
     setOpen(false);
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
+    else window.location.assign(`/${href}`);
   };
 
   return (
@@ -45,7 +48,8 @@ export default function Nav() {
             href="#top"
             onClick={(e) => {
               e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
+              if (document.querySelector("#top")) window.scrollTo({ top: 0, behavior: "smooth" });
+              else window.location.assign("/");
             }}
             className="group flex items-center gap-2.5"
           >
