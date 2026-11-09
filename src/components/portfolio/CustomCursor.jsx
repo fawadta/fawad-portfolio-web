@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import { Minus } from "lucide-react";
 
-const INTERACTIVE = "a,button,[role='button'],[data-cursor='hover']";
+const INTERACTIVE = "a,button,[role='button'],[data-cursor]";
 const follow = { stiffness: 380, damping: 32, mass: 0.4 };
 
 // Reads the rendered background so solid cyan fills are caught even when the
@@ -22,6 +23,7 @@ export default function CustomCursor() {
   const [enabled, setEnabled] = useState(false);
   const [onAccent, setOnAccent] = useState(false);
   const [hovering, setHovering] = useState(false);
+  const [zooming, setZooming] = useState(false);
   const [pressed, setPressed] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -30,6 +32,7 @@ export default function CustomCursor() {
   const cx = useSpring(x, follow);
   const cy = useSpring(y, follow);
   const checkTimer = useRef(null);
+  const zoomRef = useRef(false);
 
   useEffect(() => {
     const fine = window.matchMedia("(pointer: fine)").matches;
@@ -44,6 +47,11 @@ export default function CustomCursor() {
       y.set(event.clientY);
       root.classList.add("hide-native-cursor");
       setVisible(true);
+      // The enlarged image view can close without another hover event.
+      if (zoomRef.current && !document.querySelector("[data-cursor='zoom-out']")) {
+        zoomRef.current = false;
+        setZooming(false);
+      }
     };
 
     const onOver = (event) => {
@@ -52,9 +60,13 @@ export default function CustomCursor() {
       if (!hit) {
         setHovering(false);
         setOnAccent(false);
+        zoomRef.current = false;
+        setZooming(false);
         return;
       }
       setHovering(true);
+      zoomRef.current = hit.matches("[data-cursor='zoom-out']");
+      setZooming(zoomRef.current);
 
       // Over a solid cyan surface a cyan ring vanishes, so it flips to amber.
       // Re-checked once the hover transition lands, which is when fills appear.
@@ -95,11 +107,11 @@ export default function CustomCursor() {
 
   if (!enabled) return null;
 
-  const size = pressed ? 20 : hovering ? 42 : 26;
+  const size = pressed ? 20 : zooming ? 46 : hovering ? 42 : 26;
   const color = onAccent ? "hsl(var(--accent))" : "hsl(var(--primary) / 0.7)";
 
   return (
-    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100]">
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[200]">
       <motion.div style={{ x, y }} className="absolute left-0 top-0">
         <span
           className="block h-[5px] w-[5px] -translate-x-1/2 -translate-y-1/2 rounded-full transition-opacity duration-150"
@@ -121,7 +133,11 @@ export default function CustomCursor() {
               boxShadow: hovering ? `0 0 14px -3px ${color}` : "none",
             }}
           >
-            <span className="cursor-ring-core block h-1 w-1 rounded-full" />
+            {zooming ? (
+              <Minus size={16} strokeWidth={2.4} style={{ color }} />
+            ) : (
+              <span className="cursor-ring-core block h-1 w-1 rounded-full" />
+            )}
           </span>
         </div>
       </motion.div>

@@ -43,6 +43,7 @@ export default function Lightbox({ open, images = [], index = 0, onIndexChange, 
           role="dialog"
           aria-modal="true"
           aria-label={`${altBase} enlarged view`}
+          data-cursor="zoom-out"
           className="fixed inset-0 z-[100] flex cursor-zoom-out items-center justify-center bg-ink/85 p-4 backdrop-blur-md"
         >
           <motion.div

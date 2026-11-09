@@ -23,11 +23,11 @@ export default function BinaryRain() {
     let paces = [];
     let frame = 0;
     let raf = 0;
-    let visible = true;
 
+    // Rows start spread across the width so the field is already raining on load.
     const randomStart = () => {
       const span = Math.max(1, Math.ceil(width / CELL_W));
-      return -Math.floor(Math.random() * span * 0.8) - 1;
+      return Math.floor(Math.random() * span) - Math.floor(Math.random() * span * 0.6);
     };
 
     const draw = () => {
@@ -60,7 +60,7 @@ export default function BinaryRain() {
     };
 
     const loop = () => {
-      if (visible) draw();
+      draw();
       raf = window.requestAnimationFrame(loop);
     };
 
@@ -94,20 +94,11 @@ export default function BinaryRain() {
     const resizeObserver = new ResizeObserver(setup);
     resizeObserver.observe(canvas);
 
-    const intersectionObserver = new IntersectionObserver(
-      ([entry]) => {
-        visible = entry.isIntersecting;
-      },
-      { threshold: 0 }
-    );
-    intersectionObserver.observe(canvas);
-
     if (!reduceMotion) raf = window.requestAnimationFrame(loop);
 
     return () => {
       window.cancelAnimationFrame(raf);
       resizeObserver.disconnect();
-      intersectionObserver.disconnect();
     };
   }, []);
 
