@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import { base44 } from "@/api/base44Client";
 import PageShell from "@/components/portfolio/PageShell";
+import AboutServices from "@/components/portfolio/AboutServices";
+import AboutFaq from "@/components/portfolio/AboutFaq";
 import { profile, proofPoints, processSteps } from "@/lib/portfolioData";
 
 const TITLE = "About Fawad Ahmad — Unity Game Developer";
@@ -10,14 +10,6 @@ const DESCRIPTION =
   "Fawad Ahmad is a senior Unity developer and generalist in Lahore with 5+ years building mobile, PC, Xbox, WebGL and Meta Quest games.";
 
 export default function About() {
-  const [services, setServices] = useState([]);
-
-  useEffect(() => {
-    base44.entities.Service.list({ sort: "sort_order", limit: 12 })
-      .then(({ items }) => setServices(items))
-      .catch(() => setServices([]));
-  }, []);
-
   return (
     <PageShell title={TITLE} description={DESCRIPTION}>
       <section className="border-b border-border bg-surface-2/40 pb-14 pt-24 sm:pb-16 sm:pt-32">
@@ -84,28 +76,8 @@ export default function About() {
           ))}
         </ol>
 
-        {services.length > 0 && (
-          <>
-            <h2 className="mt-12 font-display text-2xl font-bold text-ghost sm:text-3xl">
-              What he takes on
-            </h2>
-            <ul className="mt-6 space-y-4">
-              {services.map((service) => (
-                <li key={service.id} className="rounded-xl border border-border bg-surface p-5">
-                  <h3 className="font-display text-lg font-semibold text-ghost">{service.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    {service.description}
-                  </p>
-                  {service.best_for && (
-                    <p className="mt-3 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-                      Best for: <span className="text-ghost">{service.best_for}</span>
-                    </p>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
+        <AboutServices />
+        <AboutFaq />
 
         <div className="mt-12 flex flex-wrap items-center gap-4 border-t border-border pt-8">
           <Link
