@@ -32,12 +32,21 @@ let pending = null; // in-flight fetch, so a burst of cold requests causes one c
 const hits = new Map(); // ip -> { count, resetAt }
 
 function clientIp(req) {
-  return req.headers.get('cf-connecting-ip') || req.headers.get('x-real-ip') || 'unknown';
+  // Only the edge-set header: a client-supplied proxy header can be forged.
+  return req.headers.get('cf-connecting-ip') || 'unknown';
 }
 
 function isRateLimited(ip) {
   const now = Date.now();
-  if (hits.size > 5000) hits.clear(); // keep the map from growing without bound
+  // Expired entries are pruned individually, so flooding with new addresses can
+  // never reset the counters of addresses already being limited. If the map
+  // still grows past a hard ceiling, the limiter fails closed for a while.
+  if (hits.size > 1000) {
+    for (const [key, entry] of hits) {
+      if (now > entry.resetAt) hits.delete(key);
+    }
+    if (hits.size > 20000) return true;
+  }
   const entry = hits.get(ip);
   if (!entry || now > entry.resetAt) {
     hits.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
