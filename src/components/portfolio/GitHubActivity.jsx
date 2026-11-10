@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Github } from "lucide-react";
 import { base44 } from "@/api/base44Client";
@@ -9,12 +9,40 @@ import ActivityHeatmap from "./ActivityHeatmap";
 export default function GitHubActivity() {
   const [data, setData] = useState(null);
   const [failed, setFailed] = useState(false);
+  const sectionRef = useRef(null);
 
+  // This section sits far below the fold, so its data is requested as it comes
+  // into view instead of competing with the hero for bandwidth and main-thread time.
   useEffect(() => {
-    base44.functions
-      .invoke("githubActivity", {})
-      .then((response) => setData(response.data))
-      .catch(() => setFailed(true));
+    const node = sectionRef.current;
+    if (!node) return;
+
+    let cancelled = false;
+    const load = () => {
+      base44.functions
+        .invoke("githubActivity", {})
+        .then((response) => {
+          if (!cancelled) setData(response.data);
+        })
+        .catch(() => {
+          if (!cancelled) setFailed(true);
+        });
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+        load();
+      },
+      { rootMargin: "400px" }
+    );
+
+    observer.observe(node);
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+    };
   }, []);
 
   const stats = data
@@ -26,7 +54,7 @@ export default function GitHubActivity() {
     : [];
 
   return (
-    <section id="activity" className="relative pt-10 pb-12 sm:pt-14 sm:pb-16">
+    <section ref={sectionRef} id="activity" className="relative pt-10 pb-12 sm:pt-14 sm:pb-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading index="03" kicker="Live Signal" title="Commit Activity" />
 

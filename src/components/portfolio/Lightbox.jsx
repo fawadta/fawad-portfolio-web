@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Image } from "@/components/ui/image";
+import { sizedImage } from "@/lib/cloudinary";
 import StoreListing from "./StoreListing";
 
 const ARROW =
@@ -69,7 +70,7 @@ export default function Lightbox({ open, images = [], index = 0, onIndexChange, 
               </div>
             ) : (
               <Image
-                src={current?.src}
+                src={sizedImage(current?.src, 2000)}
                 alt={`${altBase} ${index + 1}`}
                 loading="eager"
                 fittingType="fit"

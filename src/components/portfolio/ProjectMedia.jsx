@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Box, Maximize2 } from "lucide-react";
 import { Image } from "@/components/ui/image";
+import { sizedImage } from "@/lib/cloudinary";
 import Lightbox from "./Lightbox";
 import MediaGallery from "./MediaGallery";
 import MediaTabs from "./MediaTabs";
@@ -100,7 +101,7 @@ export default function ProjectMedia({ project }) {
                   className="group relative block h-full w-full cursor-zoom-in overflow-hidden text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
                 >
                   <Image
-                    src={item.image}
+                    src={sizedImage(item.image, 1200)}
                     alt={`${project.name} — ${project.tagline}`}
                     className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     fittingType="fill"

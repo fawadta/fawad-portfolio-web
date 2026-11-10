@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 import { Image } from "@/components/ui/image";
+import { sizedImage } from "@/lib/cloudinary";
 import Lightbox from "./Lightbox";
 
 const ARROW =
@@ -21,7 +22,7 @@ export default function MediaGallery({ images = [], fit = "cover", altBase = "" 
         {isContain && items[i]?.src && (
           <div aria-hidden="true" className="pointer-events-none absolute inset-0">
             <Image
-              src={items[i].src}
+              src={sizedImage(items[i].src, 400)}
               alt=""
               fittingType="fill"
               className="h-full w-full scale-125 object-cover opacity-85 blur-[26px]"
@@ -42,7 +43,7 @@ export default function MediaGallery({ images = [], fit = "cover", altBase = "" 
               className="relative h-full w-full shrink-0 cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
             >
               <Image
-                src={item.src}
+                src={sizedImage(item.src, 1200)}
                 alt={`${altBase} ${d + 1}`}
                 loading={Math.abs(d - i) > 1 ? "lazy" : undefined}
                 fittingType={fit === "contain" ? "fit" : "fill"}
