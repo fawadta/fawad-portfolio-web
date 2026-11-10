@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Download } from "lucide-react";
 import { profile, heroRoles } from "@/lib/portfolioData";
@@ -12,6 +12,10 @@ const NAME_ROWS = ["FAWAD", "AHMAD"];
 
 export default function Hero() {
   const sectionRef = useRef(null);
+  // On phones the headline is what Largest Contentful Paint measures, so it is
+  // painted with the first frame and only rises into place, instead of fading in
+  // letter by letter and keeping the metric waiting.
+  const [paintFirst] = useState(() => window.matchMedia("(max-width: 767px)").matches);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
@@ -40,7 +44,7 @@ export default function Hero() {
         <div className="grid items-center gap-12 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
+              initial={paintFirst ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="relative mb-6 inline-flex items-center gap-2.5 overflow-hidden rounded-full border border-cyan/35 bg-surface/70 px-3.5 py-2 backdrop-blur"
@@ -74,11 +78,11 @@ export default function Hero() {
                   {word.split("").map((char, ci) => (
                     <motion.span
                       key={`${word}-${ci}`}
-                      initial={{ opacity: 0, y: "0.4em" }}
+                      initial={paintFirst ? false : { opacity: 0, y: "0.4em" }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{
                         duration: 0.5,
-                        delay: 0.1 + (wi * word.length + ci) * 0.045,
+                        delay: paintFirst ? 0 : 0.1 + (wi * word.length + ci) * 0.045,
                         ease: [0.22, 1, 0.36, 1],
                       }}
                       className="inline-block"
@@ -91,7 +95,7 @@ export default function Hero() {
             </h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 16 }}
+              initial={paintFirst ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.12 }}
               className="mt-6 flex min-h-[1.6em] items-baseline font-mono text-sm tracking-wide text-muted-foreground sm:text-base"
@@ -101,7 +105,7 @@ export default function Hero() {
             </motion.p>
 
             <motion.p
-              initial={{ opacity: 0, y: 16 }}
+              initial={paintFirst ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
               className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
@@ -110,7 +114,7 @@ export default function Hero() {
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={paintFirst ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.25 }}
               className="mt-9 flex flex-wrap items-center gap-3"
