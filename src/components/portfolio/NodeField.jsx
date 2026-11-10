@@ -87,8 +87,12 @@ export default function NodeField() {
       }
     };
 
-    const loop = () => {
-      if (visible) draw();
+    let lastDraw = 0;
+    const loop = (time) => {
+      if (visible && !document.hidden && time - lastDraw >= 1000 / 30) {
+        draw();
+        lastDraw = time;
+      }
       frame = window.requestAnimationFrame(loop);
     };
 

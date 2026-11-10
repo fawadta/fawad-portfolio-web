@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, ArrowUpRight, ChevronDown } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { projects } from "@/lib/portfolioData";
+import { afterPageLoad } from "@/lib/afterPageLoad";
 import SectionHeading from "./SectionHeading";
 import ProjectRail from "./ProjectRail";
 import ProjectMedia from "./ProjectMedia";
@@ -22,8 +23,12 @@ const statusStyles = {
 export default function Projects() {
   const [expanded, setExpanded] = useState(false);
   const [linkedId, setLinkedId] = useState(null);
+  const [backgroundReady, setBackgroundReady] = useState(false);
   const hasOverflow = projects.length > INITIAL_VISIBLE;
-  const visible = expanded ? projects : projects.slice(0, INITIAL_VISIBLE);
+  const visible = expanded || backgroundReady ? projects : projects.slice(0, INITIAL_VISIBLE);
+
+  // Retain collapsed players after load, so Show All never constructs them again.
+  useEffect(() => afterPageLoad(() => setBackgroundReady(true)), []);
 
   // Deep links from the experience timeline (#project-<id>) reveal the project first
   useEffect(() => {
@@ -79,8 +84,11 @@ export default function Projects() {
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.6 }}
                 id={`project-${project.id}`}
+                hidden={!expanded && i >= INITIAL_VISIBLE}
                 className={
-                  isCollection
+                  !expanded && i >= INITIAL_VISIBLE
+                    ? "hidden"
+                    : isCollection
                     ? "scroll-mt-32"
                     : "grid scroll-mt-32 items-center gap-8 lg:grid-cols-12 lg:gap-12"
                 }
@@ -91,7 +99,7 @@ export default function Projects() {
                       reversed ? "lg:order-2" : "lg:order-1"
                     }`}
                   >
-                    <ProjectMedia project={project} />
+                    <ProjectMedia project={project} active={expanded || i < INITIAL_VISIBLE} />
                   </div>
                 )}
 
@@ -212,10 +220,10 @@ export default function Projects() {
                 </div>
 
                 {project.prototypes && (
-                  <PrototypeCollection prototypes={project.prototypes} />
+                  <PrototypeCollection prototypes={project.prototypes} active={expanded || i < INITIAL_VISIBLE} />
                 )}
 
-                {project.jams && <JamCollection jams={project.jams} />}
+                {project.jams && <JamCollection jams={project.jams} active={expanded || i < INITIAL_VISIBLE} />}
               </motion.article>
             );
           })}

@@ -6,6 +6,9 @@ const UPLOAD = "/image/upload/";
 
 export function sizedImage(src, width) {
   if (typeof src !== "string" || !width) return src;
+  if (src.startsWith("https://play-lh.googleusercontent.com/")) {
+    return `${src.replace(/=[^/]*$/, "")}=w${width}-h${width}-rw`;
+  }
 
   const at = src.indexOf(UPLOAD);
   if (at === -1) return src;

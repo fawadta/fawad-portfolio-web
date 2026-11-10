@@ -47,7 +47,7 @@ function Placeholder({ project }) {
   );
 }
 
-export default function ProjectMedia({ project }) {
+export default function ProjectMedia({ project, active: projectActive = true }) {
   const tabs = project.media?.length ? project.media : null;
   const items = tabs || [project];
   const [active, setActive] = useState(0);
@@ -69,7 +69,7 @@ export default function ProjectMedia({ project }) {
         {items.map((item, i) => {
           const videoId = getYouTubeId(item.video);
           const store = item.media && !Array.isArray(item.media) ? item.media : null;
-          const isActive = i === active;
+          const isActive = projectActive && i === active;
 
           return (
             <div
@@ -102,6 +102,10 @@ export default function ProjectMedia({ project }) {
                 >
                   <Image
                     src={sizedImage(item.image, 1200)}
+                    srcSet={[400, 640, 960, 1200].map((width) => `${sizedImage(item.image, width)} ${width}w`).join(", ")}
+                    sizes="(max-width: 639px) calc(100vw - 84px), (max-width: 1023px) calc(100vw - 112px), 650px"
+                    loading="lazy"
+                    decoding="async"
                     alt={`${project.name} — ${project.tagline}`}
                     className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     fittingType="fill"

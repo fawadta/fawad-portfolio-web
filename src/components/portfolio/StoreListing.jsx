@@ -1,5 +1,6 @@
 import { Play } from "lucide-react";
 import { Image } from "@/components/ui/image";
+import { sizedImage } from "@/lib/cloudinary";
 
 const SIZES = {
   frame: {
@@ -65,8 +66,10 @@ export default function StoreListing({ store = {}, size = "frame", className = "
             {shots.map((shot, i) => (
               <Image
                 key={shot}
-                src={shot}
+                src={sizedImage(shot, 160)}
                 alt=""
+                loading="lazy"
+                decoding="async"
                 fittingType="fill"
                 className={`h-full flex-1 object-cover ${s.backdrop} ${
                   i > 0 ? "border-l border-border/40" : ""
@@ -77,8 +80,10 @@ export default function StoreListing({ store = {}, size = "frame", className = "
         ) : (
           store.icon && (
             <Image
-              src={store.icon}
+              src={sizedImage(store.icon, 160)}
               alt=""
+              loading="lazy"
+              decoding="async"
               fittingType="fill"
               className={`absolute inset-0 h-full w-full object-cover ${s.backdrop}`}
             />
@@ -94,8 +99,12 @@ export default function StoreListing({ store = {}, size = "frame", className = "
             <span className="absolute inset-0 rounded-2xl bg-cyan/40 blur-2xl" />
             {store.icon && (
               <Image
-                src={store.icon}
+                src={sizedImage(store.icon, size === "lg" ? 320 : 256)}
+                srcSet={[128, 256, 320].map((width) => `${sizedImage(store.icon, width)} ${width}w`).join(", ")}
+                sizes={size === "lg" ? "(max-width: 639px) 80px, 160px" : "(max-width: 639px) 64px, 128px"}
                 alt={`${store.title} icon`}
+                loading="lazy"
+                decoding="async"
                 fittingType="fill"
                 className={`relative rounded-2xl border border-cyan/30 shadow-2xl ${s.icon}`}
               />

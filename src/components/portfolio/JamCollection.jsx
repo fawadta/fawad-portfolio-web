@@ -20,7 +20,7 @@ import { Image } from "@/components/ui/image";
  */
 
 /** @param {{ jams?: GameJam[] }} props */
-export default function JamCollection({ jams = [] }) {
+export default function JamCollection({ jams = [], active = true }) {
   const [index, setIndex] = useState(0);
 
   if (!jams.length) return null;
@@ -78,7 +78,6 @@ export default function JamCollection({ jams = [] }) {
       </div>
 
       <motion.div
-        key={jam.name}
         initial={{ opacity: 0, x: 24 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
@@ -86,13 +85,16 @@ export default function JamCollection({ jams = [] }) {
       >
         <div className="lg:col-span-7">
           <div className="relative aspect-video overflow-hidden rounded-xl border border-border bg-ink">
-            {videoId ? (
-              <VideoEmbed
-                videoId={videoId}
-                active
-                title={`${jam.name} — gameplay`}
-              />
-            ) : jam.image ? (
+            {jams.map((item, i) => {
+              const id = getYouTubeId(item.video);
+              return id ? (
+                <div key={item.name} aria-hidden={!active || i !== position}
+                  className={`absolute inset-0 ${i === position ? "" : "invisible pointer-events-none"}`}>
+                  <VideoEmbed videoId={id} active={active && i === position} title={`${item.name} — gameplay`} />
+                </div>
+              ) : null;
+            })}
+            {videoId ? null : jam.image ? (
               <Image
                 src={jam.image}
                 alt={`${jam.name} — ${jam.label || "game jam project"}`}

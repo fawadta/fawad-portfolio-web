@@ -13,7 +13,7 @@ import VideoEmbed from "./VideoEmbed";
  */
 
 /** @param {{ prototypes?: Prototype[] }} props */
-export default function PrototypeCollection({ prototypes = [] }) {
+export default function PrototypeCollection({ prototypes = [], active = true }) {
   if (!prototypes.length) return null;
 
   return (
@@ -45,7 +45,7 @@ export default function PrototypeCollection({ prototypes = [] }) {
                 {videoId && (
                   <VideoEmbed
                     videoId={videoId}
-                    active
+                    active={active}
                     title={`${prototype.name} — gameplay`}
                   />
                 )}

@@ -22,8 +22,10 @@ export default function MediaGallery({ images = [], fit = "cover", altBase = "" 
         {isContain && items[i]?.src && (
           <div aria-hidden="true" className="pointer-events-none absolute inset-0">
             <Image
-              src={sizedImage(items[i].src, 400)}
+              src={sizedImage(items[i].src, 160)}
               alt=""
+              loading="lazy"
+              decoding="async"
               fittingType="fill"
               className="h-full w-full scale-125 object-cover opacity-85 blur-[26px]"
             />
@@ -44,8 +46,11 @@ export default function MediaGallery({ images = [], fit = "cover", altBase = "" 
             >
               <Image
                 src={sizedImage(item.src, 1200)}
+                srcSet={[400, 640, 960, 1200].map((width) => `${sizedImage(item.src, width)} ${width}w`).join(", ")}
+                sizes="(max-width: 639px) calc(100vw - 84px), (max-width: 1023px) calc(100vw - 112px), 650px"
                 alt={`${altBase} ${d + 1}`}
-                loading={Math.abs(d - i) > 1 ? "lazy" : undefined}
+                loading="lazy"
+                decoding="async"
                 fittingType={fit === "contain" ? "fit" : "fill"}
                 className={`h-full w-full ${objectFit} transition-transform duration-500 ease-out ${
                   d === i ? "group-hover:scale-[1.02]" : ""

@@ -105,9 +105,7 @@ export default function Hero() {
             </motion.p>
 
             <motion.p
-              initial={paintFirst ? false : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.15 }}
+              initial={false}
               className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
             >
               {profile.tagline}

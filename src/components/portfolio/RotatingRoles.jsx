@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 // Types each phrase out, pauses, deletes it, then moves to the next one.
 export default function RotatingRoles({ roles }) {
   const [index, setIndex] = useState(0);
-  const [text, setText] = useState("");
+  const [text, setText] = useState(roles[0] || "");
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const full = roles[index % roles.length];
     const finished = text === full;
 
