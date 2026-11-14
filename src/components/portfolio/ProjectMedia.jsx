@@ -40,7 +40,7 @@ function Placeholder({ project }) {
           {project.name.split(" ").map((w) => w[0]).join("")}
         </div>
         <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-          gameplay media · coming soon
+          gameplay media · available soon
         </div>
       </div>
     </div>
@@ -85,13 +85,13 @@ export default function ProjectMedia({ project, active: projectActive = true }) 
                   start={getYouTubeStart(item.video)}
                   end={item.end || item.videoEnd}
                   active={isActive}
-                  title={`${project.name} — ${item.label || project.tagline}`}
+                  title={`${project.name}, ${item.label || project.tagline}`}
                 />
               ) : item.images?.length ? (
                 <MediaGallery
                   images={item.images}
                   fit={item.fit}
-                  altBase={`${project.name} — ${item.label}`}
+                  altBase={`${project.name}, ${item.label}`}
                 />
               ) : item.image ? (
                 <button
@@ -106,7 +106,7 @@ export default function ProjectMedia({ project, active: projectActive = true }) 
                     sizes="(max-width: 639px) calc(100vw - 84px), (max-width: 1023px) calc(100vw - 112px), 650px"
                     loading="lazy"
                     decoding="async"
-                    alt={`${project.name} — ${project.tagline}`}
+                    alt={`${project.name}, ${project.tagline}`}
                     className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     fittingType="fill"
                   />

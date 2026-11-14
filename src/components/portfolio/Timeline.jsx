@@ -48,7 +48,7 @@ export default function Timeline() {
   return (
     <section ref={sectionRef} id="experience" className="relative pt-14 pb-24 sm:pt-16 sm:pb-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading index="04" kicker="Lifecycle" title="Experience Timeline" />
+        <SectionHeading index="04" kicker="Work history" title="Experience timeline" />
 
         <div className="relative">
           <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border sm:left-[11px]">

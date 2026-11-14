@@ -75,7 +75,7 @@ export default function Nav() {
               onClick={() => handleNav("#contact")}
               className="ml-2 rounded-md border border-cyan/50 px-4 py-2 font-mono text-xs uppercase tracking-widest text-cyan transition-all hover:bg-cyan hover:text-ink focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-cyan"
             >
-              Get in Touch
+              Get in touch
             </button>
           </div>
 
@@ -105,7 +105,7 @@ export default function Nav() {
                 onClick={() => handleNav("#contact")}
                 className="mt-2 rounded-md bg-cyan px-4 py-3 text-center font-mono text-xs uppercase tracking-widest text-ink"
               >
-                Get in Touch
+                Get in touch
               </button>
             </div>
           </div>

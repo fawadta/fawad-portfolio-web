@@ -17,7 +17,7 @@ export default function Expertise() {
       className="relative border-t border-border bg-surface-2/40 pt-24 pb-14 sm:pt-32 sm:pb-16"
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading index="02" kicker="Capability Map" title="The Expertise Matrix" />
+        <SectionHeading index="02" kicker="Capability map" title="The expertise matrix" />
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {expertise.map((group, gi) => (
@@ -43,7 +43,7 @@ export default function Expertise() {
         >
           <h3 className="mb-4 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-amber">
             <span className="h-1.5 w-1.5 rounded-full bg-amber" />
-            Domains & Genres
+            Domains and genres
           </h3>
           <TagCloud items={domains} accent="amber" />
         </TiltCard>
@@ -55,7 +55,7 @@ export default function Expertise() {
         >
           <h3 className="mb-4 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground" />
-            Tools & Production
+            Tools and production
           </h3>
           <TagCloud items={tools} accent="ghost" />
         </TiltCard>

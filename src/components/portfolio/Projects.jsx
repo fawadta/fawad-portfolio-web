@@ -70,7 +70,7 @@ export default function Projects() {
   return (
     <section id="work" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-7xl pl-5 pr-16 sm:pl-8 sm:pr-20">
-        <SectionHeading index="01" kicker="Selected Work" title="Project Viewport" />
+        <SectionHeading index="01" kicker="Selected work" title="Project viewport" />
 
         <div className="space-y-20 sm:space-y-28">
           {visible.map((project, i) => {
@@ -203,7 +203,7 @@ export default function Projects() {
                       rel="noreferrer"
                       className="group/link mt-6 inline-flex items-center gap-2 border-b border-cyan/40 pb-1 font-mono text-xs uppercase tracking-widest text-cyan transition-colors hover:border-cyan"
                     >
-                      {project.linkLabel || "Launch Project"}
+                      {project.linkLabel || "Open project"}
                       <ArrowUpRight
                         size={14}
                         className="transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
@@ -236,7 +236,7 @@ export default function Projects() {
               aria-expanded={expanded}
               className="group inline-flex items-center gap-2.5 rounded-full border border-border bg-surface px-6 py-3 font-mono text-xs uppercase tracking-widest text-ghost transition-colors hover:border-cyan/60 hover:text-cyan"
             >
-              {expanded ? "Show Less" : `Show All ${projects.length} Projects`}
+              {expanded ? "Show less" : `Show all ${projects.length} projects`}
               <ChevronDown
                 size={14}
                 className={`transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}

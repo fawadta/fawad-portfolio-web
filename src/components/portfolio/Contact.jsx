@@ -23,7 +23,7 @@ const sendMessage = async (payload) => {
       body: JSON.stringify(payload),
     });
   } catch {
-    throw new Error("Your message wasn't sent. Check your connection and try again.");
+    throw new Error("The message was not sent. Check your connection and try again.");
   }
   if (response.ok) return;
   const body = await response.json().catch(() => null);
@@ -107,11 +107,12 @@ export default function Contact() {
           <h2 className="mt-4 font-display text-4xl font-bold leading-[0.95] tracking-tight text-ghost sm:text-6xl md:text-7xl">
             LET'S BUILD THE
             <br />
-            <span className="text-stroke">NEXT REALITY.</span>
+            <span className="text-stroke">NEXT GAME.</span>
           </h2>
           <p className="mx-auto mt-5 max-w-lg text-base text-muted-foreground">
-            Building for <strong className="font-semibold text-foreground">mobile, PC and XR</strong>;
-            open to roles, contracts and collaborations. Drop a line, <em>I read every message.</em>
+            I build for <strong className="font-semibold text-foreground">mobile, PC and XR</strong>.
+            I am open to roles, contracts and collaborations. Send a message.{" "}
+            <em>I read every message.</em>
           </p>
         </motion.div>
 
@@ -159,7 +160,7 @@ export default function Contact() {
                   htmlFor="name"
                   className="mb-1.5 block font-mono text-[10px] uppercase tracking-widest text-muted-foreground"
                 >
-                  Your Name
+                  Your name
                 </label>
                 <input
                   id="name"
@@ -184,7 +185,7 @@ export default function Contact() {
                   htmlFor="email"
                   className="mb-1.5 block font-mono text-[10px] uppercase tracking-widest text-muted-foreground"
                 >
-                  Your Email
+                  Your email
                 </label>
                 <input
                   id="email"
@@ -221,7 +222,7 @@ export default function Contact() {
                   aria-invalid={Boolean(fieldErrors.message)}
                   aria-describedby={fieldErrors.message ? "message-error" : undefined}
                   className={`${inputClass(Boolean(fieldErrors.message))} resize-none`}
-                  placeholder="Tell me about the role or project..."
+                  placeholder="Tell me about the role or the project."
                 />
                 {fieldErrors.message && (
                   <p id="message-error" className="mt-1.5 font-mono text-xs text-destructive">
@@ -239,7 +240,7 @@ export default function Contact() {
                 <div className="flex items-center gap-2 rounded-md border border-cyan/40 bg-cyan/5 px-3 py-2.5">
                   <CheckCircle2 size={16} className="text-cyan" />
                   <p className="font-mono text-xs text-cyan">
-                    Message submitted successfully. I'll get back to you soon.
+                    The message is sent. I will reply soon.
                   </p>
                 </div>
               )}
@@ -249,7 +250,7 @@ export default function Contact() {
                 disabled={status === "sending"}
                 className="group inline-flex w-full items-center justify-center gap-2 rounded-md bg-cyan px-5 py-3 font-mono text-xs uppercase tracking-widest text-ink transition-transform hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
               >
-                {status === "sending" ? "Sending…" : "Send Message"}
+                {status === "sending" ? "Sending…" : "Send message"}
                 {status === "sending" ? (
                   <Loader2 size={14} className="animate-spin" />
                 ) : (

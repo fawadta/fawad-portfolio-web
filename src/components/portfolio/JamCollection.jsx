@@ -90,14 +90,14 @@ export default function JamCollection({ jams = [], active = true }) {
               return id ? (
                 <div key={item.name} aria-hidden={!active || i !== position}
                   className={`absolute inset-0 ${i === position ? "" : "invisible pointer-events-none"}`}>
-                  <VideoEmbed videoId={id} active={active && i === position} title={`${item.name} — gameplay`} />
+                  <VideoEmbed videoId={id} active={active && i === position} title={`${item.name}: gameplay`} />
                 </div>
               ) : null;
             })}
             {videoId ? null : jam.image ? (
               <Image
                 src={jam.image}
-                alt={`${jam.name} — ${jam.label || "game jam project"}`}
+                alt={`${jam.name}, ${jam.label || "game jam project"}`}
                 className="h-full w-full object-cover"
               />
             ) : (

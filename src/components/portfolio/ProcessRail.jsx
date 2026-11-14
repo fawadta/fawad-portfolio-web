@@ -14,13 +14,13 @@ export default function ProcessRail() {
             className="lg:col-span-4"
           >
             <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-cyan">
-              // how i work
+              // how I work
             </span>
             <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ghost sm:text-3xl">
               Prototype to ship
             </h2>
             <p className="mt-2 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              The same three passes on every project, whether it lands on a store or in a headset.
+              Each project uses the same three steps. I use them for store games and for VR apps.
             </p>
           </motion.div>
 

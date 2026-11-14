@@ -13,7 +13,7 @@ export default function Footer() {
             FA
           </span>
           <span className="font-mono text-[11px] text-muted-foreground">
-            {profile.name} — {profile.title}
+            {profile.name}, {profile.title}
           </span>
           <span
             className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest ${

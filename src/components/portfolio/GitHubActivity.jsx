@@ -47,7 +47,7 @@ export default function GitHubActivity() {
 
   const stats = data
     ? [
-        { label: "Contributions · 12 mo", value: data.total.toLocaleString() },
+        { label: "Contributions, 12 months", value: data.total.toLocaleString() },
         { label: "Current streak", value: `${data.currentStreak} d` },
         { label: "Longest streak", value: `${data.longestStreak} d` },
       ]
@@ -56,7 +56,7 @@ export default function GitHubActivity() {
   return (
     <section ref={sectionRef} id="activity" className="relative pt-10 pb-12 sm:pt-14 sm:pb-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading index="03" kicker="Live Signal" title="Commit Activity" />
+        <SectionHeading index="03" kicker="Live signal" title="Commit activity" />
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -72,7 +72,7 @@ export default function GitHubActivity() {
               </span>
               <div>
                 <span className="block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                  GitHub · live from the API
+                  GitHub, live from the API
                 </span>
                 <span className="block font-display text-base font-semibold text-ghost">
                   {data ? `@${data.login}` : "Syncing activity…"}
@@ -96,7 +96,7 @@ export default function GitHubActivity() {
 
           {failed && (
             <p className="mt-6 font-mono text-xs text-muted-foreground">
-              Live GitHub activity is unavailable right now — try again shortly.
+              Live GitHub activity is not available now. Try again later.
             </p>
           )}
 
@@ -108,7 +108,7 @@ export default function GitHubActivity() {
                 ))}
               </div>
               <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                Fetching contribution graph…
+                Getting the contribution graph…
               </p>
             </div>
           )}

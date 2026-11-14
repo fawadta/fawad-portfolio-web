@@ -2,9 +2,9 @@ import PageShell from "@/components/portfolio/PageShell";
 import Contact from "@/components/portfolio/Contact";
 import { profile } from "@/lib/portfolioData";
 
-const TITLE = "Contact Fawad Ahmad — Unity and XR Developer";
+const TITLE = "Contact Fawad Ahmad, Unity and XR developer";
 const DESCRIPTION =
-  "Get in touch about senior Unity roles, contracts or collaborations across mobile, PC and Meta Quest. Email contact@fawadta.com or send a message.";
+  "Contact Fawad Ahmad about senior Unity roles, contracts or collaborations on mobile, PC and Meta Quest projects. Send an email to contact@fawadta.com or use the form.";
 
 export default function ContactPage() {
   return (
@@ -18,9 +18,9 @@ export default function ContactPage() {
             Contact Fawad Ahmad
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Open to senior Unity roles, contracts and collaborations across mobile, PC and XR.
-            Email <a className="text-cyan underline underline-offset-2" href={`mailto:${profile.email}`}>{profile.email}</a>,
-            call {profile.phone}, or send a message below. Based in {profile.location}, working remotely.
+            I am open to senior Unity roles, contracts and collaborations on mobile, PC and XR
+            projects. Send an email to <a className="text-cyan underline underline-offset-2" href={`mailto:${profile.email}`}>{profile.email}</a>,
+            call {profile.phone}, or use the form below. I am in {profile.location} and I work remotely.
           </p>
         </div>
       </section>

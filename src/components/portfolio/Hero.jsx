@@ -62,7 +62,7 @@ export default function Hero() {
               </span>
               <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-ghost">
                 {profile.isAvailable !== false
-                  ? "Available for game development & XR roles"
+                  ? "Available for game development and XR roles"
                   : "Not taking new roles right now"}
               </span>
             </motion.div>
@@ -122,7 +122,7 @@ export default function Hero() {
                   onClick={scrollToWork}
                   className="group inline-flex items-center gap-2 rounded-md bg-cyan px-5 py-3 font-mono text-xs uppercase tracking-widest text-ink transition-transform hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
                 >
-                  View Work
+                  View work
                   <ArrowDown size={15} className="transition-transform group-hover:translate-y-0.5" />
                 </button>
               </MagneticButton>
@@ -135,7 +135,7 @@ export default function Hero() {
                   }}
                   className="inline-flex items-center gap-2 rounded-md border border-border px-5 py-3 font-mono text-xs uppercase tracking-widest text-ghost transition-colors hover:border-cyan/60 hover:text-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
                 >
-                  Download Résumé
+                  Download résumé
                   <Download size={15} />
                 </button>
               </MagneticButton>
@@ -148,7 +148,7 @@ export default function Hero() {
                   }}
                   className="inline-flex items-center gap-2 rounded-md border border-border px-5 py-3 font-mono text-xs uppercase tracking-widest text-ghost transition-colors hover:border-cyan/60 hover:text-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
                 >
-                  Get in Touch
+                  Get in touch
                   <ArrowUpRight size={15} />
                 </a>
               </MagneticButton>

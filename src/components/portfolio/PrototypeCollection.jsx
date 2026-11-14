@@ -46,7 +46,7 @@ export default function PrototypeCollection({ prototypes = [], active = true }) 
                   <VideoEmbed
                     videoId={videoId}
                     active={active}
-                    title={`${prototype.name} — gameplay`}
+                    title={`${prototype.name}: gameplay`}
                   />
                 )}
               </div>

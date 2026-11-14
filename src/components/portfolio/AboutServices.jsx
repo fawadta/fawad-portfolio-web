@@ -15,7 +15,7 @@ export default function AboutServices() {
   return (
     <>
       <h2 className="mt-12 font-display text-2xl font-bold text-ghost sm:text-3xl">
-        What he takes on
+        Services
       </h2>
       <ul className="mt-6 space-y-4">
         {services.map((service) => (

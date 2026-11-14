@@ -11,9 +11,10 @@ export function validateEmail(value) {
   const email = String(value ?? "").trim();
   if (!email) return "Please enter your email address.";
   if (email.length > CONTACT_LIMITS.email) return "That email address is too long.";
-  if (email.includes("..")) return "That email address doesn't look right — check for a typo.";
-  if (email.split("@")[0].length > 64) return "That email address doesn't look right — check for a typo.";
-  if (!EMAIL_RE.test(email)) return "That email address doesn't look right — check for a typo.";
+  const shapeError = "That email address is not correct. Check it for a typing error.";
+  if (email.includes("..")) return shapeError;
+  if (email.split("@")[0].length > 64) return shapeError;
+  if (!EMAIL_RE.test(email)) return shapeError;
   return "";
 }
 
@@ -31,8 +32,8 @@ export function validateContact(form) {
   if (emailError) errors.email = emailError;
 
   if (!message) errors.message = "Please add a message.";
-  else if (message.length < 10) errors.message = "Please add a little more detail — at least 10 characters.";
-  else if (message.length > CONTACT_LIMITS.message) errors.message = "That message is too long — please keep it under 5,000 characters.";
+  else if (message.length < 10) errors.message = "Please write more detail. The message needs at least 10 characters.";
+  else if (message.length > CONTACT_LIMITS.message) errors.message = "The message is too long. Keep it below 5,000 characters.";
 
   return errors;
 }
@@ -40,11 +41,11 @@ export function validateContact(form) {
 // Any failure becomes plain, non-technical copy. 400s already carry friendly text.
 export function friendlySendError(status, serverMessage) {
   // Fallback only where the form genuinely can't deliver — not where the visitor can fix it.
-  const direct = `Please email me directly at ${profile.email}.`;
+  const direct = `Send an email to ${profile.email}.`;
   if (status === 400 && serverMessage) return serverMessage;
-  if (status === 429) return "Too many messages just now — please wait a minute and try again.";
-  if (status === 413) return "That message is too long to send.";
-  if (status === 403) return `This page isn't allowed to send messages right now. ${direct}`;
-  if (status >= 500) return `The message couldn't be delivered right now. ${direct}`;
-  return `Your message wasn't sent. ${direct}`;
+  if (status === 429) return "Too many messages. Wait one minute and try again.";
+  if (status === 413) return "The message is too long to send.";
+  if (status === 403) return `This page cannot send messages now. ${direct}`;
+  if (status >= 500) return `The system cannot deliver the message now. ${direct}`;
+  return `The message was not sent. ${direct}`;
 }
