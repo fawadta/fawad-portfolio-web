@@ -1,12 +1,22 @@
+import { useState } from "react";
 import { Play } from "lucide-react";
 import { Image } from "@/components/ui/image";
 
+const THUMBNAILS = ["maxresdefault.jpg", "sddefault.jpg", "hqdefault.jpg"];
+
 export default function VideoPreview({ videoId, title, onPlay, active }) {
+  const [quality, setQuality] = useState(0);
+  const fallback = () => setQuality((value) => Math.min(value + 1, THUMBNAILS.length - 1));
   return (
     <button type="button" onClick={onPlay} tabIndex={active ? 0 : -1}
       aria-label={`Play on YouTube: ${title}`}
       className="group absolute inset-0 overflow-hidden text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
-      <Image src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`} alt="" aria-hidden="true"
+      <Image src={`https://i.ytimg.com/vi/${videoId}/${THUMBNAILS[quality]}`} alt="" aria-hidden="true"
+        onError={fallback}
+        onLoad={(event) => {
+          // YouTube can return a tiny placeholder instead of an HTTP error.
+          if (event.currentTarget.naturalWidth <= 120 && quality < THUMBNAILS.length - 1) fallback();
+        }}
         loading="lazy" decoding="async" fittingType="fill" className="absolute inset-0 h-full w-full object-cover" />
       <span className="absolute inset-x-0 top-0 bg-gradient-to-b from-background/90 to-transparent px-4 pb-10 pt-3 text-sm font-medium text-foreground">
         {title}
