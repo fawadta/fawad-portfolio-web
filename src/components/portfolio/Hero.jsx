@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, FileText } from "lucide-react";
+import { ArrowDown, Download } from "lucide-react";
 import { profile, heroRoles } from "@/lib/portfolioData";
 import RotatingRoles from "@/components/portfolio/RotatingRoles";
 import ProfileCard from "@/components/portfolio/ProfileCard";
@@ -133,8 +133,8 @@ export default function Hero() {
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 rounded-md border border-border px-5 py-3 font-mono text-xs uppercase tracking-widest text-ghost transition-colors hover:border-cyan/60 hover:text-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
                 >
-                  View résumé
-                  <FileText size={15} />
+                  Download résumé
+                  <Download size={15} />
                 </a>
               </MagneticButton>
               <MagneticButton className="inline-flex">
