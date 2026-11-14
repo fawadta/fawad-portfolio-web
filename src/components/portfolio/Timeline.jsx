@@ -7,6 +7,14 @@ import SectionHeading from "./SectionHeading";
 const projectByName = new Map(projects.map((project) => [project.name, project.id]));
 projectByName.set("EPU", "epu-vaccination");
 
+// Prototype and jam names open their own item inside the collection.
+const itemTargets = new Map();
+projects.forEach((project) => {
+  [...(project.prototypes || []), ...(project.jams || [])].forEach((item) => {
+    itemTargets.set(item.name, `#project-${project.id}/${encodeURIComponent(item.name)}`);
+  });
+});
+
 const renderPoint = (text) =>
   text
     .split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g)
@@ -15,11 +23,12 @@ const renderPoint = (text) =>
       if (chunk.startsWith("**")) {
         const label = chunk.slice(2, -2);
         const targetId = projectByName.get(label);
-        if (targetId) {
+        const targetHref = targetId ? `#project-${targetId}` : itemTargets.get(label);
+        if (targetHref) {
           return (
             <a
               key={i}
-              href={`#project-${targetId}`}
+              href={targetHref}
               className="font-semibold text-ghost underline decoration-cyan/40 decoration-dotted underline-offset-4 transition-colors hover:text-cyan hover:decoration-cyan"
             >
               {label}

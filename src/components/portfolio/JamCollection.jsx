@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, ChevronLeft, ChevronRight, Globe } from "lucide-react";
 import { getYouTubeId } from "./ProjectMedia";
@@ -20,8 +20,15 @@ import { Image } from "@/components/ui/image";
  */
 
 /** @param {{ jams?: GameJam[] }} props */
-export default function JamCollection({ jams = [], active = true }) {
+export default function JamCollection({ jams = [], active = true, selectedItem = null }) {
   const [index, setIndex] = useState(0);
+
+  // A link such as #project-game-jams/Field%20Chaos selects that jam.
+  useEffect(() => {
+    if (!selectedItem) return;
+    const target = jams.findIndex((item) => item.name === selectedItem);
+    if (target >= 0) setIndex(target);
+  }, [selectedItem, jams]);
 
   if (!jams.length) return null;
 
@@ -39,7 +46,7 @@ export default function JamCollection({ jams = [], active = true }) {
           </span>
           <span className="h-3 w-px bg-border" />
           <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground/70">
-            2022 – 2024
+            2021 – 2024
           </span>
           {highlightCount > 0 && (
             <span className="inline-flex items-center gap-1.5 rounded-full border border-amber/40 bg-amber/10 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-amber">

@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, ArrowUpRight, Download } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowDown, FileText } from "lucide-react";
 import { profile, heroRoles } from "@/lib/portfolioData";
 import RotatingRoles from "@/components/portfolio/RotatingRoles";
 import ProfileCard from "@/components/portfolio/ProfileCard";
@@ -127,17 +128,15 @@ export default function Hero() {
                 </button>
               </MagneticButton>
               <MagneticButton className="inline-flex">
-                <button
-                  type="button"
-                  onClick={() => {
-                    const url = profile.resume?.trim();
-                    if (url) window.open(url, "_blank", "noopener,noreferrer");
-                  }}
+                <Link
+                  to="/resume"
+                  target="_blank"
+                  rel="noreferrer"
                   className="inline-flex items-center gap-2 rounded-md border border-border px-5 py-3 font-mono text-xs uppercase tracking-widest text-ghost transition-colors hover:border-cyan/60 hover:text-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
                 >
-                  Download résumé
-                  <Download size={15} />
-                </button>
+                  View résumé
+                  <FileText size={15} />
+                </Link>
               </MagneticButton>
               <MagneticButton className="inline-flex">
                 <a
@@ -149,7 +148,7 @@ export default function Hero() {
                   className="inline-flex items-center gap-2 rounded-md border border-border px-5 py-3 font-mono text-xs uppercase tracking-widest text-ghost transition-colors hover:border-cyan/60 hover:text-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
                 >
                   Get in touch
-                  <ArrowUpRight size={15} />
+                  <ArrowDown size={15} />
                 </a>
               </MagneticButton>
             </motion.div>

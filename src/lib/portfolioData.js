@@ -24,7 +24,7 @@ export const profile = {
 };
 
 export const proofPoints = [
-  { value: "40+", label: "Games and prototypes" },
+  { value: "41+", label: "Games and prototypes" },
   { value: "8+", label: "Platforms supported" },
   { value: "100K+", label: "Store downloads" },
   { value: "1st", label: "Final year project award" },
@@ -250,7 +250,7 @@ const projectsRaw = [
     genre: "Tile game",
     role: "Gameplay Systems Engineer",
     description:
-      "I spent one year on this game and wrote **more than 30,000 lines of code**. The match starts with an **animated 3D table**: tile shuffling, wall building, dealer selection with dice and the full **Charleston**. Then it changes to a **touch-friendly 2D board**. The **hand validation engine** supports **NMJL 2025 and 2026 cards**. The game has **three AI personalities** that adapt to your results, Joker exchanges and false-Mahjong detection. Scores and standings continue across sessions. The game also has **daily, weekly and practice modes**, global leaderboards, login rewards and a multi-currency economy with **subscriptions, rewarded ads and a MahjCredits store**. This economy *includes a paid in-game hint system.*",
+      "I spent one year on this game and wrote **more than 45,000 lines of code**. The match starts with an **animated 3D table**: tile shuffling, wall building, dealer selection with dice and the full **Charleston**. Then it changes to a **touch-friendly 2D board**. The **hand validation engine** supports **NMJL 2025 and 2026 cards**. The game has **three AI personalities** that adapt to your results, Joker exchanges and false-Mahjong detection. Scores and standings continue across sessions. The game also has **daily, weekly and practice modes**, global leaderboards, login rewards and a multi-currency economy with **subscriptions, rewarded ads and a MahjCredits store**. This economy *includes a paid in-game hint system.*",
     status: "Live",
     accent: "amber",
     media: [
@@ -358,7 +358,8 @@ const projectsRaw = [
     accent: "cyan",
     media: {
       playstore: "https://play.google.com/store/apps/details?id=com.fgl.water.park.sim",
-      icon: "https://play-lh.googleusercontent.com/yBow4N_KMFLcqCY8tQIoFUbKHNR7oXL47u7V71NCUVzNu5KkXsJel8Mi2k_ix_2rRqveyP_QCXDaMHab_ljmt0Q=w240-h480-rw",
+      // Paste a Cloudinary (or other permanent) icon URL on this line if the Play Store address ever changes again.
+      icon: "https://play-lh.googleusercontent.com/yBow4N_KMFLcqCY8tQIoFUbKHNR7oXL47u7V71NCUVzNu5KkXsJel8Mi2k_ix_2rRqveyP_QCXDaMHab_ljmtQ=w512",
       title: "Water Park Fun Simulator Game",
       developer: "Furious Games Lab",
       downloads: "100K+",
@@ -417,10 +418,10 @@ const projectsRaw = [
     name: "Game Jam Collection",
     tagline: "Eight prototypes from game jams, freelance work and personal projects. Two are on the official Global Game Jam site.",
     platform: "Mobile · PC",
-    genre: "Game jams · Indie · 2022 to 2024",
+    genre: "Game jams · Indie · 2021 to 2024",
     role: "Development · Game design · 2D/3D art, alone and in teams",
     description:
-      "Eight playable prototypes made between **2022 and 2024**. They come from **game jams, paid freelance work and personal projects**, at **national and international jams**, *alone and with remote teams*. My work covered **development, game design and 2D/3D art.** Two prototypes are on the **official Global Game Jam** site: *BounceBurst (2024)* and *Root Seed Rising (2023)*.",
+      "Eight playable prototypes made between **2021 and 2024**. They come from **game jams, paid freelance work and personal projects**, at **national and international jams**, *alone and with remote teams*. My work covered **development, game design and 2D/3D art.** Two prototypes are on the **official Global Game Jam** site: *BounceBurst (2024)* and *Root Seed Rising (2023)*.",
     status: "Showcase",
     accent: "amber",
     jams: [
@@ -665,7 +666,7 @@ export const experience = [
     current: true,
     points: [
       "**Patient VR**: Gesture-driven rehabilitation sessions for sports, driving and breathing. The work includes hand tracking, art, VFX and Quest performance.",
-      "**Mahjong**: A hand validation engine of more than 30,000 lines for NMJL 2025 and 2026 cards, three adaptive AI personalities and a coin economy.",
+      "**Mahjong**: A hand validation engine of more than 45,000 lines for NMJL 2025 and 2026 cards, three adaptive AI personalities and a coin economy.",
       "**Drone Simulator**: Checkpoint missions and a replay system that records and re-runs each session. Trainers can review the session from several cameras.",
       "**Eternity**: An HDRP cinematic drive from a quiet road, through a liquid portal, into a galaxy.",
       "**Exloris**: A Nile exploration learning app with a 3D world, voice-over dialogue and guided progression.",
@@ -697,7 +698,7 @@ export const experience = [
   {
     company: "Game Jams and Freelance",
     role: "Developer · Designer · Artist",
-    duration: "2022 to 2024",
+    duration: "2021 to 2024",
     points: [
       "**Water Park Simulator**: A commercial management game that I built alone from prototype to release: mechanics, controls, audio, VFX, ads and publishing. *It has 100K+ downloads on Google Play.*",
       "**Gameplay Mechanics Lab**: **Color Wars** (turn-based grid logic and chain captures), **Getting Over It** (hammer momentum physics), **Puppy Runner** (endless runner flow) and **Spy Heist Shadows** (stealth AI with dynamic lighting).",

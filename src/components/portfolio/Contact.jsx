@@ -34,15 +34,24 @@ export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "", company: "" });
   // Real visitors take seconds to type; bots submit the moment the page loads.
   const startedAt = useRef(Date.now());
+  const messageRef = useRef(null);
   const [fieldErrors, setFieldErrors] = useState({});
   const [status, setStatus] = useState("idle");
   const [sendError, setSendError] = useState("");
+
+  // The message field grows with the text instead of adding a scrollbar.
+  const growMessage = (el) => {
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = `${Math.max(112, el.scrollHeight)}px`;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
     setFieldErrors((prev) => ({ ...prev, [name]: "" }));
     setSendError("");
+    if (name === "message") growMessage(e.target);
   };
 
   const handleSubmit = async (e) => {
@@ -68,6 +77,7 @@ export default function Contact() {
         elapsedMs: Date.now() - startedAt.current,
       });
       setForm({ name: "", email: "", message: "", company: "" });
+      if (messageRef.current) messageRef.current.style.height = "";
       startedAt.current = Date.now();
       setStatus("sent");
       setTimeout(() => setStatus("idle"), 8000);
@@ -172,7 +182,7 @@ export default function Contact() {
                   aria-invalid={Boolean(fieldErrors.name)}
                   aria-describedby={fieldErrors.name ? "name-error" : undefined}
                   className={inputClass(Boolean(fieldErrors.name))}
-                  placeholder="Jane Recruiter"
+                  placeholder="Your name"
                 />
                 {fieldErrors.name && (
                   <p id="name-error" className="mt-1.5 font-mono text-xs text-destructive">
@@ -197,7 +207,7 @@ export default function Contact() {
                   aria-invalid={Boolean(fieldErrors.email)}
                   aria-describedby={fieldErrors.email ? "email-error" : undefined}
                   className={inputClass(Boolean(fieldErrors.email))}
-                  placeholder="jane@studio.com"
+                  placeholder="you@example.com"
                 />
                 {fieldErrors.email && (
                   <p id="email-error" className="mt-1.5 font-mono text-xs text-destructive">
@@ -215,14 +225,15 @@ export default function Contact() {
                 <textarea
                   id="message"
                   name="message"
+                  ref={messageRef}
                   rows={4}
                   value={form.message}
                   onChange={handleChange}
                   maxLength={CONTACT_LIMITS.message}
                   aria-invalid={Boolean(fieldErrors.message)}
                   aria-describedby={fieldErrors.message ? "message-error" : undefined}
-                  className={`${inputClass(Boolean(fieldErrors.message))} resize-none`}
-                  placeholder="Tell me about the role or the project."
+                  className={`${inputClass(Boolean(fieldErrors.message))} min-h-[112px] overflow-hidden`}
+                  placeholder="A friend says hello. What are you building, or which role is open? A sentence or two is enough."
                 />
                 {fieldErrors.message && (
                   <p id="message-error" className="mt-1.5 font-mono text-xs text-destructive">

@@ -20,7 +20,7 @@ export default function VideoEmbed({ videoId, title, active = true, start, end }
           src={`${YOUTUBE_ORIGIN}/embed/${videoId}?${params.toString()}`}
           title={title} loading="eager" tabIndex={active && player.clicked ? 0 : -1}
           aria-hidden={!player.clicked}
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin" allowFullScreen
           onLoad={player.onLoad} className="absolute inset-0 h-full w-full border-0" />
       )}

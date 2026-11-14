@@ -23,6 +23,7 @@ const statusStyles = {
 export default function Projects() {
   const [expanded, setExpanded] = useState(false);
   const [linkedId, setLinkedId] = useState(null);
+  const [linkedItem, setLinkedItem] = useState(null);
   const [backgroundReady, setBackgroundReady] = useState(false);
   const hasOverflow = projects.length > INITIAL_VISIBLE;
   const visible = expanded || backgroundReady ? projects : projects.slice(0, INITIAL_VISIBLE);
@@ -33,18 +34,22 @@ export default function Projects() {
   // Deep links from the experience timeline (#project-<id>) reveal the project first
   useEffect(() => {
     const sync = () => {
-      const match = /^#project-(.+)$/.exec(window.location.hash);
-      const index = match ? projects.findIndex((p) => p.id === match[1]) : -1;
+      // #project-<id> or #project-<id>/<item name> to open one prototype or jam.
+      const match = /^#project-([^/]+)(?:\/(.+))?$/.exec(window.location.hash);
+      const targetId = match ? decodeURIComponent(match[1]) : null;
+      const index = targetId ? projects.findIndex((p) => p.id === targetId) : -1;
       if (index < 0) {
         setLinkedId(null);
+        setLinkedItem(null);
         return;
       }
+      setLinkedItem(match[2] ? decodeURIComponent(match[2]) : null);
       if (index >= INITIAL_VISIBLE) setExpanded(true);
-      setLinkedId(match[1]);
+      setLinkedId(targetId);
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           document
-            .getElementById(`project-${match[1]}`)
+            .getElementById(`project-${targetId}`)
             ?.scrollIntoView({ behavior: "smooth", block: "start" });
         });
       });
@@ -220,10 +225,20 @@ export default function Projects() {
                 </div>
 
                 {project.prototypes && (
-                  <PrototypeCollection prototypes={project.prototypes} active={expanded || i < INITIAL_VISIBLE} />
+                  <PrototypeCollection
+                    prototypes={project.prototypes}
+                    active={expanded || i < INITIAL_VISIBLE}
+                    selectedItem={linkedItem}
+                  />
                 )}
 
-                {project.jams && <JamCollection jams={project.jams} active={expanded || i < INITIAL_VISIBLE} />}
+                {project.jams && (
+                  <JamCollection
+                    jams={project.jams}
+                    active={expanded || i < INITIAL_VISIBLE}
+                    selectedItem={linkedItem}
+                  />
+                )}
               </motion.article>
             );
           })}

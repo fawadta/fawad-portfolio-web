@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { getYouTubeId } from "./ProjectMedia";
@@ -13,7 +14,18 @@ import VideoEmbed from "./VideoEmbed";
  */
 
 /** @param {{ prototypes?: Prototype[] }} props */
-export default function PrototypeCollection({ prototypes = [], active = true }) {
+export default function PrototypeCollection({ prototypes = [], active = true, selectedItem = null }) {
+  const selectedRef = useRef(null);
+
+  // A link such as #project-mechanics-lab/Color%20Wars brings that card into view.
+  useEffect(() => {
+    if (!selectedItem) return;
+    const timer = setTimeout(() => {
+      selectedRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [selectedItem]);
+
   if (!prototypes.length) return null;
 
   return (
@@ -31,15 +43,19 @@ export default function PrototypeCollection({ prototypes = [], active = true }) 
       <div className="mt-6 grid gap-5 sm:grid-cols-2">
         {prototypes.map((prototype, i) => {
           const videoId = getYouTubeId(prototype.video);
+          const selected = selectedItem === prototype.name;
 
           return (
             <motion.div
               key={prototype.name}
+              ref={selected ? selectedRef : undefined}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition-colors hover:border-cyan/50"
+              className={`flex flex-col overflow-hidden rounded-xl border bg-surface transition-colors hover:border-cyan/50 ${
+                selected ? "border-cyan/70 ring-1 ring-cyan/40" : "border-border"
+              }`}
             >
               <div className="relative aspect-video bg-ink">
                 {videoId && (
