@@ -31,6 +31,17 @@ export default function Projects() {
   // Retain collapsed players after load, so Show All never constructs them again.
   useEffect(() => afterPageLoad(() => setBackgroundReady(true)), []);
 
+  // A collection (game jams, prototypes) centres on its showcase, not its heading.
+  const scrollToProject = (id) => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const showcase = document.getElementById(`showcase-${id}`);
+        const anchor = showcase || document.getElementById(`project-${id}`);
+        anchor?.scrollIntoView({ behavior: "smooth", block: showcase ? "center" : "start" });
+      });
+    });
+  };
+
   // Deep links from the experience timeline (#project-<id>) reveal the project first
   useEffect(() => {
     const sync = () => {
@@ -46,13 +57,7 @@ export default function Projects() {
       setLinkedItem(match[2] ? decodeURIComponent(match[2]) : null);
       if (index >= INITIAL_VISIBLE) setExpanded(true);
       setLinkedId(targetId);
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          document
-            .getElementById(`project-${targetId}`)
-            ?.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-      });
+      scrollToProject(targetId);
     };
 
     sync();
@@ -63,13 +68,7 @@ export default function Projects() {
   const jumpTo = (id) => {
     const index = projects.findIndex((project) => project.id === id);
     if (index >= INITIAL_VISIBLE) setExpanded(true);
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        document
-          .getElementById(`project-${id}`)
-          ?.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    });
+    scrollToProject(id);
   };
 
   return (
@@ -229,6 +228,7 @@ export default function Projects() {
                     prototypes={project.prototypes}
                     active={expanded || i < INITIAL_VISIBLE}
                     selectedItem={linkedItem}
+                    showcaseId={`showcase-${project.id}`}
                   />
                 )}
 
@@ -237,6 +237,7 @@ export default function Projects() {
                     jams={project.jams}
                     active={expanded || i < INITIAL_VISIBLE}
                     selectedItem={linkedItem}
+                    showcaseId={`showcase-${project.id}`}
                   />
                 )}
               </motion.article>

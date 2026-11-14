@@ -14,7 +14,7 @@ import VideoEmbed from "./VideoEmbed";
  */
 
 /** @param {{ prototypes?: Prototype[] }} props */
-export default function PrototypeCollection({ prototypes = [], active = true, selectedItem = null }) {
+export default function PrototypeCollection({ prototypes = [], active = true, selectedItem = null, showcaseId }) {
   const selectedRef = useRef(null);
 
   // A link such as #project-mechanics-lab/Color%20Wars brings that card into view.
@@ -40,7 +40,7 @@ export default function PrototypeCollection({ prototypes = [], active = true, se
         </span>
       </div>
 
-      <div className="mt-6 grid gap-5 sm:grid-cols-2">
+      <div id={showcaseId} className="mt-6 grid gap-5 sm:grid-cols-2">
         {prototypes.map((prototype, i) => {
           const videoId = getYouTubeId(prototype.video);
           const selected = selectedItem === prototype.name;

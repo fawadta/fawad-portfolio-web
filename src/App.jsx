@@ -10,7 +10,6 @@ import ScrollToTop from './components/ScrollToTop';
 import Home from '@/pages/Home';
 import About from '@/pages/About';
 import ContactPage from '@/pages/ContactPage';
-import Resume from '@/pages/Resume';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -42,7 +41,6 @@ const AuthenticatedApp = () => {
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<ContactPage />} />
-      <Route path="/resume" element={<Resume />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

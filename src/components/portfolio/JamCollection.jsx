@@ -20,7 +20,7 @@ import { Image } from "@/components/ui/image";
  */
 
 /** @param {{ jams?: GameJam[] }} props */
-export default function JamCollection({ jams = [], active = true, selectedItem = null }) {
+export default function JamCollection({ jams = [], active = true, selectedItem = null, showcaseId }) {
   const [index, setIndex] = useState(0);
 
   // A link such as #project-game-jams/Field%20Chaos selects that jam.
@@ -85,6 +85,7 @@ export default function JamCollection({ jams = [], active = true, selectedItem =
       </div>
 
       <motion.div
+        id={showcaseId}
         initial={{ opacity: 0, x: 24 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
