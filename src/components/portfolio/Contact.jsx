@@ -233,7 +233,7 @@ export default function Contact() {
                   aria-invalid={Boolean(fieldErrors.message)}
                   aria-describedby={fieldErrors.message ? "message-error" : undefined}
                   className={`${inputClass(Boolean(fieldErrors.message))} min-h-[112px] overflow-hidden`}
-                  placeholder="A friend says hello. What are you building, or which role is open? A sentence or two is enough."
+                  placeholder="How can I help? Tell me about your project or role."
                 />
                 {fieldErrors.message && (
                   <p id="message-error" className="mt-1.5 font-mono text-xs text-destructive">
