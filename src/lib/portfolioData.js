@@ -359,7 +359,7 @@ const projectsRaw = [
     media: {
       playstore: "https://play.google.com/store/apps/details?id=com.fgl.water.park.sim",
       // Paste a Cloudinary (or other permanent) icon URL on this line if the Play Store address ever changes again.
-      icon: "https://play-lh.googleusercontent.com/yBow4N_KMFLcqCY8tQIoFUbKHNR7oXL47u7V71NCUVzNu5KkXsJel8Mi2k_ix_2rRqveyP_QCXDaMHab_ljmtQ=w512",
+      icon: "https://res.cloudinary.com/dyw2byty5/image/upload/v1794889806/Portfolio%20Related%20Media/Projects/Water%20Park%20Sim/wps.webp",
       title: "Water Park Fun Simulator Game",
       developer: "Furious Games Lab",
       downloads: "100K+",
